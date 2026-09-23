@@ -1,0 +1,35 @@
+# Single source of truth – fill in, don't hard-code paths/thresholds anywhere else
+paths:
+  raw_vehicles: ../vehicles
+  raw_gtfs: ../operation-plans
+  raw_waze: ../Waze
+  raw_calendar: ../calendario.xlsx
+  interim: data/interim
+  processed: data/processed
+  serving: data/serving
+  mock: data/mock
+
+bus_agencies: [LA77N, BNA17, YA15B, A2L1N, HF16N, IA9T6]
+gtfs_by_agency:            # vehicle agency_id -> GTFS folder
+  LA77N: 20251002_41_YEAR_03_47_02
+  BNA17: 2025922_42_YEAR_03.03.55
+  YA15B: 20250924_43_YEAR_04_05_01
+  A2L1N: 20250930_44_YEAR_04_20_01
+
+corridors:
+  mira_sintra: {lines: ["1218","1219","1715"], geohashes: [eycks, eyckk, eyckt]}
+  canecas:     {lines: ["1709","1710","1711"], geohashes: [eyckw]}
+  en10:        {lines: ["3103","3512","3116","3118","3505","3508","3527","3535","3536","3605"], geohashes: [eyce8, eyceb, eyc7z]}
+  sesimbra:    {lines: [], geohashes: [eycdb, eycd8]}   # TODO fill list
+  cascais:     {lines: [M02, M13, M14, M16, M22, M27, M30, M31, M32, M35], geohashes: [eyck1, eyck3, eyck4, eyck6]}
+
+bunching:
+  bunched_ratio: 0.25
+  gap_ratio: 1.5
+  min_headway_s: 120
+ml:
+  horizon_stops: 3
+  train_days: [20260831, 20260901, 20260902, 20260903]
+  test_days:  [20260904, 20260905, 20260906]
+replay:
+  frame_s: 10

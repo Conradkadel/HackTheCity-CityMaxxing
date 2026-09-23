@@ -1,0 +1,25 @@
+# data
+pandas
+pyarrow
+duckdb
+numpy
+openpyxl
+python-docx
+# geo
+shapely
+pyproj
+# ml
+scikit-learn
+lightgbm
+# backend
+fastapi
+uvicorn
+pydantic
+# backend extras
+pydantic-settings
+python-dotenv
+httpx   # TestClient
+pytest
+# viz (notebooks / pitch figures)
+matplotlib
+plotly

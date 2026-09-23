@@ -1,0 +1,11 @@
+data/
+*.parquet
+*.csv
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.DS_Store
+ml/models/*.pkl
+node_modules/
+frontend/dist/
+.env
