@@ -74,8 +74,16 @@ def response_payload(rows,version,areas,ops,start,end):
     observations=[]
     for r in rows:
         item=dict(timestamp=int(r['created_at'].timestamp()*1000),receivedTimestamp=int(r['received_at'].timestamp()*1000),operatorId=r['agency_id'],vehicleId=r['vehicle_id'],tripId=r['trip_id'],stopId=r['stop_id'],latitude=r['latitude'],longitude=r['longitude'],geohash=r['geohash_5'])
-        if 'route_id' in r:
-            reference=schedule_reference(r['created_at'],r['departure_time'] or r['arrival_time'])
-            item['schedule']=dict(packageId=r['package_id'],routeId=r['route_id'],line=r['line_short_name'],routeName=r['route_long_name'],directionId=r['direction_id'],stopSequence=r['stop_sequence'],scheduledTime=int(reference.timestamp()*1000) if reference else None,reportedStopDifferenceSeconds=round((r['created_at']-reference).total_seconds()) if reference else None)
+        route_id=r.get('route_id') if hasattr(r,'get') else r['route_id'] if 'route_id' in r else None
+        item['routeMatchStatus']='matched' if route_id else 'unmatched'
+        item['isFocus']=bool(r.get('is_focus',False)) if hasattr(r,'get') else False
+        if route_id:
+            item['route']=dict(packageId=r['package_id'],routeId=route_id,line=r['line_short_name'],routeName=r['route_long_name'],directionId=r['direction_id'],mode=r.get('line_mode') or 'bus')
+            clock=(r.get('departure_time') or r.get('arrival_time')) if hasattr(r,'get') else None
+            reference=schedule_reference(r['created_at'],clock)
+            if r.get('stop_sequence') is not None:
+                item['schedule']=dict(**item['route'],stopSequence=r['stop_sequence'],scheduledTime=int(reference.timestamp()*1000) if reference else None,reportedStopDifferenceSeconds=round((r['created_at']-reference).total_seconds()) if reference else None)
         observations.append(item)
-    return dict(schemaVersion=1,metadata=dict(title='Lisbon · selected areas',sourcePartition=','.join(areas),operationalDate='',calendarDate=start.astimezone(LISBON).date().isoformat(),areas=areas,datasetVersion=version,timezone='Europe/Lisbon',startTimestamp=int(start.timestamp()*1000),endTimestamp=int(end.timestamp()*1000),historySeconds=120,synthetic=False,operators={o:OPERATORS.get(o,o) for o in ops},counts={'observations':len(rows),'windowObservations':sum(r['created_at']>=start for r in rows)}),observations=observations)
+    matched=sum(o['routeMatchStatus']=='matched' for o in observations)
+    focus=sum(o['isFocus'] for o in observations)
+    return dict(schemaVersion=1,metadata=dict(title='Lisbon · selected areas',sourcePartition=','.join(areas),operationalDate='',calendarDate=start.astimezone(LISBON).date().isoformat(),areas=areas,datasetVersion=version,timezone='Europe/Lisbon',startTimestamp=int(start.timestamp()*1000),endTimestamp=int(end.timestamp()*1000),historySeconds=120,synthetic=False,operators={o:OPERATORS.get(o,o) for o in ops},counts={'observations':len(rows),'windowObservations':sum(r['created_at']>=start for r in rows),'matchedObservations':matched,'unmatchedObservations':len(rows)-matched,'focusObservations':focus,'contextObservations':len(rows)-focus}),observations=observations)

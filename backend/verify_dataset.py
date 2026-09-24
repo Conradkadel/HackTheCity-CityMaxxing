@@ -22,9 +22,10 @@ def verify(extract=None):
         report={'version':version,'fileCount':len(files),'files':files,'queries':[]}
         rows=[]
         for areas in (['eycs2'],['eycs2','eyckp','eyckr']):
-            params=(version,areas,ops,a-timedelta(seconds=120),b,MAX_ROWS+1)
-            t=time.perf_counter();result=conn.execute(OBSERVATIONS_SQL,params).fetchall();seconds=time.perf_counter()-t
-            plan=conn.execute('EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) '+OBSERVATIONS_SQL,params).fetchone()
+            sql=OBSERVATIONS_SQL.format(geofence='TRUE')
+            params=(version,areas,ops,a-timedelta(seconds=120),b,None,None,None,None,True,[],MAX_ROWS+1)
+            t=time.perf_counter();result=conn.execute(sql,params).fetchall();seconds=time.perf_counter()-t
+            plan=conn.execute('EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) '+sql,params).fetchone()
             report['queries'].append({'areas':areas,'seconds':seconds,'returnedRows':len(result),'overLimit':len(result)>MAX_ROWS,'plan':plan})
             if areas==['eycs2']:rows=result
         report['observations']=conn.execute('SELECT sum(observations) AS n FROM availability WHERE version_id=%s',(version,)).fetchone()['n']

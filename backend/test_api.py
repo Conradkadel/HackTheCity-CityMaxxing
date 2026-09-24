@@ -21,7 +21,7 @@ class Connection:
         if 'FROM active_dataset' in query:return Result([{'version_id':1}])
         if 'DISTINCT geohash_5' in query:return Result([{'geohash_5':'eycs2'}])
         if 'DISTINCT agency_id' in query:return Result([{'agency_id':'IA9T6'}])
-        if query==api.OBSERVATIONS_SQL:self.params=params;return Result(self.rows)
+        if 'FROM vehicle_events e' in query:self.params=params;return Result(self.rows)
         return Result([])
 
 @pytest.fixture
@@ -55,3 +55,21 @@ def test_schedule_requires_route_and_completed_data(setup):
     client,_,params=setup
     assert client.get('/api/observations',params={**params,'schedule_mode':'true'}).status_code==422
     assert client.get('/api/observations',params={**params,'schedule_mode':'true','route_id':'1218','preview':'true'}).status_code==422
+
+def test_route_resolution_does_not_require_a_stop_match():
+    sql=api.OBSERVATIONS_SQL
+    assert 'LEFT JOIN schedule_trips' in sql
+    assert 'LEFT JOIN schedule_routes' in sql
+    assert 'LEFT JOIN LATERAL (SELECT s.stop_sequence' in sql
+    assert 'schedule_operator_packages' not in sql
+
+def test_public_line_filter_is_independent_of_presets(setup):
+    client,conn,params=setup
+    conn.rows[0].update(package_id=7,route_id='75_0',direction_id='0',
+                        line_short_name='28E',route_long_name='Martim Moniz - Campo Ourique',
+                        stop_sequence=None,arrival_time=None,departure_time=None)
+    result=client.get('/api/observations',params={**params,'line':['755','28E']})
+    assert result.status_code==200
+    assert conn.params[9] is False
+    assert conn.params[10]==['28E','755']
+    assert result.json()['observations'][0]['route']['mode']=='tram'

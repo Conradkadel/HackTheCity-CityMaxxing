@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "defaultPresetId": "carris_lisbon",
+  "includeContextByDefault": false,
+  "presets": [
+    {
+      "id": "carris_lisbon",
+      "name": "CARRIS Lisbon",
+      "operatorAgencyIds": ["IA9T6"],
+      "color": "#eab308",
+      "lines": ["702", "703", "708", "714", "717", "718", "723", "726", "727", "728", "729", "734", "736", "742", "747", "750", "751", "755", "756", "758", "759", "760", "765", "767", "773", "774", "796", "12E", "15E", "28E"],
+      "lineModes": {"12E": "tram", "15E": "tram", "28E": "tram"},
+      "zones": [
+        {"id": "cais_sodre", "name": "Cais do Sodré", "geohashes": ["eyckpy", "eyckpw"]},
+        {"id": "rua_morais_soares", "name": "Rua Morais Soares", "geohashes": ["eycs26"]},
+        {"id": "alcantara", "name": "Alcântara", "geohashes": ["eyckpq"]},
+        {"id": "campolide", "name": "Campolide", "geohashes": ["eyckr6"]},
+        {"id": "campo_grande", "name": "Campo Grande", "geohashes": ["eyckrx", "eyckxb"]},
+        {"id": "alameda_linhas_torres", "name": "Alameda das Linhas de Torres", "geohashes": ["eyckx9"]},
+        {"id": "colegio_militar", "name": "Avenida do Colégio Militar", "geohashes": ["eyckqy"]}
+      ]
+    },
+    {
+      "id": "mira_sintra_agualva_cacem",
+      "name": "Mira-Sintra / Agualva-Cacém",
+      "operatorAgencyIds": ["LA77N"],
+      "color": "#10b981",
+      "lines": ["1218", "1219", "1715"],
+      "zones": [{"id": "mira_sintra", "name": "Mira-Sintra / Agualva-Cacém", "geohashes": ["eycks"]}]
+    },
+    {
+      "id": "canecas_pontinha",
+      "name": "Caneças / Pontinha",
+      "operatorAgencyIds": ["BNA17"],
+      "color": "#3b82f6",
+      "lines": ["1709", "1710", "1711"],
+      "zones": [{"id": "canecas", "name": "Caneças / Pontinha", "geohashes": ["eyckw"]}]
+    },
+    {
+      "id": "estrada_nacional_10",
+      "name": "Estrada Nacional 10",
+      "operatorAgencyIds": ["YA15B", "A2L1N"],
+      "color": "#f97316",
+      "lines": ["3103", "3512", "3116", "3118", "3505", "3508", "3527", "3535", "3536", "3605"],
+      "zones": [{"id": "en10", "name": "Estrada Nacional 10", "geohashes": ["eyce8", "eyceb", "eyc7z"]}]
+    },
+    {
+      "id": "sesimbra_quinta_do_conde",
+      "name": "Sesimbra / Quinta do Conde",
+      "operatorAgencyIds": ["YA15B", "A2L1N"],
+      "color": "#a855f7",
+      "lines": ["3201", "3202", "3203", "3204", "3205", "3206", "3207", "3208", "3209", "3210", "3211", "3212", "3213", "3221", "3223", "3536", "3544", "3549", "3625", "3635", "3642", "3650", "3721", "4643"],
+      "zones": [{"id": "sesimbra", "name": "Sesimbra / Quinta do Conde", "geohashes": ["eycdb", "eycd8"]}]
+    },
+    {
+      "id": "mobicascais",
+      "name": "MobiCascais",
+      "operatorAgencyIds": ["HF16N"],
+      "color": "#06b6d4",
+      "lines": ["M02", "M13", "M14", "M16", "M22", "M27", "M30", "M31", "M32", "M35"],
+      "zones": [{"id": "cascais", "name": "Cascais", "geohashes": ["eyck1", "eyck3", "eyck6", "eyck4"]}]
+    }
+  ],
+  "planSources": {
+    "20260715_IA9T6_CARRIS_82YP2": {"eventAgencyId": "IA9T6", "planId": "82YP2", "normalizedGtfsId": "L83L0", "activeFrom": "2026-07-15", "activeUntil": "2026-12-31"},
+    "20260803_LA77N_VIACAO_ALVORADA_XS3H8": {"eventAgencyId": "LA77N", "planId": "XS3H8", "normalizedGtfsId": "D5VC2", "activeFrom": "2026-08-03", "activeUntil": "2026-09-13"},
+    "20260803_BNA17_RODOVIARIA_LISBOA_0277F": {"eventAgencyId": "BNA17", "planId": "0277F", "normalizedGtfsId": "GGLBU", "activeFrom": "2026-08-03", "activeUntil": "2026-08-31"},
+    "20260901_BNA17_RODOVIARIA_LISBOA_JU98X": {"eventAgencyId": "BNA17", "planId": "JU98X", "normalizedGtfsId": "Z9YTF", "activeFrom": "2026-09-01", "activeUntil": "2026-09-13"},
+    "20260803_YA15B_TST_2QDAD": {"eventAgencyId": "YA15B", "planId": "2QDAD", "normalizedGtfsId": "0PAWQ", "activeFrom": "2026-08-03", "activeUntil": "2026-09-13"},
+    "20260801_A2L1N_ALSA_TODI_F1M13": {"eventAgencyId": "A2L1N", "planId": "F1M13", "normalizedGtfsId": "MNG1H", "activeFrom": "2026-08-01", "activeUntil": "2026-09-13"},
+    "20260608_HF16N_MOBICASCAIS_SBF83": {"eventAgencyId": "HF16N", "planId": "SBF83", "normalizedGtfsId": "KVY2N", "activeFrom": "2026-06-08", "activeUntil": "2026-09-13"}
+  }
+}

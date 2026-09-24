@@ -8,11 +8,13 @@ import time
 from pathlib import Path
 from psycopg.types.json import Jsonb
 from db import connect,migrate
+from analysis_config import plan_source
 
 REQUIRED={'agency':{'agency_id','agency_name'},'feed_info':{'feed_start_date','feed_end_date'},'routes':{'route_id'},'trips':{'trip_id','route_id','shape_id'},'stops':{'stop_id','stop_name','stop_lat','stop_lon'},'shapes':{'shape_id','shape_pt_lat','shape_pt_lon','shape_pt_sequence'},'stop_times':{'trip_id','stop_id','stop_sequence','arrival_time','departure_time'}}
 def normalize_package(conn,pid):
     conn.execute("""INSERT INTO schedule_routes(package_id,route_id,line_short_name,route_long_name,route_color)
-      SELECT package_id,data->>'route_id',COALESCE(NULLIF(data->>'route_short_name',''),data->>'line_id',data->>'route_id'),COALESCE(data->>'route_long_name',''),COALESCE(data->>'route_color','') FROM plan_records WHERE package_id=%s AND table_name='routes'
+      SELECT pr.package_id,pr.data->>'route_id',CASE WHEN p.event_agency_id='HF16N' AND pr.data->>'route_id' ~ '^M[0-9]{2}_' THEN split_part(pr.data->>'route_id','_',1) ELSE COALESCE(NULLIF(pr.data->>'route_short_name',''),pr.data->>'line_id',pr.data->>'route_id') END,COALESCE(pr.data->>'route_long_name',''),COALESCE(pr.data->>'route_color','')
+      FROM plan_records pr JOIN plan_packages p ON p.id=pr.package_id WHERE pr.package_id=%s AND pr.table_name='routes'
       ON CONFLICT(package_id,route_id) DO NOTHING""",(pid,))
     conn.execute("""INSERT INTO schedule_trips(package_id,trip_id,route_id,shape_id,direction_id,service_id)
       SELECT package_id,data->>'trip_id',data->>'route_id',COALESCE(data->>'shape_id',''),COALESCE(data->>'direction_id',''),COALESCE(data->>'service_id','') FROM plan_records WHERE package_id=%s AND table_name='trips'
@@ -65,9 +67,23 @@ def run(root,wait_for_vehicles=False):
                 print(f'Unchanged: {package.name}',flush=True);continue
             if not set(REQUIRED)<={p.stem for p in files}:raise ValueError(f'{package}: missing required tables')
             agency=list(records(package/'agency.txt'));feed=list(records(package/'feed_info.txt'))
+            configured=plan_source(package.name)
+            feed_start=(feed[0].get('feed_start_date') or '').strip() if feed else ''
+            feed_end=(feed[0].get('feed_end_date') or '').strip() if feed else ''
+            def iso_date(value):
+                if not value:return None
+                return f'{value[:4]}-{value[4:6]}-{value[6:8]}' if len(value)==8 and value.isdigit() else value
+            metadata={
+                'eventAgencyId':configured.get('eventAgencyId') if configured else None,
+                'activeFrom':configured.get('activeFrom') if configured else iso_date(feed_start),
+                'activeUntil':configured.get('activeUntil') if configured else iso_date(feed_end),
+                'externalPlanId':configured.get('planId') if configured else None,
+                'normalizedGtfsId':configured.get('normalizedGtfsId') if configured else None,
+            }
             started=time.monotonic();counts={}
             with conn.transaction():
-                pid=conn.execute('INSERT INTO plan_packages(source_name,checksum,agency,feed,counts) VALUES(%s,%s,%s,%s,%s) RETURNING id',(package.name,digest,Jsonb(agency),Jsonb(feed),Jsonb({}))).fetchone()['id']
+                pid=conn.execute('''INSERT INTO plan_packages(source_name,checksum,agency,feed,counts,event_agency_id,active_from,active_until,external_plan_id,normalized_gtfs_id)
+                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id''',(package.name,digest,Jsonb(agency),Jsonb(feed),Jsonb({}),metadata['eventAgencyId'],metadata['activeFrom'],metadata['activeUntil'],metadata['externalPlanId'],metadata['normalizedGtfsId'])).fetchone()['id']
                 for path in files:
                     n=0
                     with conn.cursor().copy('COPY plan_records(package_id,table_name,row_number,data) FROM STDIN') as copy:

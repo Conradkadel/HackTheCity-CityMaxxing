@@ -1,6 +1,52 @@
-import {it,expect} from 'vitest';
-import {defaults,queryFor,LatestRequest} from './api';
-it('requires explicit preview and pins its dataset version',()=>{const p=new URLSearchParams(queryFor({...defaults,preview:true,datasetVersion:7}));expect(p.get('preview')).toBe('true');expect(p.get('dataset_version')).toBe('7');expect(queryFor(defaults)).not.toContain('preview');});
-it('encodes multi-area selection explicitly',()=>{const p=new URLSearchParams(queryFor({...defaults,areas:['eycs2','eyckp']}));expect(p.getAll('area')).toEqual(['eycs2','eyckp']);expect(p.getAll('operator')).toHaveLength(5);expect(p.get('date')).toBe('2026-09-01');});
-it('ignores cancelled results even when transport completes late',async()=>{const r=new LatestRequest();let resolve!:(v:string)=>void;let signal!:AbortSignal;const first=r.run(s=>{signal=s;return new Promise<string>(done=>{resolve=done;});});const second=await r.run(async()=> 'new');resolve('old');expect(signal.aborted).toBe(true);expect(await first).toBeUndefined();expect(second).toBe('new');});
-it('ignores failures from outdated requests',async()=>{const r=new LatestRequest();let reject!:(e:Error)=>void;const old=r.run(()=>new Promise((_,fail)=>{reject=fail;}));r.cancel();reject(Error('old failure'));expect(await old).toBeUndefined();});
+import { expect, it } from "vitest";
+import { LatestRequest, queryFor, type Selection } from "./api";
+
+const selection: Selection = {
+  date: "2026-09-01",
+  start: "07:00",
+  end: "09:00",
+  areas: ["eycs2", "eyckp"],
+  operators: ["IA9T6"],
+  lines: ["755", "28E"],
+  vehicleMode: "configured",
+};
+
+it("encodes explicit areas, operators, and configured public lines", () => {
+  const params = new URLSearchParams(queryFor(selection));
+  expect(params.getAll("area")).toEqual(["eycs2", "eyckp"]);
+  expect(params.getAll("operator")).toEqual(["IA9T6"]);
+  expect(params.getAll("line")).toEqual(["755", "28E"]);
+});
+
+it("omits line filters in all-vehicles mode", () => {
+  expect(
+    new URLSearchParams(queryFor({ ...selection, vehicleMode: "all" })).has(
+      "line",
+    ),
+  ).toBe(false);
+});
+
+it("pins an explicitly requested preview version", () => {
+  const params = new URLSearchParams(
+    queryFor({ ...selection, preview: true, datasetVersion: 7 }),
+  );
+  expect(params.get("preview")).toBe("true");
+  expect(params.get("dataset_version")).toBe("7");
+});
+
+it("ignores cancelled results even when transport completes late", async () => {
+  const requests = new LatestRequest();
+  let resolve!: (value: string) => void;
+  let signal!: AbortSignal;
+  const first = requests.run((current) => {
+    signal = current;
+    return new Promise<string>((done) => {
+      resolve = done;
+    });
+  });
+  const second = await requests.run(async () => "new");
+  resolve("old");
+  expect(signal.aborted).toBe(true);
+  expect(await first).toBeUndefined();
+  expect(second).toBe("new");
+});
