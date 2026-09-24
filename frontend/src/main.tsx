@@ -1,10 +1,6 @@
 /**
- * Entry: render App.
+ * Entry point.
  *
- * OWNER:  C
- * INPUT:  -
- * OUTPUT: DOM
- *
- * TODO:
- *  [ ] mount App
+ * TODO
+ *  [ ] render <App/> with QueryClientProvider
  */

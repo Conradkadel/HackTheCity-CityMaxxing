@@ -1,10 +1,6 @@
 /**
- * Providers (QueryClient), router with 3 pages, layout (Header + Sidebar).
+ * App shell: header, navigation, 3 pages.
  *
- * OWNER:  C
- * INPUT:  -
- * OUTPUT: app shell
- *
- * TODO:
- *  [ ] routes: / (replay), /analysis, /simulator
+ * TODO
+ *  [ ] routes: / → ReplayPage, /analysis → AnalysisPage, /simulator → SimulatorPage
  */

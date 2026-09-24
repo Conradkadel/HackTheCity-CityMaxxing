@@ -1,11 +1,6 @@
 /**
- * Main demo: map + time slider + alerts + event timeline.
+ * Main demo: map with moving buses, time controls, alerts, event timeline.
  *
- * OWNER:  C
- * INPUT:  hooks
- * OUTPUT: page
- *
- * TODO:
- *  [ ] compose components
- *  [ ] responsive layout
+ * TODO
+ *  [ ] compose MapView + TimeControls + AlertList + EventTimeline
  */

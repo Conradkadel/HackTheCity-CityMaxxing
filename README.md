@@ -1,52 +1,93 @@
 # Bus Bunching Early-Warning – Hack the City #7 (TML + Cascais)
 
-Tool for dispatchers: **replay** a day of real bus operations on a map, **detect** bunching,
-**predict** it a few stops ahead, and **simulate** interventions (holding, bus lanes, express).
+Replay a real day of bus operations on a map, **detect** bunching, **predict** it a few stops ahead,
+and **simulate** fixes (holding, bus lanes, express).
 
-## Folder map (who owns what)
-
-| Folder | Owner | What lives there |
-|---|---|---|
-| `config/` | everyone (A decides) | Paths, corridors, thresholds – single source of truth |
-| `src/bunching/` | A (shared lib) | Helpers everyone imports: IO, trip_id parsing, geo, schemas |
-| `pipeline/` | **A – Data** | Raw CSV/GTFS → clean tables → stop passages & headways |
-| `analytics/` | **A/E – Analysis** | Bunching events, KPIs, trigger/cause analysis |
-| `ml/` | **B – ML** | Features, labels, baseline, model, evaluation, predictions |
-| `simulation/` | **D – Simulation** | What-if engine (holding, speed-ups), before/after KPIs |
-| `backend/` | **C – API** | FastAPI + DuckDB (`app/`: routers → services → db, Pydantic schemas) |
-| `frontend/` | **C – Map/UI** | React + TS + deck.gl/MapLibre: replay, analysis, simulator pages |
-| `notebooks/` | everyone | Exploration only – nothing the app depends on |
-| `pitch/` | **E – Pitch** | Storyline, figures, demo script |
-| `tests/` | everyone | Contract checks (schemas of shared tables) |
-| `data/` | – (git-ignored) | interim / processed / serving / mock outputs |
+## Structure
+```
+code/
+├── README.md
+├── requirements.txt          Python deps (src + backend)
+├── config.yaml               paths, corridors, thresholds – the only place for constants
+│
+├── notebooks/
+│   ├── explore_data.ipynb    EDA, quick checks
+│   └── try_model.ipynb       model experiments
+│
+├── src/                      ← all data + ML logic (Python)
+│   ├── __init__.py
+│   ├── load_data.py          read raw vehicles / GTFS / calendar / Waze, clean, parse trip_id
+│   ├── bunching_detection.py stop passages → headways → bunching events + KPIs
+│   ├── feature_engineering.py labels, features, train/test split by day
+│   ├── model_training.py     baseline + LightGBM, save model, predict
+│   ├── model_analysis.py     metrics vs baseline, lead time, SHAP, figures
+│   ├── simulation.py         what-if engine (holding, speed-ups), before/after KPIs
+│   ├── pipeline.py           runs everything in order + writes files the backend serves
+│   └── utils.py              config, geo (haversine, map-matching), time helpers, IO
+│
+├── backend/                  ← FastAPI (reads data/serving, never raw data)
+│   ├── main.py               app + all endpoints
+│   ├── schemas.py            Pydantic response models (= frontend/src/types.ts)
+│   ├── services.py           DuckDB queries + call src/simulation.py
+│   ├── mock_data.py          fake data with the real schema (frontend can start now)
+│   └── .env.example
+│
+├── frontend/                 ← React + TypeScript (Vite)
+│   ├── .env.example
+│   ├── public/
+│   └── src/
+│       ├── main.tsx, App.tsx
+│       ├── api.ts            fetch functions + React Query hooks
+│       ├── types.ts          mirrors backend/schemas.py
+│       ├── store.ts          UI state (corridor, date, time, play/pause)
+│       ├── utils.ts          colours, time formatting
+│       ├── pages/            ReplayPage, AnalysisPage, SimulatorPage
+│       └── components/       MapView, TimeControls, KpiCards, EventTimeline, AlertList, Heatmap, SimulatorPanel
+│
+├── tests/                    one test file per src module + API
+└── data/                     (git-ignored) outputs: processed/, serving/, models/
+```
 
 ## Data flow
-
 ```
-RAW (../vehicles, ../operation-plans, ../Waze, ../calendario.xlsx)
-   │  pipeline/  (A)
-   ▼
-data/interim/     pings_clean, gtfs_*           (1 row = 1 GPS ping / GTFS record)
-   ▼
-data/processed/   stop_passages, headways       (1 row = 1 bus passing 1 stop)
-   │        │                │
-   │        ▼ analytics/ (A/E)  ▼ ml/ (B)        ▼ simulation/ (D)
-   │   bunching_events, kpis   predictions      sim_results
-   ▼
-data/serving/     small, pre-computed files per corridor/day for the API
-   ▼
-backend/ (C)  →  frontend/ (C)
+raw data (../_processed/vehicles_bus_only, ../operation-plans, ../Waze, ../calendario.xlsx)
+  → src/load_data → src/bunching_detection → src/feature_engineering → src/model_training
+  → src/simulation → src/pipeline writes data/serving/  → backend → frontend
 ```
 
-**Golden rule:** people only talk through the tables defined in `CONTRACTS.md`.
-Until real data exists, build against `data/mock/` (same schema).
+## Shared tables (don't rename columns without telling the team)
+| table | key columns |
+|---|---|
+| pings | agency_id, vehicle_id, trip_id, line_id, direction, ts, lat, lon, stop_id (= NEXT stop), layover_flag |
+| stop_passages | passage_id, trip_id, vehicle_id, line_id, corridor, stop_id, date, ts_pass, sched_time, delay_s |
+| headways | passage_id, leader_passage_id, headway_s, sched_headway_s, headway_ratio |
+| bunching_events | event_id, corridor, leader_trip, follower_trip, start_stop, ts_start, min_headway_s, cause |
+| predictions | passage_id, prob_bunch, model_version |
+| sim_results | scenario, corridor, kpi, before, after |
 
-## Run order (once implemented)
-1. `pipeline/run_pipeline.py`         → interim + processed
-2. `analytics/run_analytics.py`       → bunching_events, kpis
-3. `ml/train.py` → `ml/predict.py`    → predictions
-4. `simulation/run_scenarios.py`      → sim_results
-5. `pipeline/build_serving.py`        → data/serving/
-6. `cd backend && uvicorn app.main:app --reload` + `cd frontend && npm run dev`
+Rules: `stop_id` is a **string**; keys include `agency_id`; bunched = `headway_ratio < 0.25`; split train/test **by day**.
 
-See `TASKS.md` for the split and milestones.
+## API (FastAPI, prefix /api/v1)
+`GET /corridors` · `GET /network/{corridor}` · `GET /replay?corridor&date&from_ts&to_ts` · `GET /alerts` ·
+`GET /events` · `GET /kpis` · `GET /heatmap` · `GET /scenarios` · `POST /simulate` · `GET /health`
+
+## Run
+```bash
+pip install -r requirements.txt
+python -m src.pipeline                          # build data/serving
+uvicorn backend.main:app --reload --port 8000   # API docs: localhost:8000/docs
+cd frontend && npm install && npm run dev       # first time: npm create vite@latest . -- --template react-ts
+pytest
+```
+
+## Team split
+| Person | Owns |
+|---|---|
+| A – Data | load_data, bunching_detection, utils, pipeline |
+| B – ML | feature_engineering, model_training, model_analysis |
+| C – Backend | backend/ |
+| D – Frontend | frontend/ |
+| E – Simulation + pitch | simulation, pitch, questions to data partners |
+
+Milestones: Thu 10:00 real stop passages end-to-end · Thu 16:00 model beats baseline + simulator result + map on real data ·
+Fri 06:00 feature freeze + backup demo video · Fri 10:00 submit.

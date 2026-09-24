@@ -1,12 +1,17 @@
+# data & models
 data/
 *.parquet
 *.csv
+*.pkl
+# python
 __pycache__/
 .ipynb_checkpoints/
 .venv/
-.DS_Store
-ml/models/*.pkl
+venvHackathon/
+# node
 node_modules/
 frontend/dist/
+# misc
 .env
+.DS_Store
 CarolinaPipeline/
