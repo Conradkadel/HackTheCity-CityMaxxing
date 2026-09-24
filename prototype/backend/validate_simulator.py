@@ -283,7 +283,7 @@ def main():
     passed = all(g['pass'] for g in gate.values()) and all(s['pass'] for s in shift.values())
     print('gate', json.dumps(gate), json.dumps(shift), flush=True)
 
-    model = bunching.load_model('line')
+    model = bunching.load_model('hold')          # M-90 holds where the hold-trigger model fires
     threshold = model['alerting']['threshold'] if model else None
     # k is uncertain (see the gate), so every scenario runs with no feedback (k=0) and the fitted k
     grids = {(kk, str(d)): scenario_grid(loaded[d], kk, SEEDS, model, threshold)

@@ -80,7 +80,7 @@ def _grid(date_value, line, direction, start, end, seeds, agency):
     if not S.in_window(trips, (lo, hi), pairs):
         raise HTTPException(404, 'No recorded trips of this line in this direction and time window.')
     k = params().get('k', S.DEFAULT_K)
-    model = bunching.load_model('line')
+    model = bunching.load_model('hold')          # M-90 holds where the hold-trigger model fires
     threshold = (model.get('alerting') or {}).get('threshold', 0.25) if model else None
     base = S.kpis(trips, S.observed(trips), (lo, hi), pairs)
     rows = []

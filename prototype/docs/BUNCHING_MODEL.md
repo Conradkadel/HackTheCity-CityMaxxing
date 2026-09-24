@@ -137,12 +137,54 @@ If a tab reports that the API lacks its endpoints (or shows "Not Found"), rebuil
 - Middle: two time–space diagrams on the same axes, *as run* and *with the change*. Grey marks where the buses really were, red segments are bunching, `D` marks a changed departure and `H` a hold.
 - Right: the trade-off chart. Each dot is one timing change, placed by wait saved (up) against seconds held or waiting per trip (right), with bars for the seed range and ★ for the recommended one. Click a dot to switch to it.
 
+## Model v4 (same line): gradient-boosted trees + context features
+
+The same-line early warning is now **gradient-boosted trees** (scikit-learn HistGradientBoosting, 100 trees, the count is chosen by leave-one-day-out on the training days). The trees are exported to `models/bunching_model.json` and evaluated in plain Python (`bunching.predict_trees`), so the API image needs no new packages.
+
+**New inputs** (`bunching.CONTEXT_FEATURES`). Each one is known at the moment the bus passes the stop:
+
+| Feature | Meaning | Why |
+| --- | --- | --- |
+| `line_irreg30`, `line_n30` | mean \|log gap ratio\| and number of passages of the same line and direction in the last 30 min | a line that is already irregular keeps bunching: the bunching rate is 0.2 % in the calmest fifth and ≈3 % in the most irregular fifth |
+| `leader_changed` | the bus in front is not the one of the previous stop (overtaking) | 3.4 % vs 1.2 % |
+| `close1`, `close3`, `close5` | gap change in s per stop over the last 1 / 3 / 5 stops | the gap trend is U-shaped: gaps that suddenly **grow** by more than 0.5 of plan bunch in 18 % of cases |
+| `leader_log_ratio`, `lead_close3` | the gap of the bus in front to ITS leader, and how that gap changes | squeezed or stretched leaders both raise the risk (U-shaped) |
+| `delay_change3` | own delay change over the last 3 stops | |
+| `hour_sin`, `hour_cos` | time of day as a smooth cycle | |
+
+Tested and **not** useful: dwell time, run times, the bus behind, and stop/line hotspot rates. Once the features above are in the model, these add less than 0.005 AP.
+
+**Results** (same data and split as v3; test = Fri 4 + Sun 6 Sep):
+
+| | v3 logistic regression | **v4 trees** |
+| --- | --- | --- |
+| ROC-AUC | 0.822 | **0.903** |
+| Average precision (base rate 1.2 %) | 0.133 | **0.240** |
+| AP Fri / Sun | 0.136 / 0.138 | **0.233 / 0.270** |
+| At 1 alert per 100 passages: alerts right / bunching caught | 26 % / 18 % | **36 % / 26 %** |
+| At the F1 alert level: alerts right / bunching caught | 20 % / 28 % (level 10 %) | **29 % / 34 %** (level 15 %) |
+| Leave-one-day-out, all 7 days: mean AP | 0.138 | **0.241** (better on 7/7 days) |
+
+**Holding still uses v3.** In the simulator, holding where the v4 trees fire saved *less* wait than holding where v3 fires. Offline check, 5 validation lines, Fri + Sun, 16–20 h, 30 seeds, k = 0 and 0.005, mean excess wait saved per passenger:
+
+| | 742 | 767 | 728 | 758 | 735 | mean |
+| --- | --- | --- | --- | --- | --- | --- |
+| v3 | 2.6 s | 4.1 s | 6.0 s | 1.0 s | −0.4 s | 2.7 s |
+| v4 | 5.7 s | −2.2 s | 0.0 s | 3.0 s | −1.7 s | 1.0 s |
+
+The Bunching tab what-if agrees: a 60 s hold avoids 8.6 % of bunched passages with v3 and 6.6 % with v4. The trees are better at *who will bunch*. But they also flag cases where holding the follower does not help (overtaking, lines that are already chaotic), and a hold trigger needs *where a hold helps*. So:
+
+- `models/bunching_model.json`: v4 trees → alerts and risk in the Bunching tab.
+- `models/bunching_hold_trigger.json`: v3 logistic regression → holds in the Bunching what-if and in the Simulate scenario M-90 (`bunching.load_model('hold')`). The simulator results therefore do not change.
+
+A natural next step would be a model that predicts the *benefit* of a hold (uplift), trained on simulator runs.
+
 ## Retrain / revalidate
 
 ```sh
 python3 -m venv .venv && .venv/bin/pip install -r backend/requirements-model.txt
-export DATABASE_URL=postgresql://headway:<password>@127.0.0.1:5432/headway
-.venv/bin/python backend/train_bunching_model.py        # ~4 min, rewrites both model files (--mode line|corridor)
+export DATABASE_URL=postgresql://headway:<password>@127.0.0.1:5433/headway
+.venv/bin/python backend/train_bunching_model.py        # ~6 min, rewrites bunching_model.json (trees), bunching_hold_trigger.json and the corridor model (--mode line|corridor)
 .venv/bin/python backend/validate_simulator.py          # ~2 min, rewrites models/simulator_validation.json
 ```
 

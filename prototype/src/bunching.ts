@@ -99,6 +99,10 @@ export type BunchingDiagram = {
     /** the prediction looks this many stops ahead (same line 10, across lines 5) */
     horizon?: number;
     trained_at: string;
+    /** "gradient_boosted_trees" (same line, v4) or "logistic_regression" */
+    kind?: string;
+    /** the model that decides where a bus is held in the what-if */
+    holdTrigger?: { kind?: string; threshold: number };
     alerting?: {
       threshold: number;
       chosen_by: string;

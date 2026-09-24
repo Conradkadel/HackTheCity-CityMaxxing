@@ -121,8 +121,8 @@ def available_lines(conn, version, agency, day, window_start, window_end):
 @router.get('/model')
 def model_card(mode: str = Query('line', pattern='^(line|corridor)$')):
     model = require_model(mode)
-    return {key: model.get(key) for key in ('model', 'mode', 'trained_at', 'agency', 'target', 'features', 'coef',
-                                            'train_days', 'test_days', 'metrics', 'alerting')}
+    return {key: model.get(key) for key in ('model', 'mode', 'role', 'trained_at', 'agency', 'target', 'features', 'coef',
+                                            'n_trees', 'train_days', 'test_days', 'metrics', 'alerting', 'reference')}
 
 
 @router.get('/lines')
@@ -235,10 +235,13 @@ def diagram(date_value: date = Query(..., alias='date'), line: str = Query(..., 
             trips.append({'trip_id': trip_id, 'vehicle_id': vehicle, 'line': passages[0]['line'],
                           'direction': passages[0]['direction_id'], 'points': points})
 
-    runs = [bunching.simulate(items, model, mode, h, threshold, (window_start, window_end), trip_stops)
+    # holds are triggered by the hold-trigger model (same line) - see bunching.MODEL_FILES
+    hold_model = bunching.load_model('hold') if mode == 'line' else model
+    hold_threshold = alert_level(hold_model) if hold_model is not model else threshold
+    runs = [bunching.simulate(items, hold_model, mode, h, hold_threshold, (window_start, window_end), trip_stops)
             for h in HOLD_OPTIONS]
     selected = next((r for r in runs if r['hold_s'] == hold), None) or bunching.simulate(
-        items, model, mode, hold, threshold, (window_start, window_end), trip_stops)
+        items, hold_model, mode, hold, hold_threshold, (window_start, window_end), trip_stops)
     recommended = bunching.recommend(runs)
 
     scored = [p for p in shown if p.get('prob') is not None]
@@ -270,5 +273,7 @@ def diagram(date_value: date = Query(..., alias='date'), line: str = Query(..., 
                   'horizon': model.get('horizon_stops', bunching.HORIZON_BY_MODE[mode]),
                   'trained_at': model['trained_at'],
                   'alerting': {k: v for k, v in (model.get('alerting') or {}).items()
-                               if k not in ('table', 'baseline_table')}},
+                               if k not in ('table', 'baseline_table')},
+                  'kind': model.get('model'),
+                  'holdTrigger': {'kind': hold_model.get('model'), 'threshold': hold_threshold}},
     }

@@ -1,7 +1,14 @@
 """Train the bus-bunching models and write them to backend/models/.
 
+Model v4 (same line): gradient-boosted trees (scikit-learn HistGradientBoosting) on the base
+features + the context features in bunching.CONTEXT_FEATURES. The number of trees is chosen by
+leave-one-day-out on the TRAINING days; the trees are exported to JSON and evaluated in plain
+Python by bunching.predict_trees (the API needs no numpy / scikit-learn). The old logistic
+regression (v3) is still fitted on the same split and stored under 'reference' for comparison.
+The corridor model stays a logistic regression.
+
     pip install -r backend/requirements-model.txt
-    DATABASE_URL=postgresql://headway:<password>@127.0.0.1:5432/headway python backend/train_bunching_model.py
+    DATABASE_URL=postgresql://headway:<password>@127.0.0.1:5433/headway python backend/train_bunching_model.py   (host port from compose.yaml)
 
 (or inside Compose:  docker compose run --rm -v "$PWD/backend/models:/app/models" api \
    sh -c "pip install -r requirements-model.txt && python train_bunching_model.py")
@@ -30,6 +37,7 @@ import json
 from datetime import datetime, timezone
 
 import numpy as np
+from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import average_precision_score, roc_auc_score
 
@@ -38,6 +46,10 @@ from bunching import (FEATURES_BY_MODE, HORIZON_BY_MODE, MODEL_FILES, TARGETS, b
 from db import active_version, connect
 
 PROB_GRID = [round(0.05 * i, 2) for i in range(1, 19)]      # alert at 5 % .. 90 % risk
+TREE_PARAMS = dict(learning_rate=0.05, max_leaf_nodes=31, min_samples_leaf=1000, l2_regularization=10.0,
+                   early_stopping=False, random_state=0)
+MAX_TREES, TREE_STEP = 300, 25              # candidate tree counts 25, 50, ... 300
+V3_FEATURES = FEATURES_BY_MODE['line'][:11]  # the v3 logistic-regression inputs (hold trigger)
 # simple rule "alert when the gap is below X": X as share of plan (line) or in seconds (corridor)
 BASELINE = {
     'line': {'grid': [round(0.05 * i, 2) for i in range(6, 21)], 'value': 'ratio',
@@ -67,6 +79,42 @@ def predict(model, mean, std, x):
     return model.predict_proba((x - mean) / std)[:, 1]
 
 
+def fit_trees(x, y, n_trees):
+    return HistGradientBoostingClassifier(max_iter=n_trees, **TREE_PARAMS).fit(x, y)
+
+
+def export_trees(model):
+    """scikit-learn HistGradientBoosting -> plain lists (see bunching.predict_trees)."""
+    trees = []
+    for (predictor,) in model._predictors:
+        nodes = predictor.nodes
+        leaf = nodes['is_leaf'].astype(bool)
+        trees.append({'f': [-1 if is_leaf else int(fi) for fi, is_leaf in zip(nodes['feature_idx'], leaf)],
+                      't': [float(t) for t in nodes['num_threshold']],
+                      'm': [int(m) for m in nodes['missing_go_to_left']],
+                      'l': [int(i) for i in nodes['left']], 'r': [int(i) for i in nodes['right']],
+                      'v': [float(v) if is_leaf else 0.0 for v, is_leaf in zip(nodes['value'], leaf)]})
+    return {'baseline': float(np.ravel(model._baseline_prediction)[0]), 'trees': trees}
+
+
+def choose_tree_count(parts, train_days):
+    """Leave-one-day-out on the training days: average precision for 25..300 trees.
+    Returns the best count and the out-of-day predictions at that count (for the alert level)."""
+    curves, staged = [], {}
+    for day in train_days:
+        others = [d for d in train_days if d != day]
+        m = fit_trees(np.concatenate([parts[d][0] for d in others]), np.concatenate([parts[d][1] for d in others]),
+                      MAX_TREES)
+        x, y = parts[day][0], parts[day][1]
+        stages = [p[:, 1] for k, p in enumerate(m.staged_predict_proba(x)) if (k + 1) % TREE_STEP == 0]
+        curves.append([average_precision_score(y, p) for p in stages])
+        staged[day] = stages
+        print(f'  tree count check, {day} held out: AP {max(curves[-1]):.3f} at best')
+    curve = np.mean(curves, axis=0)
+    best = int(np.argmax(curve))
+    return (best + 1) * TREE_STEP, [round(float(c), 4) for c in curve], {d: staged[d][best] for d in train_days}
+
+
 def alert_quality(y, alert):
     """precision = share of alerts that were right; recall = share of bunching that got an alert."""
     tp = int((alert & (y == 1)).sum()); n_alert = int(alert.sum()); n_pos = int(y.sum())
@@ -87,13 +135,31 @@ def dataset(rows, day, mode, trip_stops, fix, stats):
     return x, y, gap
 
 
-def train(mode, parts, train_days, test_days, agency, data_stats):
-    features = FEATURES_BY_MODE[mode]
-    stack = lambda days, i: np.concatenate([parts[d][i] for d in days])  # noqa: E731
+def fit_one(kind, parts, train_days, test_days, mode, cols):
+    """Fit one model ('trees' or 'logreg') on the feature columns cols; returns its JSON dict (no file written)."""
+    features = [FEATURES_BY_MODE[mode][i] for i in cols]
+    sub = {d: (parts[d][0][:, cols], parts[d][1], parts[d][2]) for d in parts}
+    stack = lambda days, i: np.concatenate([sub[d][i] for d in days])  # noqa: E731
     x_train, y_train = stack(train_days, 0), stack(train_days, 1)
     x_test, y_test, gap_test = stack(test_days, 0), stack(test_days, 1), stack(test_days, 2)
-    model, mean, std = fit(x_train, y_train)
-    p_test = predict(model, mean, std, x_test)
+    out = {}
+    if kind == 'trees':
+        n_trees, tree_curve, oof = choose_tree_count(sub, train_days)
+        model = fit_trees(x_train, y_train, n_trees)
+        p_test = model.predict_proba(x_test)[:, 1]
+        out.update(model='gradient_boosted_trees', version=4, n_trees=n_trees, tree_params=TREE_PARAMS,
+                   tree_count_curve=tree_curve, **export_trees(model))
+    else:
+        model, mean, std = fit(x_train, y_train)
+        p_test = predict(model, mean, std, x_test)
+        oof = {}
+        for day in train_days:       # each training day predicted by a model that never saw it
+            others = [d for d in train_days if d != day]
+            m, mu, sd = fit(stack(others, 0), stack(others, 1))
+            oof[day] = predict(m, mu, sd, sub[day][0])
+        out.update(model='logistic_regression', version=3, coef=[round(float(c), 6) for c in model.coef_[0]],
+                   intercept=round(float(model.intercept_[0]), 6),
+                   mean=[round(float(m), 6) for m in mean], std=[round(float(s), 6) for s in std])
     metrics = {
         'roc_auc': round(float(roc_auc_score(y_test, p_test)), 4),
         'average_precision': round(float(average_precision_score(y_test, p_test)), 4),
@@ -101,18 +167,21 @@ def train(mode, parts, train_days, test_days, agency, data_stats):
         'baseline_average_precision': round(float(average_precision_score(y_test, -gap_test)), 4),
         'test_positive_rate': round(float(y_test.mean()), 4),
         'n_train': int(len(y_train)), 'n_test': int(len(y_test)),
+        'per_test_day': {},
     }
+    begin = 0
+    for d in test_days:
+        n = len(sub[d][1])
+        metrics['per_test_day'][d.isoformat()] = {
+            'average_precision': round(float(average_precision_score(y_test[begin:begin + n], p_test[begin:begin + n])), 4),
+            'positive_rate': round(float(y_test[begin:begin + n].mean()), 4)}
+        begin += n
 
     # Alert level: chosen on the TRAINING days only. Each training day is predicted by a
     # model that never saw it; the level with the best F1 (balance of "alerts that are
     # right" and "bunching that is caught") wins. Same for the simple gap rule.
-    oof_p, oof_gap, oof_y = [], [], []
-    for day in train_days:
-        others = [d for d in train_days if d != day]
-        m, mu, sd = fit(stack(others, 0), stack(others, 1))
-        oof_p.append(predict(m, mu, sd, parts[day][0]))
-        oof_gap.append(parts[day][2]); oof_y.append(parts[day][1])
-    oof_p, oof_gap, oof_y = np.concatenate(oof_p), np.concatenate(oof_gap), np.concatenate(oof_y)
+    oof_p = np.concatenate([oof[d] for d in train_days])
+    oof_gap, oof_y = stack(train_days, 2), stack(train_days, 1)
     table = [{'threshold': t, **alert_quality(oof_y, oof_p >= t)} for t in PROB_GRID]
     base = BASELINE[mode]
     base_table = [{'gap_below': g, **alert_quality(oof_y, oof_gap < g)} for g in base['grid']]
@@ -134,25 +203,57 @@ def train(mode, parts, train_days, test_days, agency, data_stats):
         'baseline_test': alert_quality(y_test, gap_test < best_base['gap_below']),
         'table': table, 'baseline_table': base_table,
     }
-    out = {
-        'model': 'logistic_regression', 'version': 3, 'mode': mode,
-        'trained_at': datetime.now(timezone.utc).isoformat(timespec='seconds'), 'agency': agency,
-        'target': f'{TARGETS[mode]}, at any of the next {HORIZON_BY_MODE[mode]} stops',
-        'horizon_stops': HORIZON_BY_MODE[mode],
-        'features': features, 'coef': [round(float(c), 6) for c in model.coef_[0]],
-        'intercept': round(float(model.intercept_[0]), 6),
-        'mean': [round(float(m), 6) for m in mean], 'std': [round(float(s), 6) for s in std],
-        'train_days': [d.isoformat() for d in train_days], 'test_days': [d.isoformat() for d in test_days],
-        'metrics': metrics, 'alerting': alerting, 'data': data_stats,
-    }
-    MODEL_FILES[mode].parent.mkdir(parents=True, exist_ok=True)
-    MODEL_FILES[mode].write_text(json.dumps(out, indent=2) + '\n', encoding='utf-8')
-    print(f'\n== {mode} ==', json.dumps(metrics))
-    print('alert level', best['threshold'], '-> test', alerting['test'])
-    print('alert budgets', budgets)
-    print('simple rule:', alerting['baseline_rule'], '-> test', alerting['baseline_test'])
-    print('coefficients:', dict(zip(features, out['coef'])))
-    print(f'saved {MODEL_FILES[mode]}')
+    out.update(features=features, metrics=metrics, alerting=alerting,
+               train_days=[d.isoformat() for d in train_days], test_days=[d.isoformat() for d in test_days])
+    if kind == 'trees':      # the exported JSON must give the same probabilities as scikit-learn
+        from bunching import predict_trees
+        sample = np.linspace(0, len(y_test) - 1, 2000).astype(int)
+        diff = max(abs(predict_trees(out, list(x_test[i])) - p_test[i]) for i in sample)
+        assert diff < 1e-6, f'exported trees differ from scikit-learn by {diff}'
+    return out
+
+
+def save(path, out, compact=False):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text((json.dumps(out, separators=(',', ':')) if compact else json.dumps(out, indent=2)) + '\n',
+                    encoding='utf-8')
+    print(f'saved {path}')
+
+
+def report(name, out):
+    print(f'\n== {name} ({out["model"]}) ==', json.dumps(out['metrics']))
+    print('alert level', out['alerting']['threshold'], '-> test', out['alerting']['test'])
+    print('alert budgets', out['alerting']['budgets'])
+    print('simple rule:', out['alerting']['baseline_rule'], '-> test', out['alerting']['baseline_test'])
+
+
+def train(mode, parts, train_days, test_days, agency, data_stats):
+    header = lambda role: {  # noqa: E731
+        'mode': mode, 'role': role, 'trained_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+        'agency': agency, 'target': f'{TARGETS[mode]}, at any of the next {HORIZON_BY_MODE[mode]} stops',
+        'horizon_stops': HORIZON_BY_MODE[mode], 'data': data_stats}
+    all_cols = list(range(len(FEATURES_BY_MODE[mode])))
+    if mode != 'line':
+        out = {**header('early warning + hold trigger'), **fit_one('logreg', parts, train_days, test_days, mode, all_cols)}
+        report(mode, out)
+        print('coefficients:', dict(zip(out['features'], out['coef'])))
+        save(MODEL_FILES[mode], out)
+        return
+    # Same line: two models from the same data and split.
+    #  * early warning (alerts, Bunching tab): gradient-boosted trees on base + context features (v4)
+    #  * hold trigger (when to hold a bus in the what-ifs and the M-90 scenario): the v3 logistic
+    #    regression. The trees predict bunching better, but holding where they fire saved LESS wait in
+    #    the simulator (docs/BUNCHING_MODEL.md, "Model v4"): risk is not the same as "a hold helps here".
+    v3_cols = [FEATURES_BY_MODE['line'].index(f) for f in V3_FEATURES]
+    hold = {**header('hold trigger'), **fit_one('logreg', parts, train_days, test_days, mode, v3_cols)}
+    warn = {**header('early warning'), **fit_one('trees', parts, train_days, test_days, mode, all_cols)}
+    warn['reference'] = {'model': 'logistic_regression v3 (= the hold trigger)', 'metrics': hold['metrics'],
+                         'alerting_test': hold['alerting']['test'], 'budgets': hold['alerting']['budgets']}
+    report('line, early warning', warn)
+    print(f'trees: {warn["n_trees"]} (chosen on the training days); curve {warn["tree_count_curve"]}')
+    report('line, hold trigger / v3 reference', hold)
+    save(MODEL_FILES['line'], warn, compact=True)
+    save(MODEL_FILES['hold'], hold)
 
 
 def main():

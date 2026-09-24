@@ -1,0 +1,372 @@
+{
+  "mode": "line",
+  "role": "hold trigger",
+  "trained_at": "2026-09-24T15:41:50+00:00",
+  "agency": "IA9T6",
+  "target": "gap to the previous bus of the same line < 25% of the planned gap (predicted only while the gap is still >= 50% of plan), at any of the next 10 stops",
+  "horizon_stops": 10,
+  "data": {
+    "trips": 53805,
+    "suspect_trips": 2873,
+    "suspect_share": 0.0534,
+    "rule": "trip-day excluded when its median delay (after repairing flat stop times) is > 30 min"
+  },
+  "model": "logistic_regression",
+  "version": 3,
+  "coef": [
+    -1.66031,
+    0.553964,
+    0.024679,
+    -0.282111,
+    0.026996,
+    -0.224399,
+    0.11206,
+    0.227663,
+    -0.16372,
+    -0.305545,
+    0.01339
+  ],
+  "intercept": -5.13359,
+  "mean": [
+    0.013684,
+    0.007872,
+    2.700745,
+    2.067316,
+    21.123247,
+    0.509648,
+    0.206541,
+    0.177148,
+    0.143688,
+    -0.63343,
+    2.847413
+  ],
+  "std": [
+    0.259172,
+    0.127682,
+    5.474465,
+    5.094406,
+    10.1112,
+    0.270593,
+    0.404823,
+    0.381794,
+    0.350773,
+    5.145849,
+    6.992044
+  ],
+  "features": [
+    "log_ratio",
+    "trend",
+    "delay_min",
+    "lead_delay_min",
+    "sched_hw_min",
+    "progress",
+    "peak_am",
+    "peak_pm",
+    "weekend",
+    "delay_gap_min",
+    "prev_trip_delay_min"
+  ],
+  "metrics": {
+    "roc_auc": 0.8219,
+    "average_precision": 0.1326,
+    "baseline_roc_auc": 0.7564,
+    "baseline_average_precision": 0.0638,
+    "test_positive_rate": 0.0121,
+    "n_train": 714813,
+    "n_test": 231978,
+    "per_test_day": {
+      "2026-09-04": {
+        "average_precision": 0.1354,
+        "positive_rate": 0.0147
+      },
+      "2026-09-06": {
+        "average_precision": 0.138,
+        "positive_rate": 0.0078
+      }
+    }
+  },
+  "alerting": {
+    "threshold": 0.1,
+    "budgets": {
+      "1_per_100": {
+        "threshold": 0.1555,
+        "test": {
+          "precision": 0.2602,
+          "recall": 0.1791,
+          "f1": 0.2122,
+          "alerts_per_100": 0.832
+        }
+      },
+      "2_per_100": {
+        "threshold": 0.1039,
+        "test": {
+          "precision": 0.2032,
+          "recall": 0.2644,
+          "f1": 0.2298,
+          "alerts_per_100": 1.572
+        }
+      }
+    },
+    "chosen_by": "highest F1 on the training days, each day predicted by a model that did not see it",
+    "test": {
+      "precision": 0.2004,
+      "recall": 0.2758,
+      "f1": 0.2321,
+      "alerts_per_100": 1.663
+    },
+    "baseline_rule": "alert when the gap is below 60% of the planned gap",
+    "baseline_gap_below": 0.6,
+    "baseline_test": {
+      "precision": 0.0951,
+      "recall": 0.2654,
+      "f1": 0.14,
+      "alerts_per_100": 3.373
+    },
+    "table": [
+      {
+        "threshold": 0.05,
+        "precision": 0.1181,
+        "recall": 0.4529,
+        "f1": 0.1873,
+        "alerts_per_100": 5.191
+      },
+      {
+        "threshold": 0.1,
+        "precision": 0.1891,
+        "recall": 0.2959,
+        "f1": 0.2308,
+        "alerts_per_100": 2.118
+      },
+      {
+        "threshold": 0.15,
+        "precision": 0.2546,
+        "recall": 0.201,
+        "f1": 0.2247,
+        "alerts_per_100": 1.069
+      },
+      {
+        "threshold": 0.2,
+        "precision": 0.3156,
+        "recall": 0.1419,
+        "f1": 0.1958,
+        "alerts_per_100": 0.609
+      },
+      {
+        "threshold": 0.25,
+        "precision": 0.3597,
+        "recall": 0.0931,
+        "f1": 0.1479,
+        "alerts_per_100": 0.35
+      },
+      {
+        "threshold": 0.3,
+        "precision": 0.3905,
+        "recall": 0.061,
+        "f1": 0.1055,
+        "alerts_per_100": 0.211
+      },
+      {
+        "threshold": 0.35,
+        "precision": 0.3944,
+        "recall": 0.0363,
+        "f1": 0.0664,
+        "alerts_per_100": 0.125
+      },
+      {
+        "threshold": 0.4,
+        "precision": 0.403,
+        "recall": 0.0219,
+        "f1": 0.0416,
+        "alerts_per_100": 0.074
+      },
+      {
+        "threshold": 0.45,
+        "precision": 0.3917,
+        "recall": 0.0127,
+        "f1": 0.0246,
+        "alerts_per_100": 0.044
+      },
+      {
+        "threshold": 0.5,
+        "precision": 0.3509,
+        "recall": 0.0062,
+        "f1": 0.0122,
+        "alerts_per_100": 0.024
+      },
+      {
+        "threshold": 0.55,
+        "precision": 0.3163,
+        "recall": 0.0032,
+        "f1": 0.0063,
+        "alerts_per_100": 0.014
+      },
+      {
+        "threshold": 0.6,
+        "precision": 0.322,
+        "recall": 0.002,
+        "f1": 0.0039,
+        "alerts_per_100": 0.008
+      },
+      {
+        "threshold": 0.65,
+        "precision": 0.2647,
+        "recall": 0.0009,
+        "f1": 0.0019,
+        "alerts_per_100": 0.005
+      },
+      {
+        "threshold": 0.7,
+        "precision": 0.125,
+        "recall": 0.0003,
+        "f1": 0.0006,
+        "alerts_per_100": 0.003
+      },
+      {
+        "threshold": 0.75,
+        "precision": 0.0476,
+        "recall": 0.0001,
+        "f1": 0.0002,
+        "alerts_per_100": 0.003
+      },
+      {
+        "threshold": 0.8,
+        "precision": 0.05,
+        "recall": 0.0001,
+        "f1": 0.0002,
+        "alerts_per_100": 0.003
+      },
+      {
+        "threshold": 0.85,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "alerts_per_100": 0.002
+      },
+      {
+        "threshold": 0.9,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "alerts_per_100": 0.002
+      }
+    ],
+    "baseline_table": [
+      {
+        "gap_below": 0.3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "alerts_per_100": 0.0
+      },
+      {
+        "gap_below": 0.35,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "alerts_per_100": 0.0
+      },
+      {
+        "gap_below": 0.4,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "alerts_per_100": 0.0
+      },
+      {
+        "gap_below": 0.45,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "alerts_per_100": 0.0
+      },
+      {
+        "gap_below": 0.5,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "alerts_per_100": 0.0
+      },
+      {
+        "gap_below": 0.55,
+        "precision": 0.1201,
+        "recall": 0.1318,
+        "f1": 0.1257,
+        "alerts_per_100": 1.485
+      },
+      {
+        "gap_below": 0.6,
+        "precision": 0.0986,
+        "recall": 0.2335,
+        "f1": 0.1386,
+        "alerts_per_100": 3.205
+      },
+      {
+        "gap_below": 0.65,
+        "precision": 0.0822,
+        "recall": 0.3264,
+        "f1": 0.1313,
+        "alerts_per_100": 5.376
+      },
+      {
+        "gap_below": 0.7,
+        "precision": 0.0701,
+        "recall": 0.4153,
+        "f1": 0.1199,
+        "alerts_per_100": 8.019
+      },
+      {
+        "gap_below": 0.75,
+        "precision": 0.0594,
+        "recall": 0.4917,
+        "f1": 0.1061,
+        "alerts_per_100": 11.196
+      },
+      {
+        "gap_below": 0.8,
+        "precision": 0.0495,
+        "recall": 0.5572,
+        "f1": 0.091,
+        "alerts_per_100": 15.225
+      },
+      {
+        "gap_below": 0.85,
+        "precision": 0.0413,
+        "recall": 0.6223,
+        "f1": 0.0775,
+        "alerts_per_100": 20.381
+      },
+      {
+        "gap_below": 0.9,
+        "precision": 0.0344,
+        "recall": 0.6873,
+        "f1": 0.0655,
+        "alerts_per_100": 27.031
+      },
+      {
+        "gap_below": 0.95,
+        "precision": 0.0283,
+        "recall": 0.7533,
+        "f1": 0.0546,
+        "alerts_per_100": 35.983
+      },
+      {
+        "gap_below": 1.0,
+        "precision": 0.0234,
+        "recall": 0.8154,
+        "f1": 0.0456,
+        "alerts_per_100": 47.102
+      }
+    ]
+  },
+  "train_days": [
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-05"
+  ],
+  "test_days": [
+    "2026-09-04",
+    "2026-09-06"
+  ]
+}

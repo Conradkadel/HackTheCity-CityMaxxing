@@ -18,8 +18,9 @@ Pipeline
      left S. Passages are joined to the date-valid plan (line, direction,
      stop sequence, scheduled time).
   2. Headways to the bus in front (see the two views above).
-  3. Label (training): bunched at any of the bus's next 5 observed stops.
-  4. Logistic regression -> P(bunching within 5 stops). Coefficients live in
+  3. Label (training): bunched at any of the bus's next 10 (line) / 5 (corridor) observed stops.
+  4. Model -> P(bunching within the horizon). Same line: gradient-boosted trees on the
+     base + context features (v4); across lines: logistic regression. Both live in
      ``models/*.json``; inference here is plain Python.
   5. What-if (``simulate``): replays the real trajectories in time order. When
      a bus's predicted risk reaches the alert level it waits ``hold`` seconds
@@ -38,8 +39,9 @@ from zoneinfo import ZoneInfo
 
 LISBON = ZoneInfo('Europe/Lisbon')
 MODELS_DIR = Path(__file__).parent / 'models'
-MODEL_FILES = {'line': MODELS_DIR / 'bunching_model.json',
-               'corridor': MODELS_DIR / 'bunching_model_corridor.json'}
+MODEL_FILES = {'line': MODELS_DIR / 'bunching_model.json',              # early warning (alerts), trees v4
+               'corridor': MODELS_DIR / 'bunching_model_corridor.json',
+               'hold': MODELS_DIR / 'bunching_hold_trigger.json'}      # when to hold a bus (what-if, M-90), LR v3
 BUNCHED_RATIO = 0.25          # line view: gap < 25 % of the planned gap
 CORRIDOR_GAP_S = 60           # corridor view: buses < 60 s apart ...
 PLANNED_MIN_GAP_S = 120       # ... although planned >= 2 min apart
@@ -55,8 +57,18 @@ MAX_HOLDS_PER_TRIP = 3        # a bus can be held again, but at most 3 times per
 STOPS_BETWEEN_HOLDS = 3       # ... and at least 3 stops apart
 FEATURES = ['log_ratio', 'trend', 'delay_min', 'lead_delay_min', 'sched_hw_min',
             'progress', 'peak_am', 'peak_pm', 'weekend']
-FEATURES_BY_MODE = {'line': FEATURES + ['delay_gap_min', 'prev_trip_delay_min'],
+# Context features (v4, see docs/BUNCHING_MODEL.md "Model v4"): all known when the bus passes the stop.
+CONTEXT_FEATURES = ['hour_sin', 'hour_cos',          # time of day as a smooth cycle
+                    'leader_log_ratio',              # gap of the bus in front to ITS leader at this stop
+                    'line_irreg30', 'line_n30',      # how irregular the line/direction was in the last 30 min
+                    'leader_changed',                # the bus in front is not the one of the previous stop (overtaking)
+                    'close1', 'close3', 'close5',    # gap change (s per stop) over the last 1 / 3 / 5 stops
+                    'delay_change3',                 # own delay change over the last 3 stops (min)
+                    'lead_close3']                   # the same gap change for the bus in front
+FEATURES_BY_MODE = {'line': FEATURES + ['delay_gap_min', 'prev_trip_delay_min'] + CONTEXT_FEATURES,
                     'corridor': FEATURES + ['same_line', 'shared_next', 'log_gap']}
+IRREGULARITY_WINDOW_S = 1800  # line_irreg30 / line_n30 look back 30 min
+NAN = float('nan')
 SUSPECT_MEDIAN_DELAY_S = 1800 # trips whose median delay is > 30 min report the wrong trip_id -> excluded
 SHARED_ROUTE_MIN = 0.6        # corridor view: the bus in front also serves >= 60 % of the next 5 stops
 TARGETS = {
@@ -297,7 +309,62 @@ def build_features(rows, day, mode='line', trip_stops=None, fix=None, keep=None,
             p['progress'] = (p['seq'] or 0) / last_seq
             future = trip[i + 1:i + 1 + horizon]
             p['label'] = any(q['bunched'] for q in future) if future else None
+    add_context(items, mode)
     return items
+
+
+def _log_dev(ratio):
+    return abs(math.log(min(max(ratio, 0.05), 3.0)))
+
+
+def trip_history(p, trip, i):
+    """Features from the bus's own earlier stops (trip = its passages in stop order, p = trip[i])."""
+    for k in (1, 3, 5):
+        q = trip[i - k] if i >= k else None
+        p[f'close{k}'] = (p['hw'] - q['hw']) / k if q is not None and p['hw'] is not None and q['hw'] is not None else None
+    q = trip[i - 1] if i >= 1 else None
+    p['leader_changed'] = None if q is None else float(p.get('leader_trip') != q.get('leader_trip'))
+    q = trip[i - 3] if i >= 3 else None
+    p['delay_change3'] = (p['delay'] - q['delay']) / 60 \
+        if q is not None and p['delay'] is not None and q['delay'] is not None else None
+
+
+def add_context(items, mode='line'):
+    """Context features (CONTEXT_FEATURES) for every passage; only information from before p['t']."""
+    trips = trips_of(items)
+    for trip in trips.values():
+        for i, p in enumerate(trip):
+            trip_history(p, trip, i)
+    # the bus in front at this stop = previous passage in the stop group
+    by_stop = {}
+    for p in items:
+        by_stop.setdefault(stop_key(p, mode), []).append(p)
+    for group in by_stop.values():
+        group.sort(key=lambda p: p['t'])
+        for leader, p in zip([None] + group[:-1], group):
+            p['lead_ratio'] = leader['ratio'] if leader is not None else None
+            p['lead_close3'] = leader.get('close3') if leader is not None else None
+    # line irregularity: mean |log gap ratio| of the same line/direction over the last 30 min (strictly before t)
+    by_line = {}
+    for p in items:
+        by_line.setdefault((p['line'], p['direction_id']), []).append(p)
+    for group in by_line.values():
+        group.sort(key=lambda p: p['t'])
+        window, total, lo = [], 0.0, 0
+        times = [p['t'].timestamp() for p in group]
+        devs = [_log_dev(p['ratio']) if p.get('ratio') is not None else None for p in group]
+        hi = 0
+        for idx, p in enumerate(group):
+            t = times[idx]
+            while hi < len(group) and times[hi] < t:          # add passages strictly before t
+                if devs[hi] is not None:
+                    window.append(hi); total += devs[hi]
+                hi += 1
+            while lo < len(window) and times[window[lo]] < t - IRREGULARITY_WINDOW_S:
+                total -= devs[window[lo]]; lo += 1
+            n = len(window) - lo
+            p['line_n30'] = float(n)
+            p['line_irreg30'] = total / n if n else None
 
 
 def trips_of(items):
@@ -315,6 +382,7 @@ def feature_vector(p, shift_s=0.0):
     ratio = max(p['hw'] / p['sched_hw'], 0.0)
     trend = ratio - p['ratio_prev'] if p['ratio_prev'] is not None else 0.0
     local = p['t'].astimezone(LISBON)
+    hour = local.hour + local.minute / 60
     return {
         'log_ratio': math.log(min(max(ratio, 0.05), 3.0)),
         'trend': min(max(trend, -3.0), 3.0),
@@ -330,7 +398,25 @@ def feature_vector(p, shift_s=0.0):
         'same_line': 1.0 if p.get('same_line') else 0.0,
         'shared_next': p.get('shared_next', 1.0),
         'log_gap': math.log(max(p['hw'], 5.0) / 60),
+        'hour_sin': math.sin(2 * math.pi * hour / 24),
+        'hour_cos': math.cos(2 * math.pi * hour / 24),
+        'leader_log_ratio': _num(p.get('lead_ratio'), lambda r: math.log(min(max(r, 0.05), 3.0))),
+        'line_irreg30': _num(p.get('line_irreg30')),
+        'line_n30': _num(p.get('line_n30')),
+        'leader_changed': _num(p.get('leader_changed')),
+        'close1': _num(p.get('close1')),
+        'close3': _num(p.get('close3')),
+        'close5': _num(p.get('close5')),
+        'delay_change3': _num(p.get('delay_change3')),
+        'lead_close3': _num(p.get('lead_close3')),
     }
+
+
+def _num(value, transform=None):
+    """Missing -> NaN (the tree model has a learned branch for missing values)."""
+    if value is None:
+        return NAN
+    return transform(value) if transform else float(value)
 
 
 def scoreable(p, mode):
@@ -346,18 +432,42 @@ def scoreable(p, mode):
 
 @lru_cache(maxsize=4)
 def load_model(mode='line'):
-    """The trained model for a view (see train_bunching_model.py). None if not trained yet."""
+    """The trained model for a view (see train_bunching_model.py). None if not trained yet.
+    'hold' = the model that decides where a bus is held; falls back to the line model."""
     try:
         return json.loads(MODEL_FILES[mode].read_text(encoding='utf-8'))
     except FileNotFoundError:
-        return None
+        return load_model('line') if mode == 'hold' else None
 
 
 def predict(model, features):
-    """Logistic regression: P(bunched within the next 5 stops)."""
+    """P(bunching within the model's horizon). Two model formats (see train_bunching_model.py):
+    'gradient_boosted_trees' (same-line view, v4) and 'logistic_regression' (corridor view, older files)."""
+    if model.get('model') == 'gradient_boosted_trees':
+        return predict_trees(model, [features[name] for name in model['features']])
     z = model['intercept']
     for name, coef, mean, std in zip(model['features'], model['coef'], model['mean'], model['std']):
-        z += coef * (features[name] - mean) / std
+        value = features.get(name, NAN)
+        if value == value:                       # a missing value counts as the training mean
+            z += coef * (value - mean) / std
+    return 1.0 / (1.0 + math.exp(-max(min(z, 50.0), -50.0)))
+
+
+def predict_trees(model, x):
+    """Plain-Python evaluation of the exported trees (no numpy / scikit-learn in the API).
+    Each tree: parallel lists f (feature index, -1 = leaf), t (threshold), m (1 = missing goes left),
+    l / r (child indices), v (leaf value). Rule at a split: x <= t -> left; NaN -> missing side."""
+    z = model['baseline']
+    for tree in model['trees']:
+        f, t, m, l, r, v = tree['f'], tree['t'], tree['m'], tree['l'], tree['r'], tree['v']
+        node = 0
+        while f[node] >= 0:
+            value = x[f[node]]
+            if value != value:
+                node = l[node] if m[node] else r[node]
+            else:
+                node = l[node] if value <= t[node] else r[node]
+        z += v[node]
     return 1.0 / (1.0 + math.exp(-max(min(z, 50.0), -50.0)))
 
 
@@ -414,6 +524,9 @@ def simulate(items, model, mode, hold_s, threshold, window, trip_stops=None, max
                     shift.get(trip, 0.0), shift.get(trip_of(leader), 0.0) if leader else 0.0, trip_stops)
         passages, index = trip_passages[trip], position[pid]
         s['ratio_prev'] = sim[id(passages[index - TREND_STOPS])]['ratio'] if index >= TREND_STOPS else None
+        trip_history(s, [sim[id(q)] for q in passages[:index + 1]], index)   # from simulated earlier stops
+        s['lead_ratio'] = sim[id(leader)]['ratio'] if leader else None
+        s['lead_close3'] = sim[id(leader)].get('close3') if leader else None
 
         previous_holds = holds_of.get(trip, [])
         can_hold = (len(previous_holds) < max_holds

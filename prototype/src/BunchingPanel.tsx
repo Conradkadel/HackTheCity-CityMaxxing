@@ -411,8 +411,15 @@ export function BunchingPanel({
                 {result.mode === "corridor"
                   ? "Across-lines model"
                   : "Same-line model"}
-                : logistic regression, trained on other days and tested on{" "}
+                :{" "}
+                {result.model.kind === "gradient_boosted_trees"
+                  ? "gradient-boosted trees"
+                  : "logistic regression"}
+                , trained on other days and tested on{" "}
                 {m.n_test.toLocaleString()} passages from days it never saw.
+                {result.model.holdTrigger?.kind === "logistic_regression" &&
+                  result.model.kind !== "logistic_regression" &&
+                  " Holds in the what-if are triggered by the simpler logistic model, which chose better holds in the simulator."}
               </p>
               <dl className="details-grid">
                 <dt>ROC-AUC</dt>

@@ -283,6 +283,7 @@ def run(trips, bank, scenario, seed=0, k=DEFAULT_K, model=None, threshold=None, 
             waiting.setdefault(trip.prev, []).append(i)
     last = {}                        # (line, direction, stop) -> (trip index, time, sched)
     history, holds, dispatch_wait, done_holds = {}, [], {}, {}
+    recent = {}                      # (line, direction) -> [(time, |log gap ratio|)] for the model's line_irreg30
     control = {i: {max(1, round((len(t.stops) - 1) * p)) for p in CONTROL_POSITIONS} for i, t in enumerate(trips)}
 
     while heap:
@@ -307,8 +308,8 @@ def run(trips, bank, scenario, seed=0, k=DEFAULT_K, model=None, threshold=None, 
                 extra = k * ((time - leader[1]) - reference)
                 time += min(max(extra, DWELL_CLIP_S[0]), DWELL_CLIP_S[1])
             if scenario.hold != 'none' and planned:
-                hold = _hold(scenario, trip, i, j, time, leader, planned, control, history.get(i, []),
-                             done_holds, model, threshold)
+                hold = _hold(scenario, trip, i, j, time, leader, planned, control, history,
+                             done_holds, model, threshold, recent)
                 if hold >= bunching.MIN_HOLD_S:
                     holds.append({'trip': i, 'index': j, 'seconds': hold, 't': time})
                     done_holds.setdefault(i, []).append(j)
@@ -316,6 +317,9 @@ def run(trips, bank, scenario, seed=0, k=DEFAULT_K, model=None, threshold=None, 
         history.setdefault(i, []).append({'index': j, 'stop_id': stop['stop_id'], 't': time,
                                           'leader': leader[0] if leader else None,
                                           'gap': time - leader[1] if leader else None, 'planned': planned})
+        if scenario.hold == 'model' and leader is not None and planned and \
+                bunching.SCHED_HEADWAY_RANGE[0] <= planned <= bunching.SCHED_HEADWAY_RANGE[1]:
+            recent.setdefault((trip.line, trip.direction), []).append((time, bunching._log_dev((time - leader[1]) / planned)))
         last[key] = (i, time, stop['sched'])
 
         if j + 1 < len(trip.stops):
@@ -353,7 +357,7 @@ def _start(trip, scenario, prev_end):
     return max(wish, ready)
 
 
-def _hold(scenario, trip, i, j, time, leader, planned, control, past, done_holds, model, threshold):
+def _hold(scenario, trip, i, j, time, leader, planned, control, history, done_holds, model, threshold, recent=None):
     """Seconds to hold bus i at stop j (0 = none). Holding never makes the gap more than 90 % of plan."""
     gap = time - leader[1]
     room = 0.9 * planned - gap
@@ -365,24 +369,52 @@ def _hold(scenario, trip, i, j, time, leader, planned, control, past, done_holds
         done = done_holds.get(i, [])
         if len(done) >= bunching.MAX_HOLDS_PER_TRIP or any(j - d < bunching.STOPS_BETWEEN_HOLDS for d in done):
             return 0.0
-        p = _model_state(trip, j, time, leader, planned, past)
+        p = _model_state(trip, j, time, leader, planned, history, i, recent)
         if p is not None and p['ratio'] >= bunching.ONSET_MIN_RATIO and \
                 bunching.predict(model, bunching.feature_vector(p)) >= threshold:
             return min(scenario.max_hold_s, room)
     return 0.0
 
 
-def _model_state(trip, j, time, leader, planned, past):
-    """The early-warning model's inputs, from the simulated state only."""
+def _model_state(trip, j, time, leader, planned, history, i=None, recent=None):
+    """The early-warning model's inputs, from the simulated state only.
+    history: {trip index: simulated passages so far} (a plain list = this bus's own passages, older callers)."""
     stop = trip.stops[j]
     if not (bunching.SCHED_HEADWAY_RANGE[0] <= planned <= bunching.SCHED_HEADWAY_RANGE[1]):
         return None
+    past = history if isinstance(history, list) else history.get(i, [])
     earlier = [p for p in past if p['index'] <= j - bunching.TREND_STOPS and p['gap'] is not None and p['planned']]
-    return {'hw': time - leader[1], 'sched_hw': planned, 'ratio': (time - leader[1]) / planned,
-            'ratio_prev': earlier[-1]['gap'] / earlier[-1]['planned'] if earlier else None,
-            'delay': time - stop['sched'], 'lead_delay': leader[1] - leader[2],
-            'progress': stop['seq'] / trip.stops[-1]['seq'], 'prev_trip_delay': None,
-            't': datetime.fromtimestamp(time, timezone.utc)}
+    gap = time - leader[1]
+    state = {'hw': gap, 'sched_hw': planned, 'ratio': gap / planned,
+             'ratio_prev': earlier[-1]['gap'] / earlier[-1]['planned'] if earlier else None,
+             'delay': time - stop['sched'], 'lead_delay': leader[1] - leader[2],
+             'progress': stop['seq'] / trip.stops[-1]['seq'], 'prev_trip_delay': None,
+             't': datetime.fromtimestamp(time, timezone.utc)}
+    # context features (bunching.CONTEXT_FEATURES) from the simulated history
+    by_index = {p['index']: p for p in past}
+    for k in (1, 3, 5):
+        q = by_index.get(j - k)
+        state[f'close{k}'] = (gap - q['gap']) / k if q is not None and q['gap'] is not None else None
+    q = by_index.get(j - 1)
+    state['leader_changed'] = None if q is None else float(q['leader'] != leader[0])
+    q = by_index.get(j - 3)
+    state['delay_change3'] = ((time - stop['sched']) - (q['t'] - trip.stops[j - 3]['sched'])) / 60 \
+        if q is not None and stop['sched'] is not None and trip.stops[j - 3]['sched'] is not None else None
+    lead = None if isinstance(history, list) else next(
+        (p for p in reversed(history.get(leader[0], [])) if p['stop_id'] == stop['stop_id']), None)
+    if lead is not None and lead['gap'] is not None and lead['planned']:
+        state['lead_ratio'] = lead['gap'] / lead['planned']
+        lead_by_index = {p['index']: p for p in history.get(leader[0], [])}
+        q = lead_by_index.get(lead['index'] - 3)
+        state['lead_close3'] = (lead['gap'] - q['gap']) / 3 if q is not None and q['gap'] is not None else None
+    if recent is not None:
+        seen = recent.get((trip.line, trip.direction), [])
+        while seen and seen[0][0] < time - bunching.IRREGULARITY_WINDOW_S:
+            seen.pop(0)                      # passages are recorded in (almost) time order
+        window = [dev for t, dev in seen if time - bunching.IRREGULARITY_WINDOW_S <= t < time]
+        state['line_n30'] = float(len(window))
+        state['line_irreg30'] = sum(window) / len(window) if window else None
+    return state
 
 
 def observed(trips):

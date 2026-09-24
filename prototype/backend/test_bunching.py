@@ -1,3 +1,4 @@
+import math
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -64,6 +65,50 @@ def test_predict_is_a_probability_and_falls_when_gap_grows():
     base = bunching.predict(MODEL, bunching.feature_vector(p))
     held = bunching.predict(MODEL, bunching.feature_vector({**p, 'hw': p['hw'] + 120}, 120))
     assert 0 < held < base < 1
+
+
+# a tiny tree model in the exported format: split on log_ratio (index 0), missing close1 goes right
+TREE_FEATURES = bunching.FEATURES_BY_MODE['line']
+CLOSE1 = TREE_FEATURES.index('close1')
+TREE_MODEL = {'model': 'gradient_boosted_trees', 'features': TREE_FEATURES, 'baseline': -3.0, 'trees': [
+    {'f': [0, -1, -1], 't': [-0.5, 0, 0], 'm': [0, 0, 0], 'l': [1, 0, 0], 'r': [2, 0, 0], 'v': [0, 2.0, -1.0]},
+    {'f': [CLOSE1, -1, -1], 't': [-30.0, 0, 0], 'm': [0, 0, 0], 'l': [1, 0, 0], 'r': [2, 0, 0], 'v': [0, 1.0, 0.0]}]}
+
+
+def test_context_features_use_only_the_past():
+    by = {(p['trip_id'], p['seq']): p for p in sample()}
+    b1, b2, b4 = by[('B', 1)], by[('B', 2)], by[('B', 4)]
+    assert b1['close1'] is None and b1['leader_changed'] is None      # first stop: no history yet
+    assert b2['close1'] == pytest.approx(-60)                          # leader got 60 s later -> gap closed 60 s
+    assert b4['close3'] == pytest.approx(-60) and b4['leader_changed'] == 0.0
+    assert b2['lead_ratio'] is None                                    # bus A has no bus in front
+    assert by[('C', 2)]['lead_ratio'] == pytest.approx(b2['ratio'])    # C's leader is B at the same stop
+    first = min(sample(), key=lambda p: p['t'])
+    assert first['line_n30'] == 0 and first['line_irreg30'] is None    # nothing earlier on the line
+    later = by[('C', 1)]
+    assert later['line_n30'] > 0 and later['line_irreg30'] >= 0
+
+
+def test_tree_model_follows_the_splits_and_missing_values():
+    p = next(q for q in sample() if q['trip_id'] == 'B' and q['seq'] == 7)
+    x = bunching.feature_vector(p)
+    small_gap = bunching.predict(TREE_MODEL, {**x, 'log_ratio': -1.0, 'close1': -60})
+    large_gap = bunching.predict(TREE_MODEL, {**x, 'log_ratio': 0.0, 'close1': -60})
+    missing = bunching.predict(TREE_MODEL, {**x, 'log_ratio': -1.0, 'close1': float('nan')})
+    sig = lambda z: 1 / (1 + math.exp(-z))  # noqa: E731
+    assert small_gap == pytest.approx(sig(-3 + 2 + 1)) and large_gap == pytest.approx(sig(-3 - 1 + 1))
+    assert missing == pytest.approx(sig(-3 + 2 + 0))                   # NaN follows m = 0 -> right branch
+
+
+def test_tree_model_simulation_without_holds_reproduces_the_data():
+    items = bunching.score(sample(), TREE_MODEL)
+    run = bunching.simulate(items, TREE_MODEL, 'line', 0, 0.05, WINDOW)
+    assert run['bunched_passages'] == sum(p['bunched'] for p in items) and run['holds_made'] == 0
+
+
+def test_logistic_model_ignores_missing_context_values():
+    p = next(q for q in sample() if q['trip_id'] == 'B' and q['seq'] == 1)
+    assert 0 < bunching.predict(MODEL, bunching.feature_vector(p)) < 1
 
 
 def test_corridor_view_pairs_different_lines_on_shared_stops():
@@ -172,7 +217,7 @@ def api(monkeypatch):
     import bunching_api
     monkeypatch.setattr(bunching_api, 'connect', lambda: _Connection())
     monkeypatch.setattr(bunching_api, '_route_stops_cache', {})
-    models = {'line': MODEL, 'corridor': CORRIDOR_MODEL}
+    models = {'line': TREE_MODEL, 'corridor': CORRIDOR_MODEL, 'hold': {**MODEL, 'alerting': {'threshold': 0.05}}}
     monkeypatch.setattr(bunching_api.bunching, 'load_model',
                         lambda mode='line': {**models[mode], 'metrics': {}, 'target': 't', 'trained_at': 'now'})
     return bunching_api
