@@ -47,4 +47,14 @@ The initial full response is intentionally substantial. Smaller area/time/line s
 
 ## Deferred work
 
-Detection/alerting logic for bus bunching and creation/upload of a reduced CARRIS-only database are not part of this phase.
+Detection/alerting logic for bus bunching and uploading the generated database archive are not part of this verification.
+
+## Portable CARRIS database
+
+- The source development database measured approximately 51 GB.
+- The verified `all-carris` subset contains 4,874,153 `IA9T6` observations, 174 routes, 165,820 trips, and 4,654,086 normalised scheduled-stop rows.
+- Every exported `driver_id` is `redacted`; `event_sources` contains zero rows.
+- Only the CARRIS plan `20260715_IA9T6_CARRIS_82YP2` is included.
+- The temporary subset database measured 4.25 GB; the final PostgreSQL custom-format archive measured 576 MB.
+- Its SHA-256 checksum passed, and a clean restore into an isolated temporary database completed successfully.
+- Uploading the generated archive remains a separate explicit sharing action; it is ignored by Git.

@@ -10,6 +10,7 @@ __pycache__/
 *.db
 *.sqlite*
 backend/reports/
+exports/
 .pytest_cache/
 *.csv
 !backend/fixtures/*.csv

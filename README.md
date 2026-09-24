@@ -8,6 +8,7 @@ This phase visualises source evidence. It does **not** yet detect bus bunching o
 
 - [Database construction](docs/DATABASE_CONSTRUCTION.md) explains the raw inputs, schema, repeatable imports, deduplication, plan normalisation, and route-resolution logic.
 - [Project 7 selections](docs/PROJECT_7_SELECTION.md) records the operator IDs, public lines, areas, dates, API parameters, and exact matching rules needed for the challenge.
+- [Sharing the database](docs/SHARING_DATABASE.md) explains full and reduced exports and the one-command restore workflow.
 - [Verification](VERIFICATION.md) records the checks completed for this version.
 - [`backend/config/analysis_presets.json`](backend/config/analysis_presets.json) is the only Challenge 7 preset configuration. It contains stable public line codes and plan-source metadata, never local database package IDs.
 
@@ -87,4 +88,5 @@ docker compose run --rm api python verify_dataset.py
 - Never commit `.env`, raw TML data, database dumps, or generated replay files; the repository ignore rules exclude them.
 - Driver IDs are retained only in protected import/provenance tables and are never returned by the API or displayed in the UI.
 - Requests are limited to four hours and 200,000 observations, including 120 seconds of replay history.
-- Creating and uploading a reduced CARRIS-only database is deliberately deferred to the next phase.
+- Use the documented export workflow to create a redacted CARRIS-only archive for collaborators; generated archives are never committed.
+- Database archives belong in `exports/` and are ignored by Git. Share them as private release/cloud assets, never as normal repository files.

@@ -148,4 +148,4 @@ ORDER BY event_agency_id, active_from;
 
 A CARRIS-only export may omit unrelated vehicle rows and plan packages. It must keep referentially complete rows for its chosen active dataset version and the CARRIS date-valid plan: dataset lifecycle rows, selected `vehicle_events`, relevant `event_sources` if provenance is required, rebuilt `availability`, the applicable `plan_packages`/`plan_records`, and their normalised schedule rows.
 
-The export workflow itself is intentionally not implemented in this phase. The workspace already treats omitted operators, lines, plans, shapes, stops, and observations as supported partial states.
+The export and restore workflow is documented in [Sharing the database](SHARING_DATABASE.md). The workspace treats omitted operators, lines, plans, shapes, stops, and observations as supported partial states.
