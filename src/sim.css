@@ -1,0 +1,231 @@
+/* Simulate tab: scenario cards in the sidebar + the simulation overlay. */
+.sim-cards {
+  display: grid;
+  gap: 6px;
+  margin: 4px 0 12px;
+}
+.sim-cards button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  text-align: left;
+  background: #163743;
+  border: 1px solid #294650;
+  border-radius: 7px;
+  color: #e8f0ee;
+  font-size: 12px;
+}
+.sim-cards button:hover {
+  border-color: #5c7f88;
+}
+.sim-cards button.active {
+  border-color: #d1ed86;
+  background: #1e4552;
+}
+.sim-cards small {
+  color: #9fb4bb;
+  font-size: 10.5px;
+  padding-right: 64px;
+}
+.sim-pill {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  color: #fff;
+  font: normal 600 9px sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.sim-star {
+  color: #d1ed86;
+  font-style: normal;
+}
+.bunching-runs td.good,
+.sim-overlay .good {
+  color: #1b9e6c;
+}
+.bunching-runs td.bad {
+  color: #e98c8c;
+}
+.sim-overlay .bad {
+  color: #c73a3a;
+}
+.sim-gate {
+  padding: 1px 7px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.sim-gate.pass {
+  background: #1baf7a;
+  color: #fff;
+}
+.sim-gate.partial {
+  background: #eda100;
+  color: #1c2a2e;
+}
+.sim-gate.fail {
+  background: #d03b3b;
+  color: #fff;
+}
+
+.sim-kpis {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+.sim-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid #e0e5db;
+  border-left: 4px solid #c3c9c0;
+  border-radius: 8px;
+  background: #fff;
+}
+.sim-kpi.good {
+  border-left-color: #1baf7a;
+}
+.sim-kpi.bad {
+  border-left-color: #d03b3b;
+}
+.sim-kpi.cost {
+  border-left-color: #eda100;
+}
+.sim-kpi small {
+  color: #637e86;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.sim-kpi strong {
+  font: 600 20px "Space Grotesk";
+  font-variant-numeric: tabular-nums;
+}
+.sim-kpi span,
+.sim-kpi em {
+  color: #52656b;
+  font-size: 10.5px;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+.sim-kpi em {
+  color: #8a9ca1;
+}
+
+.sim-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 14px;
+  flex: 1;
+}
+.sim-diagrams {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.sim-diagram {
+  margin: 0;
+}
+.sim-diagram figcaption {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 12px;
+}
+.sim-diagram figcaption span {
+  font-size: 11px;
+}
+.sim-overlay .sim-diagram svg {
+  min-height: 0;
+}
+.sim-overlay .trip.asRun {
+  stroke: #6b8790;
+  stroke-width: 1.4;
+}
+.sim-overlay .trip.simulated {
+  stroke: #287967;
+  stroke-width: 1.6;
+}
+.sim-overlay .trip.ghost {
+  stroke: #d9dfda;
+  stroke-width: 1.2;
+}
+.sim-overlay .trip.red {
+  stroke: #d03b3b;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+}
+.sim-mark circle {
+  stroke: #fffef9;
+  stroke-width: 1.5;
+}
+.sim-mark text {
+  fill: #fff !important;
+  font-size: 8.5px !important;
+  font-weight: 700;
+  pointer-events: none;
+}
+.sim-mark.dispatch circle {
+  fill: #2a78d6;
+}
+.sim-mark.dispatch line {
+  stroke: #2a78d6;
+  stroke-width: 2;
+}
+.sim-mark.hold circle {
+  fill: #eda100;
+}
+.sim-side {
+  min-width: 0;
+}
+.sim-side p {
+  font-size: 11px;
+}
+.sim-tradeoff {
+  width: 100%;
+  height: auto;
+  border: 1px solid #e0e5db;
+  border-radius: 8px;
+  background: #fff;
+}
+.sim-tradeoff .sim-dot {
+  cursor: pointer;
+}
+.sim-tradeoff .sim-dot line {
+  stroke: #9aa5a8;
+  stroke-width: 1.5;
+}
+.sim-tradeoff .sim-dot circle {
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+.sim-tradeoff .sim-dot.active circle {
+  stroke: #183741;
+  stroke-width: 2.5;
+}
+.sim-tradeoff .sim-dot text {
+  fill: #33474d !important;
+  font-size: 10px;
+}
+.sim-tradeoff .sim-dot:hover text {
+  font-weight: 700;
+}
+@media (max-width: 1300px) {
+  .sim-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 1100px) {
+  .sim-body {
+    grid-template-columns: 1fr;
+  }
+}

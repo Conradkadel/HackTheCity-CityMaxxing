@@ -112,7 +112,7 @@ input[type="checkbox"] {
 }
 .sidebar-tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   padding: 10px 14px;
   gap: 6px;
   border-bottom: 1px solid #27424b;
@@ -121,8 +121,9 @@ input[type="checkbox"] {
   border-color: transparent;
   background: transparent;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  font-size: 10px;
+  letter-spacing: 0.5px;
+  font-size: 9.5px;
+  padding-inline: 2px;
 }
 .sidebar-tabs button.active {
   background: #d1ed86;

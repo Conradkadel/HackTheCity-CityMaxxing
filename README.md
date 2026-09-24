@@ -2,7 +2,7 @@
 
 Phase-one data visualisation for TML Challenge 7: inspect recorded Lisbon vehicle positions beside the operation plan that was valid on the vehicle's operational date. The application is a local React/Leaflet workspace backed by FastAPI and PostgreSQL.
 
-This phase visualises source evidence. It does **not** yet detect bus bunching or claim that a vehicle is delayed.
+This phase visualises source evidence. It does **not** yet detect bus bunching or claim that a vehicle is delayed. Phase two adds a separate **Bunching** tab that predicts bunching and tests holding times, and a **Simulate** tab that replays a real day with timing changes (dispatch, turnaround, holding); see [docs/BUNCHING_MODEL.md](docs/BUNCHING_MODEL.md).
 
 ## Repository guide
 
@@ -11,6 +11,7 @@ This phase visualises source evidence. It does **not** yet detect bus bunching o
 - [Project 7 selections](docs/PROJECT_7_SELECTION.md) records the operator IDs, public lines, areas, dates, API parameters, and exact matching rules needed for the challenge.
 - [Sharing the database](docs/SHARING_DATABASE.md) explains full and reduced exports and the one-command restore workflow.
 - [Verification](VERIFICATION.md) records the checks completed for this version.
+- [Bunching prediction](docs/BUNCHING_MODEL.md) explains the Bunching and Simulate tabs: stop passages, the same-line and across-lines prediction models, the replay simulator and its validation gate, and how to retrain.
 - [`backend/config/analysis_presets.json`](backend/config/analysis_presets.json) is the only Challenge 7 preset configuration. It contains stable public line codes and plan-source metadata, never local database package IDs.
 
 ## Prerequisites
@@ -72,11 +73,13 @@ Both imports are checksum-aware and safe to rerun. PostgreSQL data lives in the 
 
 ## Workspace behaviour
 
-The application has one map and three sidebar tabs:
+The application has one map and four sidebar tabs:
 
 - **Routes** shows date-valid operation-plan variants. Preset groups appear first; the complete catalog is grouped by operator. Route choices draw shapes and optional stops only and never change the vehicle query.
 - **Vehicles** selects carriers and either configured public lines or all vehicles. Changes remain pending until **Apply filters**.
 - **Details** opens when a marker is clicked and retains the last loaded report if the marker expires or crosses an area boundary.
+- **Bunching** predicts, for one line or several lines sharing a route in the selected window, the chance that each bus bunches within the next five stops, simulates holding times on the real trips, recommends one, lists the buses that bunch most, and draws a time–space diagram over the map. See [docs/BUNCHING_MODEL.md](docs/BUNCHING_MODEL.md).
+- **Simulate** replays a real day of one line with a timing change (leave on schedule, headway-based dispatch, longer turnaround, control-stop or early-warning holding): as-run vs changed time–space diagrams, KPI cards with seed ranges, a benefit-vs-cost chart and a rule-based recommendation.
 
 The area selector is on the map. Every five-character area present in vehicle data for the selected date starts enabled. Applied, disabled, and pending boundaries remain visible. The six-character Challenge 7 zones can be drawn as reference overlays but do not silently restrict the default query.
 

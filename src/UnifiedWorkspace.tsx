@@ -8,6 +8,10 @@ import {
   loadSelection,
   loadWorkspaceCatalog,
 } from "./api";
+import { BunchingDiagramView, BunchingPanel } from "./BunchingPanel";
+import type { BunchingDiagram } from "./bunching";
+import type { SimRun } from "./sim";
+import { SimulatePanel, SimulationView } from "./SimulatePanel";
 import { geohashBounds } from "./geohash";
 import {
   clock,
@@ -27,7 +31,7 @@ import type {
   WorkspacePreset,
 } from "./workspaceTypes";
 
-type Tab = "routes" | "vehicles" | "details";
+type Tab = "routes" | "vehicles" | "details" | "bunching" | "simulate";
 const DEFAULT_DATE = "2026-09-01";
 const palette = [
   "#10b981",
@@ -86,6 +90,11 @@ export function UnifiedWorkspace() {
   const [showReferenceZones, setShowReferenceZones] = useState(false);
   const [areaControlOpen, setAreaControlOpen] = useState(false);
   const [tileError, setTileError] = useState(false);
+  const [bunching, setBunching] = useState<BunchingDiagram | null>(null);
+  const [showDiagram, setShowDiagram] = useState(true);
+  const [simRun, setSimRun] = useState<SimRun | null>(null);
+  const [showSim, setShowSim] = useState(true);
+  const [simPick, setSimPick] = useState<{ code: string } | null>(null);
 
   const mapNode = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
@@ -436,7 +445,9 @@ export function UnifiedWorkspace() {
           </div>
         </header>
         <nav className="sidebar-tabs" aria-label="Workspace panels">
-          {(["routes", "vehicles", "details"] as Tab[]).map((value) => (
+          {(
+            ["routes", "vehicles", "details", "bunching", "simulate"] as Tab[]
+          ).map((value) => (
             <button
               key={value}
               className={tab === value ? "active" : ""}
@@ -473,6 +484,31 @@ export function UnifiedWorkspace() {
               error={error}
               onDraft={setDraft}
               onApply={() => void applyFilters()}
+            />
+          )}
+          {tab === "bunching" && (
+            <BunchingPanel
+              date={draft.date}
+              start={draft.start}
+              end={draft.end}
+              result={bunching}
+              onResult={(value) => {
+                setBunching(value);
+                setShowDiagram(true);
+              }}
+            />
+          )}
+          {tab === "simulate" && (
+            <SimulatePanel
+              date={draft.date}
+              start={draft.start}
+              end={draft.end}
+              result={simRun}
+              pick={simPick}
+              onResult={(value) => {
+                setSimRun(value);
+                setShowSim(true);
+              }}
             />
           )}
           {tab === "details" && (
@@ -564,6 +600,34 @@ export function UnifiedWorkspace() {
             </div>
           )}
         </div>
+        {tab === "bunching" &&
+          bunching &&
+          (showDiagram ? (
+            <BunchingDiagramView
+              result={bunching}
+              onClose={() => setShowDiagram(false)}
+            />
+          ) : (
+            <button
+              className="bunching-show"
+              onClick={() => setShowDiagram(true)}
+            >
+              Show time–space diagram
+            </button>
+          ))}
+        {tab === "simulate" &&
+          simRun &&
+          (showSim ? (
+            <SimulationView
+              run={simRun}
+              onPick={(code) => setSimPick({ code })}
+              onClose={() => setShowSim(false)}
+            />
+          ) : (
+            <button className="bunching-show" onClick={() => setShowSim(true)}>
+              Show simulation
+            </button>
+          ))}
         {tileError && (
           <div className="tilewarning">
             Background tiles are unavailable; data layers still work.

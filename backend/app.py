@@ -12,6 +12,8 @@ from observation_query import OBSERVATIONS_SQL,build_observation_query
 from plans_api import router as plans_router
 from presets_api import router as presets_router
 from workspace_api import router as workspace_router
+from bunching_api import router as bunching_router
+from sim_api import router as sim_router
 from schedule import router as schedule_router,ensure_operator_packages
 from preview import preview_version,progress,preview_coverage
 
@@ -29,6 +31,8 @@ app.include_router(plans_router)
 app.include_router(schedule_router)
 app.include_router(presets_router)
 app.include_router(workspace_router)
+app.include_router(bunching_router)
+app.include_router(sim_router)
 
 @app.exception_handler(psycopg.Error)
 async def database_error(request,exc):

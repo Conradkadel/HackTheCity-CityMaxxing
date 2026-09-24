@@ -1,0 +1,386 @@
+{
+  "model": "logistic_regression",
+  "version": 3,
+  "mode": "corridor",
+  "trained_at": "2026-09-24T11:27:06+00:00",
+  "agency": "IA9T6",
+  "target": "a bus of any selected line passes the stop < 60 s in front although planned >= 2 min apart, at any of the next 5 stops",
+  "horizon_stops": 5,
+  "features": [
+    "log_ratio",
+    "trend",
+    "delay_min",
+    "lead_delay_min",
+    "sched_hw_min",
+    "progress",
+    "peak_am",
+    "peak_pm",
+    "weekend",
+    "same_line",
+    "shared_next",
+    "log_gap"
+  ],
+  "coef": [
+    -0.487906,
+    0.143025,
+    -0.024194,
+    -0.406234,
+    0.310172,
+    -0.184519,
+    0.066274,
+    0.100542,
+    -0.088888,
+    0.030327,
+    0.041689,
+    -0.687338
+  ],
+  "intercept": -2.279699,
+  "mean": [
+    -0.196502,
+    0.022531,
+    1.756946,
+    3.163819,
+    17.554286,
+    0.510836,
+    0.18971,
+    0.17234,
+    0.158862,
+    0.7162,
+    0.945897,
+    2.504207
+  ],
+  "std": [
+    0.575256,
+    0.433669,
+    5.167652,
+    5.677754,
+    10.175276,
+    0.272851,
+    0.392071,
+    0.377676,
+    0.365548,
+    0.450841,
+    0.123101,
+    0.820004
+  ],
+  "train_days": [
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-05"
+  ],
+  "test_days": [
+    "2026-09-04",
+    "2026-09-06"
+  ],
+  "metrics": {
+    "roc_auc": 0.749,
+    "average_precision": 0.3269,
+    "baseline_roc_auc": 0.6968,
+    "baseline_average_precision": 0.3121,
+    "test_positive_rate": 0.1043,
+    "n_train": 359412,
+    "n_test": 122681
+  },
+  "alerting": {
+    "threshold": 0.2,
+    "budgets": {
+      "1_per_100": {
+        "threshold": 0.6429,
+        "test": {
+          "precision": 0.681,
+          "recall": 0.0484,
+          "f1": 0.0904,
+          "alerts_per_100": 0.741
+        }
+      },
+      "2_per_100": {
+        "threshold": 0.5533,
+        "test": {
+          "precision": 0.643,
+          "recall": 0.0942,
+          "f1": 0.1643,
+          "alerts_per_100": 1.528
+        }
+      }
+    },
+    "chosen_by": "highest F1 on the training days, each day predicted by a model that did not see it",
+    "test": {
+      "precision": 0.3541,
+      "recall": 0.3554,
+      "f1": 0.3548,
+      "alerts_per_100": 10.466
+    },
+    "baseline_rule": "alert when the bus in front is less than 210 s ahead",
+    "baseline_gap_below": 210,
+    "baseline_test": {
+      "precision": 0.413,
+      "recall": 0.2963,
+      "f1": 0.3451,
+      "alerts_per_100": 7.482
+    },
+    "table": [
+      {
+        "threshold": 0.05,
+        "precision": 0.137,
+        "recall": 0.9628,
+        "f1": 0.2398,
+        "alerts_per_100": 84.026
+      },
+      {
+        "threshold": 0.1,
+        "precision": 0.2093,
+        "recall": 0.6782,
+        "f1": 0.3199,
+        "alerts_per_100": 38.729
+      },
+      {
+        "threshold": 0.15,
+        "precision": 0.2919,
+        "recall": 0.4776,
+        "f1": 0.3623,
+        "alerts_per_100": 19.558
+      },
+      {
+        "threshold": 0.2,
+        "precision": 0.3564,
+        "recall": 0.3902,
+        "f1": 0.3725,
+        "alerts_per_100": 13.087
+      },
+      {
+        "threshold": 0.25,
+        "precision": 0.4121,
+        "recall": 0.3333,
+        "f1": 0.3685,
+        "alerts_per_100": 9.669
+      },
+      {
+        "threshold": 0.3,
+        "precision": 0.4642,
+        "recall": 0.2898,
+        "f1": 0.3569,
+        "alerts_per_100": 7.462
+      },
+      {
+        "threshold": 0.35,
+        "precision": 0.5148,
+        "recall": 0.2505,
+        "f1": 0.337,
+        "alerts_per_100": 5.815
+      },
+      {
+        "threshold": 0.4,
+        "precision": 0.5583,
+        "recall": 0.2141,
+        "f1": 0.3095,
+        "alerts_per_100": 4.582
+      },
+      {
+        "threshold": 0.45,
+        "precision": 0.5987,
+        "recall": 0.1797,
+        "f1": 0.2764,
+        "alerts_per_100": 3.588
+      },
+      {
+        "threshold": 0.5,
+        "precision": 0.6334,
+        "recall": 0.146,
+        "f1": 0.2373,
+        "alerts_per_100": 2.754
+      },
+      {
+        "threshold": 0.55,
+        "precision": 0.6625,
+        "recall": 0.113,
+        "f1": 0.1931,
+        "alerts_per_100": 2.039
+      },
+      {
+        "threshold": 0.6,
+        "precision": 0.6932,
+        "recall": 0.0832,
+        "f1": 0.1486,
+        "alerts_per_100": 1.435
+      },
+      {
+        "threshold": 0.65,
+        "precision": 0.7164,
+        "recall": 0.0563,
+        "f1": 0.1043,
+        "alerts_per_100": 0.939
+      },
+      {
+        "threshold": 0.7,
+        "precision": 0.749,
+        "recall": 0.0334,
+        "f1": 0.064,
+        "alerts_per_100": 0.533
+      },
+      {
+        "threshold": 0.75,
+        "precision": 0.7445,
+        "recall": 0.0159,
+        "f1": 0.0311,
+        "alerts_per_100": 0.255
+      },
+      {
+        "threshold": 0.8,
+        "precision": 0.7089,
+        "recall": 0.0057,
+        "f1": 0.0114,
+        "alerts_per_100": 0.097
+      },
+      {
+        "threshold": 0.85,
+        "precision": 0.6809,
+        "recall": 0.0015,
+        "f1": 0.003,
+        "alerts_per_100": 0.026
+      },
+      {
+        "threshold": 0.9,
+        "precision": 0.55,
+        "recall": 0.0003,
+        "f1": 0.0005,
+        "alerts_per_100": 0.006
+      }
+    ],
+    "baseline_table": [
+      {
+        "gap_below": 90,
+        "precision": 0.6718,
+        "recall": 0.1108,
+        "f1": 0.1902,
+        "alerts_per_100": 1.971
+      },
+      {
+        "gap_below": 120,
+        "precision": 0.5873,
+        "recall": 0.1998,
+        "f1": 0.2981,
+        "alerts_per_100": 4.066
+      },
+      {
+        "gap_below": 150,
+        "precision": 0.5293,
+        "recall": 0.2508,
+        "f1": 0.3404,
+        "alerts_per_100": 5.665
+      },
+      {
+        "gap_below": 180,
+        "precision": 0.4753,
+        "recall": 0.2856,
+        "f1": 0.3568,
+        "alerts_per_100": 7.181
+      },
+      {
+        "gap_below": 210,
+        "precision": 0.4243,
+        "recall": 0.3172,
+        "f1": 0.363,
+        "alerts_per_100": 8.935
+      },
+      {
+        "gap_below": 240,
+        "precision": 0.3823,
+        "recall": 0.3451,
+        "f1": 0.3628,
+        "alerts_per_100": 10.787
+      },
+      {
+        "gap_below": 270,
+        "precision": 0.352,
+        "recall": 0.3662,
+        "f1": 0.3589,
+        "alerts_per_100": 12.435
+      },
+      {
+        "gap_below": 300,
+        "precision": 0.3256,
+        "recall": 0.3845,
+        "f1": 0.3526,
+        "alerts_per_100": 14.114
+      },
+      {
+        "gap_below": 330,
+        "precision": 0.303,
+        "recall": 0.4044,
+        "f1": 0.3464,
+        "alerts_per_100": 15.955
+      },
+      {
+        "gap_below": 360,
+        "precision": 0.2845,
+        "recall": 0.4242,
+        "f1": 0.3406,
+        "alerts_per_100": 17.822
+      },
+      {
+        "gap_below": 390,
+        "precision": 0.2694,
+        "recall": 0.4418,
+        "f1": 0.3347,
+        "alerts_per_100": 19.6
+      },
+      {
+        "gap_below": 420,
+        "precision": 0.2563,
+        "recall": 0.4599,
+        "f1": 0.3292,
+        "alerts_per_100": 21.445
+      },
+      {
+        "gap_below": 450,
+        "precision": 0.2449,
+        "recall": 0.477,
+        "f1": 0.3236,
+        "alerts_per_100": 23.285
+      },
+      {
+        "gap_below": 480,
+        "precision": 0.2352,
+        "recall": 0.4958,
+        "f1": 0.3191,
+        "alerts_per_100": 25.192
+      },
+      {
+        "gap_below": 510,
+        "precision": 0.2261,
+        "recall": 0.5153,
+        "f1": 0.3143,
+        "alerts_per_100": 27.236
+      },
+      {
+        "gap_below": 540,
+        "precision": 0.2184,
+        "recall": 0.5326,
+        "f1": 0.3098,
+        "alerts_per_100": 29.143
+      },
+      {
+        "gap_below": 570,
+        "precision": 0.2111,
+        "recall": 0.55,
+        "f1": 0.3051,
+        "alerts_per_100": 31.135
+      },
+      {
+        "gap_below": 600,
+        "precision": 0.2044,
+        "recall": 0.5694,
+        "f1": 0.3008,
+        "alerts_per_100": 33.296
+      }
+    ]
+  },
+  "data": {
+    "trips": 53805,
+    "suspect_trips": 2873,
+    "suspect_share": 0.0534,
+    "rule": "trip-day excluded when its median delay (after repairing flat stop times) is > 30 min"
+  }
+}

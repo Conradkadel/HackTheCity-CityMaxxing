@@ -1,0 +1,357 @@
+/* Bunching tab: sidebar form + time–space diagram overlay on the map area. */
+.bunching-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 14px 0 10px;
+}
+.bunching-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #91aab3;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+.bunching-form select,
+.check-row select {
+  padding: 7px 6px;
+  border: 1px solid #49636c;
+  border-radius: 6px;
+  background: #f9fbf7;
+  color: #173c48;
+}
+.bunching-run {
+  width: 100%;
+  padding: 11px;
+}
+.bunching-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.bunching-stats div {
+  padding: 10px 12px;
+  background: #163743;
+  border-radius: 7px;
+}
+.bunching-stats strong {
+  display: block;
+  font: 600 20px "Space Grotesk";
+}
+.bunching-stats small {
+  color: #9fb4bb;
+  font-size: 10px;
+}
+.bunching-runs {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.bunching-runs th {
+  text-align: left;
+  color: #8fa7af;
+  font-weight: 500;
+  font-size: 10px;
+  padding: 6px 4px;
+  border-bottom: 1px solid #294650;
+}
+.bunching-runs td {
+  padding: 7px 4px;
+  border-bottom: 1px solid #294650;
+}
+.bunching-runs tbody tr {
+  cursor: pointer;
+}
+.bunching-runs tbody tr:hover {
+  background: #183b47;
+}
+.bunching-runs tr.selected {
+  background: #234b58;
+}
+.bunching-runs tr.recommended td:first-child::after {
+  content: " ★";
+  color: #d1ed86;
+}
+.bunching-recommendation {
+  margin: 12px 0;
+  padding: 11px 12px;
+  border-left: 3px solid #d1ed86;
+  background: #163743;
+  border-radius: 0 7px 7px 0;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.bunching-recommendation strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+.bunching-model {
+  margin-top: 16px;
+  font-size: 11px;
+}
+.bunching-model summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.bunching-overlay {
+  position: absolute;
+  z-index: 600;
+  inset: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px 12px;
+  background: #fffef9;
+  color: #183741;
+  border: 1px solid #e0e5db;
+  border-radius: 12px;
+  box-shadow: 0 7px 30px #1233;
+  overflow: auto;
+}
+.bunching-overlay header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.bunching-overlay h2 {
+  margin: 2px 0 4px;
+  font: 600 18px "Space Grotesk";
+}
+.bunching-overlay header p {
+  margin: 0;
+  color: #637e86;
+  font-size: 12px;
+}
+.bunching-overlay header button,
+.bunching-show {
+  background: #fffefa;
+  color: #24434c;
+  border-color: #d5dfdc;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.bunching-show {
+  position: absolute;
+  z-index: 600;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 3px 16px #1233;
+}
+.bunching-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 10px 0 4px;
+  color: #52656b;
+  font-size: 11px;
+}
+.bunching-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.key-line {
+  display: inline-block;
+  width: 16px;
+  height: 2px;
+  background: #6b8790;
+}
+.key-line.dashed {
+  background: repeating-linear-gradient(
+    90deg,
+    #287967 0 4px,
+    transparent 4px 7px
+  );
+}
+.key-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.key-dot.ring {
+  border: 2px solid #183741;
+  background: #fd8d3c;
+}
+.key-dot.bunched {
+  background: #d03b3b;
+}
+.bunching-overlay svg {
+  width: 100%;
+  height: auto;
+  min-height: 280px;
+  flex: 1;
+}
+.bunching-overlay svg text {
+  fill: #7d9298;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.bunching-overlay .grid {
+  stroke: #e7ebe4;
+}
+.bunching-overlay .axis {
+  stroke: #c3c9c0;
+}
+.bunching-overlay .trip {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+.bunching-overlay .trip.faded {
+  opacity: 0.15;
+}
+.bunching-overlay .trip.focus {
+  stroke-width: 3;
+}
+.bunching-overlay .trip.held {
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  opacity: 0.9;
+}
+.bunching-overlay circle.risk {
+  stroke: #fffef9;
+  stroke-width: 1;
+}
+.bunching-overlay circle.alert {
+  stroke: #183741;
+  stroke-width: 1.5;
+}
+.bunching-overlay circle.bunched {
+  fill: #d03b3b;
+  stroke: #fffef9;
+  stroke-width: 1.5;
+}
+.bunching-overlay .hold-mark circle {
+  fill: #287967;
+  stroke: #fffef9;
+  stroke-width: 2;
+}
+.bunching-overlay .hold-mark text {
+  fill: #fff;
+  font-size: 9px;
+  font-weight: 700;
+}
+.bunching-overlay .hover-ring {
+  fill: none;
+  stroke: #183741;
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+.bunching-tip {
+  position: fixed;
+  z-index: 1000;
+  width: 236px;
+  padding: 9px 11px;
+  background: #fffefa;
+  color: #183741;
+  border: 1px solid #d5dfdc;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px #1234;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+.bunching-tip small {
+  color: #637e86;
+}
+.bunching-alert-note {
+  margin: 10px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.bunching-run:hover:not(:disabled) {
+  background: #c4e46f;
+}
+.bunching-shared {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.bunching-shared label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+}
+.bunching-shared span {
+  display: flex;
+  flex-direction: column;
+}
+.bunching-shared small {
+  color: #9fb4bb;
+}
+.bunching-body {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  min-height: 0;
+}
+.bunching-body svg {
+  flex: 1;
+  min-width: 0;
+}
+.bunching-pairs {
+  width: 250px;
+  flex: none;
+  font-size: 11px;
+  color: #3c575f;
+}
+.bunching-pairs h3 {
+  margin: 4px 0 8px;
+  font-size: 12px;
+  color: #183741;
+}
+.bunching-pairs ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.bunching-pairs li button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  background: #f4f6f1;
+  color: #183741;
+  border-color: #e0e5db;
+  font-size: 11px;
+}
+.bunching-pairs li button:hover,
+.bunching-pairs li button.active {
+  background: #e3efd2;
+  border-color: #a9cc6c;
+}
+.bunching-pairs li button small {
+  color: #637e86;
+}
+.bunching-pairs .key-dot {
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+.bunching-clear {
+  margin-top: 8px;
+  width: 100%;
+  background: #fffefa;
+  color: #24434c;
+  border-color: #d5dfdc;
+}
+@media (max-width: 1100px) {
+  .bunching-body {
+    flex-direction: column;
+  }
+  .bunching-pairs {
+    width: 100%;
+  }
+}
