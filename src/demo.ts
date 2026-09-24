@@ -1,0 +1,3 @@
+import type {Dataset} from './replay';
+const start=Date.parse('2026-09-01T06:00:00Z');
+export const demo:Dataset={schemaVersion:1,metadata:{title:'Synthetic Lisbon demo',sourcePartition:'synthetic',operationalDate:'20260901',timezone:'Europe/Lisbon',startTimestamp:start,endTimestamp:start+600000,historySeconds:120,synthetic:true,operators:{IA9T6:'Carris',LA77N:'Carris Metropolitana · Area 1'},counts:{observations:60}},observations:Array.from({length:30},(_,i)=>[0,1].map(v=>({timestamp:start+i*20000,receivedTimestamp:start+i*20000+1000,operatorId:v?'LA77N':'IA9T6',vehicleId:`demo-${v+1}`,tripId:'SYNTHETIC',stopId:'',latitude:38.728+i*.00013+v*.003,longitude:-9.128+i*.00005,}))).flat()};

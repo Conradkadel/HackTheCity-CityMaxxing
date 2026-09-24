@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: headway
+      POSTGRES_USER: headway
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - vehicle_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U headway -d headway"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  api:
+    build: ./backend
+    environment:
+      PGHOST: db
+      PGDATABASE: headway
+      PGUSER: headway
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - type: bind
+        source: ${VEHICLES_PATH:-../raw-data/datasets/TML/vehicles}
+        target: /datasets/vehicles
+        read_only: true
+        bind:
+          create_host_path: false
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+volumes:
+  vehicle_db:

@@ -1,0 +1,6 @@
+import {it,expect} from 'vitest';
+import {defaults,queryFor,LatestRequest} from './api';
+it('requires explicit preview and pins its dataset version',()=>{const p=new URLSearchParams(queryFor({...defaults,preview:true,datasetVersion:7}));expect(p.get('preview')).toBe('true');expect(p.get('dataset_version')).toBe('7');expect(queryFor(defaults)).not.toContain('preview');});
+it('encodes multi-area selection explicitly',()=>{const p=new URLSearchParams(queryFor({...defaults,areas:['eycs2','eyckp']}));expect(p.getAll('area')).toEqual(['eycs2','eyckp']);expect(p.getAll('operator')).toHaveLength(5);expect(p.get('date')).toBe('2026-09-01');});
+it('ignores cancelled results even when transport completes late',async()=>{const r=new LatestRequest();let resolve!:(v:string)=>void;let signal!:AbortSignal;const first=r.run(s=>{signal=s;return new Promise<string>(done=>{resolve=done;});});const second=await r.run(async()=> 'new');resolve('old');expect(signal.aborted).toBe(true);expect(await first).toBeUndefined();expect(second).toBe('new');});
+it('ignores failures from outdated requests',async()=>{const r=new LatestRequest();let reject!:(e:Error)=>void;const old=r.run(()=>new Promise((_,fail)=>{reject=fail;}));r.cancel();reject(Error('old failure'));expect(await old).toBeUndefined();});

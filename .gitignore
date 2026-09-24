@@ -1,0 +1,17 @@
+node_modules/
+dist/
+public/data/*.json
+!public/data/.gitkeep
+__pycache__/
+*.tsbuildinfo
+.DS_Store
+.env
+.venv/
+*.db
+*.sqlite*
+backend/reports/
+.pytest_cache/
+*.csv
+!backend/fixtures/*.csv
+*.dump
+*.sql.gz
