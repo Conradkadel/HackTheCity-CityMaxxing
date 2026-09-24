@@ -1,11 +1,6 @@
 /**
- * Heatmap, KPI cards, hotspots, causes.
+ * Where and when bunching happens.
  *
- * OWNER:  C
- * INPUT:  hooks
- * OUTPUT: page
- *
- * TODO:
- *  [ ] compose components
- *  [ ] responsive layout
+ * TODO
+ *  [ ] Heatmap + KpiCards + top hotspots
  */

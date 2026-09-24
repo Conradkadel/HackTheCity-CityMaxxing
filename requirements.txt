@@ -4,22 +4,20 @@ pyarrow
 duckdb
 numpy
 openpyxl
-python-docx
-# geo
+pyyaml
 shapely
 pyproj
 # ml
 scikit-learn
 lightgbm
+shap
 # backend
 fastapi
 uvicorn
 pydantic
-# backend extras
-pydantic-settings
 python-dotenv
-httpx   # TestClient
+# dev
 pytest
-# viz (notebooks / pitch figures)
+httpx
+jupyter
 matplotlib
-plotly

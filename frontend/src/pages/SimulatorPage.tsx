@@ -1,11 +1,6 @@
 /**
- * Scenario form → before/after KPIs + simulated replay.
+ * What-if scenarios.
  *
- * OWNER:  C
- * INPUT:  hooks
- * OUTPUT: page
- *
- * TODO:
- *  [ ] compose components
- *  [ ] responsive layout
+ * TODO
+ *  [ ] SimulatorPanel + before/after chart
  */
