@@ -4,6 +4,8 @@ The development database is approximately 51 GB. Do not add a dump to Git histor
 
 The verified `all-carris` export from this dataset is 4.25 GB as a temporary PostgreSQL database and **576 MB** as a custom-format archive. Size can change when the source dataset changes.
 
+See [Database schema](DATABASE_SCHEMA.md) for the complete table and column reference, relationships, matching keys, and the exact differences between the full and portable databases.
+
 ## Recommended CARRIS archive
 
 Build the privacy-safe portable database and compressed PostgreSQL archive with:

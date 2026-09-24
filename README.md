@@ -7,6 +7,7 @@ This phase visualises source evidence. It does **not** yet detect bus bunching o
 ## Repository guide
 
 - [Database construction](docs/DATABASE_CONSTRUCTION.md) explains the raw inputs, schema, repeatable imports, deduplication, plan normalisation, and route-resolution logic.
+- [Database schema](docs/DATABASE_SCHEMA.md) lists every table, column, key, relationship, and what is present in the portable CARRIS database.
 - [Project 7 selections](docs/PROJECT_7_SELECTION.md) records the operator IDs, public lines, areas, dates, API parameters, and exact matching rules needed for the challenge.
 - [Sharing the database](docs/SHARING_DATABASE.md) explains full and reduced exports and the one-command restore workflow.
 - [Verification](VERIFICATION.md) records the checks completed for this version.
