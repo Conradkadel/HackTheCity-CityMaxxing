@@ -1,0 +1,2523 @@
+{
+ "created_at": "2026-09-24T12:57:37",
+ "k": 0.005,
+ "k_range": [
+  0.0,
+  0.005
+ ],
+ "lines": [
+  "742",
+  "767",
+  "728",
+  "758",
+  "735"
+ ],
+ "window_h": [
+  16,
+  20
+ ],
+ "seeds": 30,
+ "fit_days": [
+  "2026-08-31",
+  "2026-09-01",
+  "2026-09-02",
+  "2026-09-03"
+ ],
+ "test_days": [
+  "2026-09-04",
+  "2026-09-06"
+ ],
+ "fit": {
+  "observed_pct": 11.91,
+  "grid": [
+   {
+    "k": 0.0,
+    "simulated_pct": 10.09
+   },
+   {
+    "k": 0.0025,
+    "simulated_pct": 11.22
+   },
+   {
+    "k": 0.005,
+    "simulated_pct": 12.16
+   },
+   {
+    "k": 0.0075,
+    "simulated_pct": 13.26
+   },
+   {
+    "k": 0.01,
+    "simulated_pct": 14.35
+   },
+   {
+    "k": 0.015,
+    "simulated_pct": 16.27
+   },
+   {
+    "k": 0.02,
+    "simulated_pct": 18.08
+   },
+   {
+    "k": 0.03,
+    "simulated_pct": 19.53
+   }
+  ],
+  "per_day": {
+   "2026-08-31": {
+    "observed_pct": 8.97,
+    "k=0.0": 7.35,
+    "k=0.005": 9.35
+   },
+   "2026-09-01": {
+    "observed_pct": 12.75,
+    "k=0.0": 10.67,
+    "k=0.005": 13.35
+   },
+   "2026-09-02": {
+    "observed_pct": 13.41,
+    "k=0.0": 12.95,
+    "k=0.005": 14.63
+   },
+   "2026-09-03": {
+    "observed_pct": 12.71,
+    "k=0.0": 9.37,
+    "k=0.005": 11.3
+   },
+   "2026-09-04": {
+    "observed_pct": 12.32,
+    "k=0.0": 12.86,
+    "k=0.005": 16.15
+   },
+   "2026-09-06": {
+    "observed_pct": 5.24,
+    "k=0.0": 5.28,
+    "k=0.005": 6.85
+   }
+  },
+  "regression_cross_check": {
+   "n": 28653,
+   "slope_per_stop": 0.0039
+  }
+ },
+ "gate": {
+  "2026-09-04": {
+   "replay_exact": true,
+   "bunched_share": {
+    "observed_pct": 12.32,
+    "simulated_pct": 16.15,
+    "relative_error": 0.311,
+    "pass": false
+   },
+   "departure_buckets": {
+    "buckets": [
+     "0.25-0.5",
+     "0.5-0.75",
+     "0.75-0.9",
+     "0.9-1.1"
+    ],
+    "observed": [
+     0.778,
+     0.5,
+     0.409,
+     0.226
+    ],
+    "simulated": [
+     0.8,
+     0.553,
+     0.43,
+     0.347
+    ],
+    "pass": true
+   },
+   "growth": {
+    "observed": 0.1019,
+    "simulated": 0.1093,
+    "pass": true
+   },
+   "pass": false
+  },
+  "2026-09-06": {
+   "replay_exact": true,
+   "bunched_share": {
+    "observed_pct": 5.24,
+    "simulated_pct": 6.85,
+    "relative_error": 0.307,
+    "pass": false
+   },
+   "departure_buckets": {
+    "buckets": [
+     "0.25-0.5",
+     "0.5-0.75",
+     "0.75-0.9",
+     "0.9-1.1"
+    ],
+    "observed": [
+     1.0,
+     0.333,
+     0.167,
+     0.028
+    ],
+    "simulated": [
+     0.786,
+     0.333,
+     0.241,
+     0.116
+    ],
+    "pass": true
+   },
+   "growth": {
+    "observed": 0.0435,
+    "simulated": 0.0462,
+    "pass": true
+   },
+   "pass": false
+  }
+ },
+ "shift_check": {
+  "2026-09-04": {
+   "pairs": 19034,
+   "mae_unscaled_s": 36.21,
+   "mae_scaled_s": 37.45,
+   "better": "unscaled (own run)",
+   "pass": true
+  },
+  "2026-09-06": {
+   "pairs": 12788,
+   "mae_unscaled_s": 32.42,
+   "mae_scaled_s": 33.54,
+   "better": "unscaled (own run)",
+   "pass": true
+  }
+ },
+ "passed": false,
+ "status": "partial",
+ "status_note": "The resampled baseline with k fitted on Mon-Thu over-predicts the bunched share on the held-out days. Replay, departure-gap ranking and growth along the route pass. Scenarios are therefore run with k=0 and the fitted k, and only options that help under both are called robust.",
+ "held_out": {
+  "742": {
+   "scenarios": {
+    "D1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 7.6,
+       "ewt_saved_p5": 5.7,
+       "bunched_pct_change": -3.94,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -9.3,
+       "ewt_saved_p5": -11.6,
+       "bunched_pct_change": -3.37,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -8.6,
+       "ewt_saved_p5": -14.2,
+       "bunched_pct_change": -2.52,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -17.3,
+       "ewt_saved_p5": -20.0,
+       "bunched_pct_change": -2.22,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -6.9,
+     "ewt_saved_range": [
+      -17.3,
+      7.6
+     ],
+     "bunched_pct_change": -3.01,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 12.0,
+       "ewt_saved_p5": 10.6,
+       "bunched_pct_change": -2.07,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 29.5,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 10.5,
+       "ewt_saved_p5": 9.8,
+       "bunched_pct_change": -0.75,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 19.1,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 15.3,
+       "ewt_saved_p5": 12.8,
+       "bunched_pct_change": -3.09,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 29.5,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 12.9,
+       "ewt_saved_p5": 11.5,
+       "bunched_pct_change": -0.94,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 19.1,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 12.7,
+     "ewt_saved_range": [
+      10.5,
+      15.3
+     ],
+     "bunched_pct_change": -1.71,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 24.3
+    },
+    "D2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 19.7,
+       "ewt_saved_p5": 18.5,
+       "bunched_pct_change": -3.6,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 42.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 13.6,
+       "ewt_saved_p5": 12.7,
+       "bunched_pct_change": -0.78,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 26.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 22.9,
+       "ewt_saved_p5": 20.3,
+       "bunched_pct_change": -3.8,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 42.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 16.6,
+       "ewt_saved_p5": 15.3,
+       "bunched_pct_change": -1.25,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 27.4,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 18.2,
+     "ewt_saved_range": [
+      13.6,
+      22.9
+     ],
+     "bunched_pct_change": -2.36,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 35.0
+    },
+    "D2-5": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 28.3,
+       "ewt_saved_p5": 26.0,
+       "bunched_pct_change": -4.82,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 63.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 15.1,
+       "ewt_saved_p5": 13.6,
+       "bunched_pct_change": -0.82,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 45.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 34.3,
+       "ewt_saved_p5": 32.8,
+       "bunched_pct_change": -6.4,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 64.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 18.9,
+       "ewt_saved_p5": 16.7,
+       "bunched_pct_change": -1.19,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 54.8,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 24.1,
+     "ewt_saved_range": [
+      15.1,
+      34.3
+     ],
+     "bunched_pct_change": -3.31,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 57.0
+    },
+    "H1-60": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 0.8,
+       "ewt_saved_p5": -1.2,
+       "bunched_pct_change": -1.17,
+       "hold_s_per_trip": 61.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 0.6,
+       "ewt_saved_p5": -0.6,
+       "bunched_pct_change": 0.15,
+       "hold_s_per_trip": 47.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -1.0,
+       "ewt_saved_p5": -3.9,
+       "bunched_pct_change": -1.92,
+       "hold_s_per_trip": 61.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 5.5,
+       "ewt_saved_p5": 3.9,
+       "bunched_pct_change": -0.89,
+       "hold_s_per_trip": 47.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 1.5,
+     "ewt_saved_range": [
+      -1.0,
+      5.5
+     ],
+     "bunched_pct_change": -0.96,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 54.4,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "H1-120": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 1.0,
+       "ewt_saved_p5": -1.6,
+       "bunched_pct_change": -2.42,
+       "hold_s_per_trip": 120.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 12.4,
+       "ewt_saved_p5": 11.6,
+       "bunched_pct_change": -2.15,
+       "hold_s_per_trip": 97.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -4.0,
+       "ewt_saved_p5": -8.9,
+       "bunched_pct_change": -2.43,
+       "hold_s_per_trip": 126.1,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 14.8,
+       "ewt_saved_p5": 13.0,
+       "bunched_pct_change": -2.1,
+       "hold_s_per_trip": 98.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 6.1,
+     "ewt_saved_range": [
+      -4.0,
+      14.8
+     ],
+     "bunched_pct_change": -2.27,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 110.8,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "M-90": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 7.7,
+       "ewt_saved_p5": 4.9,
+       "bunched_pct_change": 0.94,
+       "hold_s_per_trip": 89.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -6.4,
+       "ewt_saved_p5": -6.7,
+       "bunched_pct_change": 0.52,
+       "hold_s_per_trip": 11.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 3.1,
+       "ewt_saved_p5": -3.8,
+       "bunched_pct_change": 0.19,
+       "hold_s_per_trip": 86.2,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -10.6,
+       "ewt_saved_p5": -13.2,
+       "bunched_pct_change": 0.32,
+       "hold_s_per_trip": 12.6,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -1.5,
+     "ewt_saved_range": [
+      -10.6,
+      7.7
+     ],
+     "bunched_pct_change": 0.49,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 50.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2+H1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 30.0,
+       "ewt_saved_p5": 26.3,
+       "bunched_pct_change": -7.18,
+       "hold_s_per_trip": 86.2,
+       "terminal_wait_s_per_trip": 42.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 18.9,
+       "ewt_saved_p5": 17.5,
+       "bunched_pct_change": -1.45,
+       "hold_s_per_trip": 72.1,
+       "terminal_wait_s_per_trip": 27.1,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 31.3,
+       "ewt_saved_p5": 28.7,
+       "bunched_pct_change": -7.86,
+       "hold_s_per_trip": 86.4,
+       "terminal_wait_s_per_trip": 43.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 24.1,
+       "ewt_saved_p5": 21.4,
+       "bunched_pct_change": -2.4,
+       "hold_s_per_trip": 69.7,
+       "terminal_wait_s_per_trip": 27.3,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 26.1,
+     "ewt_saved_range": [
+      18.9,
+      31.3
+     ],
+     "bunched_pct_change": -4.72,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 78.6,
+     "terminal_wait_s_per_trip": 35.0
+    },
+    "T2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 9.8,
+       "ewt_saved_p5": 7.8,
+       "bunched_pct_change": -4.36,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -5.0,
+       "ewt_saved_p5": -7.4,
+       "bunched_pct_change": -3.38,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 1.3,
+       "ewt_saved_p5": -2.7,
+       "bunched_pct_change": -3.59,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -15.4,
+       "ewt_saved_p5": -17.7,
+       "bunched_pct_change": -2.15,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": false,
+     "ewt_saved": -2.3,
+     "ewt_saved_range": [
+      -15.4,
+      9.8
+     ],
+     "bunched_pct_change": -3.37,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "T2-4": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 9.9,
+       "ewt_saved_p5": 7.5,
+       "bunched_pct_change": -4.19,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -1.1,
+       "ewt_saved_p5": -3.2,
+       "bunched_pct_change": -3.38,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 4.2,
+       "ewt_saved_p5": 0.7,
+       "bunched_pct_change": -4.44,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -9.6,
+       "ewt_saved_p5": -13.0,
+       "bunched_pct_change": -3.03,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": false,
+     "ewt_saved": 0.9,
+     "ewt_saved_range": [
+      -9.6,
+      9.9
+     ],
+     "bunched_pct_change": -3.76,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    }
+   },
+   "recommended": "D2-5"
+  },
+  "767": {
+   "scenarios": {
+    "D1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 34.6,
+       "ewt_saved_p5": 30.1,
+       "bunched_pct_change": -6.14,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 23.8,
+       "ewt_saved_p5": 20.7,
+       "bunched_pct_change": -0.15,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 28.1,
+       "ewt_saved_p5": 23.2,
+       "bunched_pct_change": -5.33,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 26.1,
+       "ewt_saved_p5": 22.7,
+       "bunched_pct_change": -0.4,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 28.2,
+     "ewt_saved_range": [
+      23.8,
+      34.6
+     ],
+     "bunched_pct_change": -3.0,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 2.2,
+       "ewt_saved_p5": -0.4,
+       "bunched_pct_change": -1.69,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 35.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 13.2,
+       "ewt_saved_p5": 11.7,
+       "bunched_pct_change": -0.6,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 28.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 1.0,
+       "ewt_saved_p5": -1.4,
+       "bunched_pct_change": -1.16,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 35.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 15.5,
+       "ewt_saved_p5": 13.7,
+       "bunched_pct_change": -0.64,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 28.2,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 8.0,
+     "ewt_saved_range": [
+      1.0,
+      15.5
+     ],
+     "bunched_pct_change": -1.02,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 31.9
+    },
+    "D2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 7.2,
+       "ewt_saved_p5": 4.5,
+       "bunched_pct_change": -2.62,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 54.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 18.6,
+       "ewt_saved_p5": 17.1,
+       "bunched_pct_change": -0.73,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 38.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 7.4,
+       "ewt_saved_p5": 4.0,
+       "bunched_pct_change": -2.61,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 54.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 21.2,
+       "ewt_saved_p5": 19.4,
+       "bunched_pct_change": -0.87,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 38.2,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 13.6,
+     "ewt_saved_range": [
+      7.2,
+      21.2
+     ],
+     "bunched_pct_change": -1.71,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 46.5
+    },
+    "D2-5": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": -1.0,
+       "ewt_saved_p5": -3.8,
+       "bunched_pct_change": -2.39,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 72.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 24.5,
+       "ewt_saved_p5": 23.2,
+       "bunched_pct_change": -0.93,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 48.3,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 2.4,
+       "ewt_saved_p5": -2.4,
+       "bunched_pct_change": -3.45,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 72.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 27.3,
+       "ewt_saved_p5": 25.9,
+       "bunched_pct_change": -1.27,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 48.3,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 13.3,
+     "ewt_saved_range": [
+      -1.0,
+      27.3
+     ],
+     "bunched_pct_change": -2.01,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 60.2
+    },
+    "H1-60": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": -4.3,
+       "ewt_saved_p5": -6.3,
+       "bunched_pct_change": 0.69,
+       "hold_s_per_trip": 60.8,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 6.3,
+       "ewt_saved_p5": 5.0,
+       "bunched_pct_change": -0.72,
+       "hold_s_per_trip": 32.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -6.5,
+       "ewt_saved_p5": -10.6,
+       "bunched_pct_change": 1.14,
+       "hold_s_per_trip": 61.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 7.0,
+       "ewt_saved_p5": 5.7,
+       "bunched_pct_change": -0.73,
+       "hold_s_per_trip": 32.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 0.6,
+     "ewt_saved_range": [
+      -6.5,
+      7.0
+     ],
+     "bunched_pct_change": 0.09,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 46.9,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "H1-120": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 1.4,
+       "ewt_saved_p5": -1.0,
+       "bunched_pct_change": -2.04,
+       "hold_s_per_trip": 123.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 16.3,
+       "ewt_saved_p5": 15.3,
+       "bunched_pct_change": -1.62,
+       "hold_s_per_trip": 68.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -4.6,
+       "ewt_saved_p5": -7.6,
+       "bunched_pct_change": -1.21,
+       "hold_s_per_trip": 124.6,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 13.9,
+       "ewt_saved_p5": 12.7,
+       "bunched_pct_change": -1.16,
+       "hold_s_per_trip": 68.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 6.8,
+     "ewt_saved_range": [
+      -4.6,
+      16.3
+     ],
+     "bunched_pct_change": -1.51,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 96.2,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "M-90": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 4.8,
+       "ewt_saved_p5": 1.6,
+       "bunched_pct_change": -0.07,
+       "hold_s_per_trip": 40.9,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 4.4,
+       "ewt_saved_p5": 4.2,
+       "bunched_pct_change": -0.7,
+       "hold_s_per_trip": 15.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 6.5,
+       "ewt_saved_p5": 3.2,
+       "bunched_pct_change": 0.41,
+       "hold_s_per_trip": 42.6,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 4.4,
+       "ewt_saved_p5": 4.3,
+       "bunched_pct_change": -0.71,
+       "hold_s_per_trip": 14.9,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 5.0,
+     "ewt_saved_range": [
+      4.4,
+      6.5
+     ],
+     "bunched_pct_change": -0.27,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 28.4,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2+H1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 12.9,
+       "ewt_saved_p5": 9.9,
+       "bunched_pct_change": -5.09,
+       "hold_s_per_trip": 92.9,
+       "terminal_wait_s_per_trip": 58.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 24.6,
+       "ewt_saved_p5": 23.2,
+       "bunched_pct_change": -1.55,
+       "hold_s_per_trip": 42.0,
+       "terminal_wait_s_per_trip": 38.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 10.5,
+       "ewt_saved_p5": 5.2,
+       "bunched_pct_change": -5.59,
+       "hold_s_per_trip": 95.0,
+       "terminal_wait_s_per_trip": 52.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 27.0,
+       "ewt_saved_p5": 25.2,
+       "bunched_pct_change": -1.55,
+       "hold_s_per_trip": 41.6,
+       "terminal_wait_s_per_trip": 38.2,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 18.8,
+     "ewt_saved_range": [
+      10.5,
+      27.0
+     ],
+     "bunched_pct_change": -3.44,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 67.9,
+     "terminal_wait_s_per_trip": 46.9
+    },
+    "T2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 38.7,
+       "ewt_saved_p5": 34.8,
+       "bunched_pct_change": -6.03,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 30.6,
+       "ewt_saved_p5": 28.3,
+       "bunched_pct_change": -1.37,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 32.7,
+       "ewt_saved_p5": 28.8,
+       "bunched_pct_change": -5.86,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 34.4,
+       "ewt_saved_p5": 32.0,
+       "bunched_pct_change": -1.76,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": true,
+     "ewt_saved": 34.1,
+     "ewt_saved_range": [
+      30.6,
+      38.7
+     ],
+     "bunched_pct_change": -3.76,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "T2-4": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 35.6,
+       "ewt_saved_p5": 33.2,
+       "bunched_pct_change": -6.03,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 33.8,
+       "ewt_saved_p5": 31.3,
+       "bunched_pct_change": -1.66,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 29.8,
+       "ewt_saved_p5": 27.0,
+       "bunched_pct_change": -5.59,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 37.8,
+       "ewt_saved_p5": 35.3,
+       "bunched_pct_change": -1.77,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": true,
+     "ewt_saved": 34.2,
+     "ewt_saved_range": [
+      29.8,
+      37.8
+     ],
+     "bunched_pct_change": -3.76,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    }
+   },
+   "recommended": "T2-2"
+  },
+  "728": {
+   "scenarios": {
+    "D1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 4.3,
+       "ewt_saved_p5": 0.2,
+       "bunched_pct_change": -1.45,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 1.5,
+       "ewt_saved_p5": -7.2,
+       "bunched_pct_change": -2.25,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -6.6,
+       "ewt_saved_p5": -11.0,
+       "bunched_pct_change": -0.28,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -3.5,
+       "ewt_saved_p5": -6.4,
+       "bunched_pct_change": -2.67,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -1.1,
+     "ewt_saved_range": [
+      -6.6,
+      4.3
+     ],
+     "bunched_pct_change": -1.66,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": -8.1,
+       "ewt_saved_p5": -9.4,
+       "bunched_pct_change": 1.52,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 24.3,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 1.7,
+       "ewt_saved_p5": 0.0,
+       "bunched_pct_change": -0.35,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 20.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -10.2,
+       "ewt_saved_p5": -11.9,
+       "bunched_pct_change": 2.1,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 24.3,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 0.8,
+       "ewt_saved_p5": -1.3,
+       "bunched_pct_change": -0.36,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 20.2,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -3.9,
+     "ewt_saved_range": [
+      -10.2,
+      1.7
+     ],
+     "bunched_pct_change": 0.73,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 22.2
+    },
+    "D2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": -11.1,
+       "ewt_saved_p5": -13.1,
+       "bunched_pct_change": 1.58,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 37.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 0.2,
+       "ewt_saved_p5": -1.5,
+       "bunched_pct_change": -0.45,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 30.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -11.7,
+       "ewt_saved_p5": -13.2,
+       "bunched_pct_change": 1.79,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 37.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -1.5,
+       "ewt_saved_p5": -3.7,
+       "bunched_pct_change": -0.47,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 30.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -6.0,
+     "ewt_saved_range": [
+      -11.7,
+      0.2
+     ],
+     "bunched_pct_change": 0.61,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 33.7
+    },
+    "D2-5": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": -15.7,
+       "ewt_saved_p5": -17.3,
+       "bunched_pct_change": 1.2,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 53.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -0.4,
+       "ewt_saved_p5": -2.9,
+       "bunched_pct_change": -0.59,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 46.4,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -17.3,
+       "ewt_saved_p5": -18.3,
+       "bunched_pct_change": 1.26,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 53.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -0.7,
+       "ewt_saved_p5": -4.8,
+       "bunched_pct_change": -0.8,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 47.4,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -8.5,
+     "ewt_saved_range": [
+      -17.3,
+      -0.4
+     ],
+     "bunched_pct_change": 0.27,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 50.4
+    },
+    "H1-60": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 4.6,
+       "ewt_saved_p5": 3.2,
+       "bunched_pct_change": 0.12,
+       "hold_s_per_trip": 38.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 4.7,
+       "ewt_saved_p5": 2.2,
+       "bunched_pct_change": 0.84,
+       "hold_s_per_trip": 45.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 7.1,
+       "ewt_saved_p5": 5.9,
+       "bunched_pct_change": -0.43,
+       "hold_s_per_trip": 36.9,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 3.1,
+       "ewt_saved_p5": -0.5,
+       "bunched_pct_change": 1.02,
+       "hold_s_per_trip": 43.1,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 4.9,
+     "ewt_saved_range": [
+      3.1,
+      7.1
+     ],
+     "bunched_pct_change": 0.39,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 41.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "H1-120": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 11.2,
+       "ewt_saved_p5": 9.8,
+       "bunched_pct_change": -1.41,
+       "hold_s_per_trip": 75.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -0.8,
+       "ewt_saved_p5": -3.0,
+       "bunched_pct_change": 1.37,
+       "hold_s_per_trip": 75.3,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 13.2,
+       "ewt_saved_p5": 11.3,
+       "bunched_pct_change": -1.98,
+       "hold_s_per_trip": 69.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 1.3,
+       "ewt_saved_p5": -2.0,
+       "bunched_pct_change": 1.84,
+       "hold_s_per_trip": 75.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 6.2,
+     "ewt_saved_range": [
+      -0.8,
+      13.2
+     ],
+     "bunched_pct_change": -0.04,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 74.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "M-90": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 12.8,
+       "ewt_saved_p5": 10.4,
+       "bunched_pct_change": -0.89,
+       "hold_s_per_trip": 74.3,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 3.0,
+       "ewt_saved_p5": 1.9,
+       "bunched_pct_change": 0.74,
+       "hold_s_per_trip": 22.9,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 16.6,
+       "ewt_saved_p5": 14.6,
+       "bunched_pct_change": -1.61,
+       "hold_s_per_trip": 74.2,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 6.4,
+       "ewt_saved_p5": 4.9,
+       "bunched_pct_change": 0.42,
+       "hold_s_per_trip": 22.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 9.7,
+     "ewt_saved_range": [
+      3.0,
+      16.6
+     ],
+     "bunched_pct_change": -0.34,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 48.5,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2+H1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 3.8,
+       "ewt_saved_p5": 2.5,
+       "bunched_pct_change": -1.2,
+       "hold_s_per_trip": 63.7,
+       "terminal_wait_s_per_trip": 37.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 3.6,
+       "ewt_saved_p5": -3.2,
+       "bunched_pct_change": 0.73,
+       "hold_s_per_trip": 59.6,
+       "terminal_wait_s_per_trip": 26.5,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 3.4,
+       "ewt_saved_p5": 0.7,
+       "bunched_pct_change": -0.9,
+       "hold_s_per_trip": 61.6,
+       "terminal_wait_s_per_trip": 37.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 3.8,
+       "ewt_saved_p5": -1.5,
+       "bunched_pct_change": 0.13,
+       "hold_s_per_trip": 63.1,
+       "terminal_wait_s_per_trip": 30.6,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 3.6,
+     "ewt_saved_range": [
+      3.4,
+      3.8
+     ],
+     "bunched_pct_change": -0.31,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 62.0,
+     "terminal_wait_s_per_trip": 32.8
+    },
+    "T2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 6.7,
+       "ewt_saved_p5": 3.2,
+       "bunched_pct_change": -1.99,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 5.9,
+       "ewt_saved_p5": 2.2,
+       "bunched_pct_change": -3.63,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -2.3,
+       "ewt_saved_p5": -5.1,
+       "bunched_pct_change": -1.06,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -6.9,
+       "ewt_saved_p5": -12.6,
+       "bunched_pct_change": -0.51,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": false,
+     "ewt_saved": 0.9,
+     "ewt_saved_range": [
+      -6.9,
+      6.7
+     ],
+     "bunched_pct_change": -1.8,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "T2-4": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 8.3,
+       "ewt_saved_p5": 4.9,
+       "bunched_pct_change": -2.02,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 3.9,
+       "ewt_saved_p5": -0.3,
+       "bunched_pct_change": -2.24,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 0.6,
+       "ewt_saved_p5": -2.2,
+       "bunched_pct_change": -1.19,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 1.7,
+       "ewt_saved_p5": -1.2,
+       "bunched_pct_change": -0.69,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": false,
+     "ewt_saved": 3.6,
+     "ewt_saved_range": [
+      0.6,
+      8.3
+     ],
+     "bunched_pct_change": -1.54,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    }
+   },
+   "recommended": "M-90"
+  },
+  "758": {
+   "scenarios": {
+    "D1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 23.2,
+       "ewt_saved_p5": 19.5,
+       "bunched_pct_change": -6.13,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 93.3,
+       "ewt_saved_p5": 87.2,
+       "bunched_pct_change": -6.18,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 11.8,
+       "ewt_saved_p5": 4.6,
+       "bunched_pct_change": -3.43,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 94.0,
+       "ewt_saved_p5": 87.7,
+       "bunched_pct_change": -6.13,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 55.6,
+     "ewt_saved_range": [
+      11.8,
+      94.0
+     ],
+     "bunched_pct_change": -5.47,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 0.6,
+       "ewt_saved_p5": -2.6,
+       "bunched_pct_change": -2.4,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 27.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 8.1,
+       "ewt_saved_p5": 2.2,
+       "bunched_pct_change": -2.67,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 35.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 3.4,
+       "ewt_saved_p5": -2.1,
+       "bunched_pct_change": -1.59,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 26.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 3.4,
+       "ewt_saved_p5": -5.2,
+       "bunched_pct_change": -2.4,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 35.3,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 3.9,
+     "ewt_saved_range": [
+      0.6,
+      8.1
+     ],
+     "bunched_pct_change": -2.27,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 31.2
+    },
+    "D2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 5.8,
+       "ewt_saved_p5": 3.1,
+       "bunched_pct_change": -4.45,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 45.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 4.8,
+       "ewt_saved_p5": -2.0,
+       "bunched_pct_change": -4.14,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 50.3,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 6.0,
+       "ewt_saved_p5": 3.3,
+       "bunched_pct_change": -2.7,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 43.5,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -1.2,
+       "ewt_saved_p5": -10.2,
+       "bunched_pct_change": -3.64,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 50.7,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 3.9,
+     "ewt_saved_range": [
+      -1.2,
+      6.0
+     ],
+     "bunched_pct_change": -3.73,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 47.4
+    },
+    "D2-5": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 16.0,
+       "ewt_saved_p5": 10.6,
+       "bunched_pct_change": -6.39,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 78.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 3.1,
+       "ewt_saved_p5": -4.5,
+       "bunched_pct_change": -4.15,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 63.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 13.5,
+       "ewt_saved_p5": 8.5,
+       "bunched_pct_change": -4.71,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 78.4,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -6.0,
+       "ewt_saved_p5": -15.5,
+       "bunched_pct_change": -3.38,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 64.3,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 6.7,
+     "ewt_saved_range": [
+      -6.0,
+      16.0
+     ],
+     "bunched_pct_change": -4.66,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 71.3
+    },
+    "H1-60": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": -8.3,
+       "ewt_saved_p5": -11.7,
+       "bunched_pct_change": -1.02,
+       "hold_s_per_trip": 50.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 2.4,
+       "ewt_saved_p5": -1.7,
+       "bunched_pct_change": -1.91,
+       "hold_s_per_trip": 36.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -9.3,
+       "ewt_saved_p5": -13.4,
+       "bunched_pct_change": -0.28,
+       "hold_s_per_trip": 46.1,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 2.0,
+       "ewt_saved_p5": -3.7,
+       "bunched_pct_change": -2.63,
+       "hold_s_per_trip": 37.1,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -3.3,
+     "ewt_saved_range": [
+      -9.3,
+      2.4
+     ],
+     "bunched_pct_change": -1.46,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 42.4,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "H1-120": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": -0.1,
+       "ewt_saved_p5": -6.3,
+       "bunched_pct_change": -2.87,
+       "hold_s_per_trip": 111.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 6.5,
+       "ewt_saved_p5": -0.3,
+       "bunched_pct_change": -5.18,
+       "hold_s_per_trip": 89.2,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": -2.6,
+       "ewt_saved_p5": -6.8,
+       "bunched_pct_change": -1.72,
+       "hold_s_per_trip": 111.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -4.9,
+       "ewt_saved_p5": -15.3,
+       "bunched_pct_change": -4.81,
+       "hold_s_per_trip": 89.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -0.3,
+     "ewt_saved_range": [
+      -4.9,
+      6.5
+     ],
+     "bunched_pct_change": -3.65,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 100.5,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "M-90": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 4.9,
+       "ewt_saved_p5": -0.6,
+       "bunched_pct_change": -0.78,
+       "hold_s_per_trip": 54.8,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 2.4,
+       "ewt_saved_p5": 2.1,
+       "bunched_pct_change": -0.88,
+       "hold_s_per_trip": 8.6,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 3.1,
+       "ewt_saved_p5": -2.0,
+       "bunched_pct_change": -0.23,
+       "hold_s_per_trip": 57.8,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 2.7,
+       "ewt_saved_p5": 2.3,
+       "bunched_pct_change": -1.02,
+       "hold_s_per_trip": 9.4,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 3.3,
+     "ewt_saved_range": [
+      2.4,
+      4.9
+     ],
+     "bunched_pct_change": -0.73,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 32.6,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2+H1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 21.4,
+       "ewt_saved_p5": 17.7,
+       "bunched_pct_change": -5.87,
+       "hold_s_per_trip": 81.8,
+       "terminal_wait_s_per_trip": 47.4,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -8.8,
+       "ewt_saved_p5": -17.5,
+       "bunched_pct_change": -4.39,
+       "hold_s_per_trip": 60.5,
+       "terminal_wait_s_per_trip": 51.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 11.8,
+       "ewt_saved_p5": 6.4,
+       "bunched_pct_change": -4.04,
+       "hold_s_per_trip": 81.6,
+       "terminal_wait_s_per_trip": 47.4,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -34.1,
+       "ewt_saved_p5": -50.3,
+       "bunched_pct_change": -4.92,
+       "hold_s_per_trip": 60.4,
+       "terminal_wait_s_per_trip": 51.8,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": -2.4,
+     "ewt_saved_range": [
+      -34.1,
+      21.4
+     ],
+     "bunched_pct_change": -4.8,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 71.1,
+     "terminal_wait_s_per_trip": 49.5
+    },
+    "T2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 35.1,
+       "ewt_saved_p5": 29.6,
+       "bunched_pct_change": -8.33,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 96.5,
+       "ewt_saved_p5": 93.9,
+       "bunched_pct_change": -6.13,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 18.8,
+       "ewt_saved_p5": 10.6,
+       "bunched_pct_change": -5.63,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 96.5,
+       "ewt_saved_p5": 93.3,
+       "bunched_pct_change": -6.01,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": true,
+     "ewt_saved": 61.7,
+     "ewt_saved_range": [
+      18.8,
+      96.5
+     ],
+     "bunched_pct_change": -6.53,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "T2-4": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 42.7,
+       "ewt_saved_p5": 38.8,
+       "bunched_pct_change": -8.99,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 92.2,
+       "ewt_saved_p5": 90.2,
+       "bunched_pct_change": -6.13,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 36.8,
+       "ewt_saved_p5": 32.4,
+       "bunched_pct_change": -7.51,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 92.9,
+       "ewt_saved_p5": 90.5,
+       "bunched_pct_change": -5.95,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": true,
+     "ewt_saved": 66.2,
+     "ewt_saved_range": [
+      36.8,
+      92.9
+     ],
+     "bunched_pct_change": -7.14,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    }
+   },
+   "recommended": "T2-2"
+  },
+  "735": {
+   "scenarios": {
+    "D1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 67.4,
+       "ewt_saved_p5": 55.6,
+       "bunched_pct_change": -2.89,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 26.2,
+       "ewt_saved_p5": 23.6,
+       "bunched_pct_change": -1.05,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 64.0,
+       "ewt_saved_p5": 57.8,
+       "bunched_pct_change": -0.78,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 30.7,
+       "ewt_saved_p5": 28.5,
+       "bunched_pct_change": -1.53,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": true,
+     "ewt_saved": 47.1,
+     "ewt_saved_range": [
+      26.2,
+      67.4
+     ],
+     "bunched_pct_change": -1.56,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 10.2,
+       "ewt_saved_p5": 7.4,
+       "bunched_pct_change": -1.03,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 41.4,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -5.5,
+       "ewt_saved_p5": -7.6,
+       "bunched_pct_change": 0.82,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 15.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 10.6,
+       "ewt_saved_p5": 7.6,
+       "bunched_pct_change": -0.91,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 41.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -2.5,
+       "ewt_saved_p5": -3.0,
+       "bunched_pct_change": 0.36,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 15.6,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 3.2,
+     "ewt_saved_range": [
+      -5.5,
+      10.6
+     ],
+     "bunched_pct_change": -0.19,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 28.6
+    },
+    "D2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 13.2,
+       "ewt_saved_p5": 10.6,
+       "bunched_pct_change": -2.23,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 58.2,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -5.7,
+       "ewt_saved_p5": -8.2,
+       "bunched_pct_change": 1.15,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 26.6,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 14.7,
+       "ewt_saved_p5": 12.2,
+       "bunched_pct_change": -2.48,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 58.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -2.6,
+       "ewt_saved_p5": -4.2,
+       "bunched_pct_change": 0.59,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 26.6,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 4.9,
+     "ewt_saved_range": [
+      -5.7,
+      14.7
+     ],
+     "bunched_pct_change": -0.74,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 42.6
+    },
+    "D2-5": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 19.3,
+       "ewt_saved_p5": 17.3,
+       "bunched_pct_change": -5.17,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 94.5,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -9.6,
+       "ewt_saved_p5": -11.1,
+       "bunched_pct_change": 0.09,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 51.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 21.8,
+       "ewt_saved_p5": 19.2,
+       "bunched_pct_change": -4.84,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 94.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -1.1,
+       "ewt_saved_p5": -3.7,
+       "bunched_pct_change": -1.41,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 51.9,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 7.6,
+     "ewt_saved_range": [
+      -9.6,
+      21.8
+     ],
+     "bunched_pct_change": -2.83,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 73.3
+    },
+    "H1-60": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 5.7,
+       "ewt_saved_p5": 3.3,
+       "bunched_pct_change": 0.58,
+       "hold_s_per_trip": 54.5,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -7.2,
+       "ewt_saved_p5": -8.9,
+       "bunched_pct_change": 1.11,
+       "hold_s_per_trip": 30.6,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 5.5,
+       "ewt_saved_p5": 2.1,
+       "bunched_pct_change": 0.54,
+       "hold_s_per_trip": 54.8,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -2.5,
+       "ewt_saved_p5": -3.0,
+       "bunched_pct_change": 0.53,
+       "hold_s_per_trip": 28.3,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 0.4,
+     "ewt_saved_range": [
+      -7.2,
+      5.7
+     ],
+     "bunched_pct_change": 0.69,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 42.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "H1-120": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 10.3,
+       "ewt_saved_p5": 7.7,
+       "bunched_pct_change": 0.56,
+       "hold_s_per_trip": 115.9,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -12.8,
+       "ewt_saved_p5": -15.9,
+       "bunched_pct_change": 1.94,
+       "hold_s_per_trip": 63.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 9.7,
+       "ewt_saved_p5": 6.3,
+       "bunched_pct_change": 0.74,
+       "hold_s_per_trip": 115.9,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -3.5,
+       "ewt_saved_p5": -6.0,
+       "bunched_pct_change": 0.2,
+       "hold_s_per_trip": 64.1,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 0.9,
+     "ewt_saved_range": [
+      -12.8,
+      10.3
+     ],
+     "bunched_pct_change": 0.86,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 89.7,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "M-90": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 1.9,
+       "ewt_saved_p5": 0.0,
+       "bunched_pct_change": -0.83,
+       "hold_s_per_trip": 39.8,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -0.1,
+       "ewt_saved_p5": -0.1,
+       "bunched_pct_change": 0.0,
+       "hold_s_per_trip": 4.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 1.4,
+       "ewt_saved_p5": -0.4,
+       "bunched_pct_change": -1.08,
+       "hold_s_per_trip": 38.2,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -0.1,
+       "ewt_saved_p5": -0.1,
+       "bunched_pct_change": 0.0,
+       "hold_s_per_trip": 4.7,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 0.8,
+     "ewt_saved_range": [
+      -0.1,
+      1.9
+     ],
+     "bunched_pct_change": -0.48,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 21.9,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "D2+H1": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 19.3,
+       "ewt_saved_p5": 15.8,
+       "bunched_pct_change": -3.15,
+       "hold_s_per_trip": 90.7,
+       "terminal_wait_s_per_trip": 60.8,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": -16.3,
+       "ewt_saved_p5": -18.0,
+       "bunched_pct_change": 1.86,
+       "hold_s_per_trip": 54.7,
+       "terminal_wait_s_per_trip": 27.0,
+       "extra_vehicles": 0
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 23.5,
+       "ewt_saved_p5": 19.8,
+       "bunched_pct_change": -3.2,
+       "hold_s_per_trip": 92.0,
+       "terminal_wait_s_per_trip": 60.9,
+       "extra_vehicles": 0
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": -9.1,
+       "ewt_saved_p5": -12.5,
+       "bunched_pct_change": 0.81,
+       "hold_s_per_trip": 55.4,
+       "terminal_wait_s_per_trip": 27.7,
+       "extra_vehicles": 0
+      }
+     },
+     "robust": false,
+     "ewt_saved": 4.3,
+     "ewt_saved_range": [
+      -16.3,
+      23.5
+     ],
+     "bunched_pct_change": -0.92,
+     "extra_vehicles": 0,
+     "hold_s_per_trip": 73.2,
+     "terminal_wait_s_per_trip": 44.1
+    },
+    "T2-2": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 64.3,
+       "ewt_saved_p5": 58.6,
+       "bunched_pct_change": -2.38,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 27.6,
+       "ewt_saved_p5": 24.8,
+       "bunched_pct_change": -2.68,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 59.8,
+       "ewt_saved_p5": 55.1,
+       "bunched_pct_change": 1.79,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 35.0,
+       "ewt_saved_p5": 32.5,
+       "bunched_pct_change": -3.88,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": true,
+     "ewt_saved": 46.7,
+     "ewt_saved_range": [
+      27.6,
+      64.3
+     ],
+     "bunched_pct_change": -1.79,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    },
+    "T2-4": {
+     "cases": {
+      "2026-09-04 k=0.0": {
+       "ewt_saved_mean": 84.3,
+       "ewt_saved_p5": 79.3,
+       "bunched_pct_change": -2.58,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.0": {
+       "ewt_saved_mean": 35.5,
+       "ewt_saved_p5": 33.1,
+       "bunched_pct_change": -3.77,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-04 k=0.005": {
+       "ewt_saved_mean": 82.9,
+       "ewt_saved_p5": 79.9,
+       "bunched_pct_change": -2.13,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      },
+      "2026-09-06 k=0.005": {
+       "ewt_saved_mean": 36.8,
+       "ewt_saved_p5": 34.4,
+       "bunched_pct_change": -3.73,
+       "hold_s_per_trip": 0.0,
+       "terminal_wait_s_per_trip": 0.0,
+       "extra_vehicles": 1
+      }
+     },
+     "robust": true,
+     "ewt_saved": 59.9,
+     "ewt_saved_range": [
+      35.5,
+      84.3
+     ],
+     "bunched_pct_change": -3.05,
+     "extra_vehicles": 1,
+     "hold_s_per_trip": 0.0,
+     "terminal_wait_s_per_trip": 0.0
+    }
+   },
+   "recommended": "T2-2"
+  }
+ }
+}

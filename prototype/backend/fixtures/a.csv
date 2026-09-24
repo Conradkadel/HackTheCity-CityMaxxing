@@ -1,0 +1,4 @@
+_id,agency_id,created_at,driver_id,latitude,longitude,operational_date,received_at,stop_id,trip_id,vehicle_id,geohash_5
+0001,IA9T6,1788242400000,private,38.7,-9.1,20260901,1788242402000,0002,0007,001,eycs2
+0002,IA9T6,1788242340000,private,38.7,-9.1,20260901,1788242341000,0002,0007,001,eycs2
+bad,IA9T6,1788242400000,private,nan,-9.1,20260901,1788242401000,0002,0007,001,eycs2
