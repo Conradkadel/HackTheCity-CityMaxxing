@@ -1,0 +1,5 @@
+# Only needed to (re)train the bunching model: python backend/train_bunching_model.py
+# The API itself reads models/bunching_model.json with plain Python.
+-r requirements.txt
+numpy>=2.0
+scikit-learn>=1.5
