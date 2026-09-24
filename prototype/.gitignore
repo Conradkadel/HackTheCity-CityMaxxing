@@ -23,3 +23,6 @@ backend/models/experiments/*.csv.gz
 
 # Vite dependency cache
 .vite/
+
+# editor local history
+.history/

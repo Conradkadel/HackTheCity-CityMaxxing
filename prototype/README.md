@@ -18,6 +18,7 @@ This phase visualises source evidence and marks rule-based **possible bunching c
 - [Bunching prediction](docs/BUNCHING_MODEL.md) explains the Bunching and Simulate tabs, the v4 early-warning model, holding simulation, and retraining workflow.
 - [Project 7 selections](docs/PROJECT_7_SELECTION.md) records the operator IDs, public lines, areas, dates, API parameters, and exact matching rules needed for the challenge.
 - [Sharing the database](docs/SHARING_DATABASE.md) explains full and reduced exports and the one-command restore workflow.
+- [Research background](docs/research/README.md) holds the early data analysis, dataset design and findings used in the pitch.
 - [Verification](VERIFICATION.md) records the checks completed for this version.
 - [`backend/config/analysis_presets.json`](backend/config/analysis_presets.json) is the only Challenge 7 preset configuration. It contains stable public line codes and plan-source metadata, never local database package IDs.
 

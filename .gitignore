@@ -1,16 +1,12 @@
-# data & models
-data/
-*.parquet
-*.csv
-*.pkl
-# python
+# The app lives in prototype/ and has its own .gitignore.
+.DS_Store
 __pycache__/
+*.pyc
 .ipynb_checkpoints/
 .venv/
 venvHackathon/
-# node
 node_modules/
-frontend/dist/
-# misc
 .env
-.DS_Store
+# macOS / iCloud duplicate copies ("file 2.py", "folder 2")
+* 2
+* 2.*

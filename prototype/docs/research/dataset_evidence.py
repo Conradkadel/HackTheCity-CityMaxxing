@@ -1,6 +1,6 @@
 """
 Reproducible evidence for DATASET_DESIGN.md  (run from the challenge folder:
-    python code/analysis/dataset_evidence.py )
+    python code/prototype/docs/research/dataset_evidence.py )
 Every number quoted in the design doc comes from one of these checks.
 Needs: duckdb, pandas, pyarrow. Runtime ~1-2 min on a laptop.
 """

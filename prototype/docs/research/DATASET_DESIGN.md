@@ -1,6 +1,6 @@
 # Dataset design – Challenge #7 (bus bunching)
 
-*24 Sep 2026. Every claim below is backed by a check you can re-run with `code/analysis/dataset_evidence.py` (from the challenge folder) or `code/notebooks/03_bunching_deep_eda_and_model.ipynb`. Numbers marked **[E-x]** refer to the evidence list in §7.*
+*24 Sep 2026. Every claim below is backed by a check you can re-run with `dataset_evidence.py` (in this folder, run from the challenge folder) or `03_bunching_deep_eda_and_model.ipynb` (also in this folder). Numbers marked **[E-x]** refer to the evidence list in §7.*
 
 ---
 
@@ -138,6 +138,8 @@ One row = follower passage at stop *k* with its same-pattern leader, **only if t
 ---
 
 ## 5. What in the current team code must change (proven)
+*The three early scripts below were removed in the repository cleanup (they are kept in the git tag `pre-cleanup-2026-09-24`); the app's backend replaced them.*
+
 1. `analysis/treinar_modelo_bunching.py`: the label is wrong (98.9 % of positives are the same bus), there is no future horizon (it predicts the present), and it uses a random split. **Replace it with `ml.onset_pairs`.**
 2. `analysis/processar_filtros_backend.py`: ping-level headways inflate events about 12× and there is no date in the window partition. Build headways from `gold.stop_passages`, and turn episodes into `bunching_events`.
 3. `analysis/processar_dados.py`: loads raw CSVs with no de-dup (31 % re-sends in the tested file), keeps trains/metro/ferry, and uses `ignore_errors=true` (it dropped 0 rows in the files tested, but it hides future errors). Read ids as strings and add rules 2–6.
