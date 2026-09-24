@@ -50,3 +50,8 @@ def test_limits_and_invalid_queries(setup,monkeypatch):
     assert client.get('/api/observations').status_code==422
     monkeypatch.setattr(api,'MAX_ROWS',0)
     assert client.get('/api/observations',params=params).status_code==413
+
+def test_schedule_requires_route_and_completed_data(setup):
+    client,_,params=setup
+    assert client.get('/api/observations',params={**params,'schedule_mode':'true'}).status_code==422
+    assert client.get('/api/observations',params={**params,'schedule_mode':'true','route_id':'1218','preview':'true'}).status_code==422

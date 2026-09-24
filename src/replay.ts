@@ -1,5 +1,6 @@
-export type Observation = { timestamp:number; receivedTimestamp:number; operatorId:string; vehicleId:string; tripId:string; stopId:string; latitude:number; longitude:number; geohash?:string };
-export type Dataset = { schemaVersion:1; metadata:{ title:string; sourcePartition:string; operationalDate:string; calendarDate?:string; areas?:string[]; datasetVersion?:number; timezone:string; startTimestamp:number; endTimestamp:number; historySeconds:number; synthetic:boolean; operators:Record<string,string>; counts:Record<string,number> }; observations:Observation[] };
+export type ScheduleMatch={packageId:number;routeId:string;line:string;routeName:string;directionId:string;stopSequence:number;scheduledTime:number|null;reportedStopDifferenceSeconds:number|null};
+export type Observation = { timestamp:number; receivedTimestamp:number; operatorId:string; vehicleId:string; tripId:string; stopId:string; latitude:number; longitude:number; geohash?:string;schedule?:ScheduleMatch };
+export type Dataset = { schemaVersion:1; metadata:{ title:string; sourcePartition:string; operationalDate:string; calendarDate?:string; areas?:string[];datasetVersion?:number;timezone:string;startTimestamp:number;endTimestamp:number;historySeconds:number;synthetic:boolean;operators:Record<string,string>;counts:Record<string,number>;scheduleReplay?:boolean;coverage?:{matchedObservations:number;excludedObservations:number;warning:string} }; observations:Observation[] };
 export const keyOf = (o:Observation) => JSON.stringify([o.operatorId,o.vehicleId]);
 export function validate(value:unknown):Dataset {
   const d=value as Dataset;

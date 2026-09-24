@@ -63,6 +63,12 @@ Important files: `compose.yaml`; `backend/migrations/001_vehicles.sql` (schema/i
 
 ### Operation-plan explorer
 
+### Schedule-linked route replay
+
+The **Schedule-linked route replay** tab is the Project 7 route-analysis view. It is deliberately limited to Carris Metropolitana Areas 1–4, where observed `trip_id` values were measured against the imported plan packages. Select a Challenge 7 corridor, line/route variant and direction; the app loads only reports with an exact operator, trip and stop match. The inspector shows the planned stop time and the **reported-stop time difference**. A report timestamp is not a confirmed arrival/departure, so this is a schedule reference rather than a verified delay.
+
+The operation plans declare 2025 validity while vehicle observations are from 2026. The UI keeps this mismatch visible. Route identity comes from exact IDs, but do not make 2026 adherence claims without a confirmed 2026 plan. The matched-stop panel compares actual and scheduled gaps between distinct trips without applying a bunching threshold.
+
 Use the top **Operation plans · 2025 reference** tab. Choose an operator/package, a line/route variant, optionally a direction code, then a planned trip. The map draws the supplied shape and that trip's stop locations; click a marker or a scheduled visit in the sidebar to inspect the stop and scheduled times. Stop locations can be toggled. Missing geometry is not inferred. No vehicle overlay, schedule-adherence calculation or day-of-service claim is made. Times such as `25:10:00` remain service-day times, not converted to a misleading clock time.
 
 Plans use separate `plan_packages` and `plan_records` tables in the same PostgreSQL database. All 46 supplied TXT tables and original string fields (including auxiliary calendars/fares/resources) are retained as indexed JSON records; only routes, trips, shapes and stop visits are currently visualized. IDs are scoped by immutable package ID, not merged across operators or versions. Each package commits atomically; the checksum makes unchanged reruns a no-op and changed packages create another selectable version. Failed packages roll back without deleting previous versions. This does not use the separate `TML/stops.csv`.

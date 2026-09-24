@@ -10,6 +10,16 @@ from psycopg.types.json import Jsonb
 from db import connect,migrate
 
 REQUIRED={'agency':{'agency_id','agency_name'},'feed_info':{'feed_start_date','feed_end_date'},'routes':{'route_id'},'trips':{'trip_id','route_id','shape_id'},'stops':{'stop_id','stop_name','stop_lat','stop_lon'},'shapes':{'shape_id','shape_pt_lat','shape_pt_lon','shape_pt_sequence'},'stop_times':{'trip_id','stop_id','stop_sequence','arrival_time','departure_time'}}
+def normalize_package(conn,pid):
+    conn.execute("""INSERT INTO schedule_routes(package_id,route_id,line_short_name,route_long_name,route_color)
+      SELECT package_id,data->>'route_id',COALESCE(NULLIF(data->>'route_short_name',''),data->>'line_id',data->>'route_id'),COALESCE(data->>'route_long_name',''),COALESCE(data->>'route_color','') FROM plan_records WHERE package_id=%s AND table_name='routes'
+      ON CONFLICT(package_id,route_id) DO NOTHING""",(pid,))
+    conn.execute("""INSERT INTO schedule_trips(package_id,trip_id,route_id,shape_id,direction_id,service_id)
+      SELECT package_id,data->>'trip_id',data->>'route_id',COALESCE(data->>'shape_id',''),COALESCE(data->>'direction_id',''),COALESCE(data->>'service_id','') FROM plan_records WHERE package_id=%s AND table_name='trips'
+      ON CONFLICT(package_id,trip_id) DO NOTHING""",(pid,))
+    conn.execute("""INSERT INTO schedule_stop_visits(package_id,trip_id,stop_id,stop_sequence,arrival_time,departure_time)
+      SELECT package_id,data->>'trip_id',data->>'stop_id',(data->>'stop_sequence')::integer,COALESCE(data->>'arrival_time',''),COALESCE(data->>'departure_time','') FROM plan_records WHERE package_id=%s AND table_name='stop_times'
+      ON CONFLICT(package_id,trip_id,stop_id,stop_sequence) DO NOTHING""",(pid,))
 def records(path):
     with path.open(encoding='utf-8-sig',newline='') as f:
         reader=csv.DictReader(f)
@@ -66,6 +76,7 @@ def run(root,wait_for_vehicles=False):
                     print(f'{package.name}/{path.name}: {n} rows',flush=True)
                 if digest!=fingerprint(files):raise ValueError('Source changed during import; package rolled back')
                 conn.execute('UPDATE plan_packages SET counts=%s WHERE id=%s',(Jsonb(counts),pid))
+                normalize_package(conn,pid)
             print(json.dumps({'package':package.name,'id':pid,'counts':counts,'seconds':round(time.monotonic()-started,2)}),flush=True)
         conn.execute('ANALYZE plan_records')
         print('Operation-plan import complete.',flush=True)

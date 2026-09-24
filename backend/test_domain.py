@@ -1,6 +1,6 @@
 from datetime import timedelta
 import pytest
-from domain import parse_row,selection_window,response_payload
+from domain import parse_row,selection_window,response_payload,schedule_reference
 
 def row(**changes):
     return dict(_id='00001',agency_id='LTP61',vehicle_id='001',driver_id='private',trip_id='0007',stop_id='0002',created_at='1788242400000',received_at='1788242401000',operational_date='20260901',latitude='38.7',longitude='-9.1',geohash_5='eycs2',**changes)
@@ -33,3 +33,8 @@ def test_empty_payload():
     d=response_payload([],1,['eycs2'],['LTP61'],a,b)
     assert d['observations']==[] and not d['metadata']['synthetic']
     assert d['metadata']['calendarDate']=='2026-09-01'
+
+def test_schedule_reference_uses_lisbon_service_day_and_extended_clock():
+    a,_=selection_window('2026-09-02','01:00','02:00')
+    value=schedule_reference(a,'25:10:00')
+    assert value.isoformat()=='2026-09-02T01:10:00+01:00'
