@@ -9,4 +9,3 @@ ml/models/*.pkl
 node_modules/
 frontend/dist/
 .env
-CarolinaPipeline/
