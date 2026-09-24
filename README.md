@@ -45,8 +45,16 @@ code/
 │       └── components/       MapView, TimeControls, KpiCards, EventTimeline, AlertList, Heatmap, SimulatorPanel
 │
 ├── tests/                    one test file per src module + API
+├── prototype/                ← working app (merged from kudzus/project7-prototype): map replay,
+│                               Bunching + Simulate tabs, Postgres/CARRIS; see prototype/README.md
 └── data/                     (git-ignored) outputs: processed/, serving/, models/
 ```
+
+## Prototype app
+
+`prototype/` is a self-contained app with its own backend (FastAPI + Postgres) and frontend (React/Leaflet).
+Run it from that folder: `docker compose up -d --build --wait` then `npm install && npm run dev`.
+The bunching model and the timing simulator are explained in `prototype/docs/BUNCHING_MODEL.md`.
 
 ## Data flow
 ```
