@@ -1,5 +1,12 @@
 import { validate, type Dataset } from "./replay";
-import type { VehicleFilters, WorkspaceCatalog } from "./workspaceTypes";
+import type {
+  BunchingWeek,
+  BunchingWeekSummary,
+  LineDay,
+  VehicleDay,
+  VehicleFilters,
+  WorkspaceCatalog,
+} from "./workspaceTypes";
 
 export type Selection = VehicleFilters & {
   preview?: boolean;
@@ -26,6 +33,40 @@ export function queryFor(selection: Selection) {
   return params.toString();
 }
 
+export function loadLineDay(
+  date: string,
+  operatorId: string,
+  line: string,
+  signal?: AbortSignal,
+) {
+  const path = [operatorId, line].map(encodeURIComponent).join("/");
+  return jsonRequest<LineDay>(
+    `/api/lines/${path}/day?date=${encodeURIComponent(date)}`,
+    signal,
+  );
+}
+
+export function loadBunchingWeek(
+  date: string,
+  operatorId: string,
+  line: string,
+  signal?: AbortSignal,
+) {
+  const params = new URLSearchParams({ date, operator: operatorId, line });
+  return jsonRequest<BunchingWeek>(
+    `/api/bunching/week?${params.toString()}`,
+    signal,
+  );
+}
+
+export function loadBunchingWeekSummary(date: string, signal?: AbortSignal) {
+  const params = new URLSearchParams({ date });
+  return jsonRequest<BunchingWeekSummary>(
+    `/api/bunching/week-summary?${params.toString()}`,
+    signal,
+  );
+}
+
 export async function jsonRequest<T>(
   url: string,
   init?: RequestInit | AbortSignal,
@@ -50,6 +91,19 @@ export async function jsonRequest<T>(
 export function loadWorkspaceCatalog(date: string, signal?: AbortSignal) {
   return jsonRequest<WorkspaceCatalog>(
     `/api/workspace-catalog?date=${encodeURIComponent(date)}`,
+    signal,
+  );
+}
+
+export function loadVehicleDay(
+  date: string,
+  operatorId: string,
+  vehicleId: string,
+  signal?: AbortSignal,
+) {
+  const path = [operatorId, vehicleId].map(encodeURIComponent).join("/");
+  return jsonRequest<VehicleDay>(
+    `/api/vehicles/${path}/day?date=${encodeURIComponent(date)}`,
     signal,
   );
 }

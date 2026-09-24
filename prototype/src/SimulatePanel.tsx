@@ -7,7 +7,14 @@ import {
   bunchedSegments,
   loadSimRun,
   loadSimScenarios,
+  PACKAGE_TEXT,
+  SCENARIO_TEXT,
   scenarioCost,
+  scenarioShort,
+  bestOverall,
+  bestTested,
+  bestToday,
+  coversTestHours,
   signed,
   type SimPoint,
   type SimRun,
@@ -24,6 +31,9 @@ const PACKAGE_COLORS: Record<string, string> = {
   ceiling: "#9aa5a8",
 };
 
+/** Opened from the Findings tab: this line, direction and timing change, run straight away. */
+export type SimPreset = { line: string; direction: string; scenario: string };
+
 type PanelProps = {
   date: string;
   start: string;
@@ -31,6 +41,8 @@ type PanelProps = {
   result: SimRun | null;
   /** a scenario clicked in the trade-off chart (a new object for every click) */
   pick?: { code: string } | null;
+  preset?: SimPreset | null;
+  onPresetDone?(): void;
   onResult(value: SimRun | null): void;
 };
 
@@ -41,6 +53,8 @@ export function SimulatePanel({
   end,
   result,
   pick,
+  preset,
+  onPresetDone,
   onResult,
 }: PanelProps) {
   const [catalog, setCatalog] = useState<SimScenarioInfo[]>([]);
@@ -137,17 +151,58 @@ export function SimulatePanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pick]);
 
+  // a problem opened from the Findings tab: select it and run once its line is loaded
+  const [pending, setPending] = useState<SimPreset | null>(null);
+  useEffect(() => {
+    if (!preset) return;
+    setLine(preset.line);
+    setDirection(preset.direction);
+    setScenario(preset.scenario);
+    setPending(preset);
+    onPresetDone?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preset]);
+  useEffect(() => {
+    if (!pending || !lines) return;
+    if (!lines.some((item) => item.line === pending.line)) {
+      setPending(null);
+      setError(
+        `Line ${pending.line} has too few recorded trips in this window.`,
+      );
+      return;
+    }
+    if (
+      current?.line === pending.line &&
+      currentDirection?.id === pending.direction
+    ) {
+      setPending(null);
+      void run(pending.scenario);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pending, lines, current, currentDirection]);
+
   const rows = result?.scenarios.filter((s) => s.code !== "AS") ?? [];
-  const today = rows.find((s) => s.code === result?.recommendation.today);
-  const heldOut = result?.recommendation.heldOut;
+  // one rule everywhere (sim.ts bestChange): the biggest reliable cut in waiting
+  const testedCode =
+    result && coversTestHours(result) ? bestTested(result) : null;
+  const todayCode = result ? bestToday(result) : null;
+  const bestCode = testedCode ?? todayCode;
+  const best = rows.find((s) => s.code === bestCode);
+  const todayBest = rows.find((s) => s.code === todayCode);
+  const testedBest = testedCode
+    ? result?.recommendation.heldOutScenarios?.[testedCode]
+    : null;
   return (
     <>
-      <span className="eyebrow">SIMULATION · TIMETABLE</span>
-      <h1>Simulate</h1>
+      <span className="eyebrow">
+        SIMULATION · WHAT IF WE CHANGE THE TIMETABLE?
+      </span>
+      <h1>Simulation</h1>
       <p className="muted">
-        Replays the real day bus by bus and changes only <b>when</b> buses leave
-        the terminal or wait at a stop. With no change it reproduces the day
-        exactly. Uses the date and time window above.
+        Replays a real day bus by bus with one change: <b>when</b> buses leave
+        the terminal or wait at a stop. Everything else (traffic, stop times) is
+        what really happened. The date and time window are in the bar under the
+        map.
       </p>
       {error && <p className="error">{error}</p>}
       {!lines && !error && <p className="muted">Loading lines…</p>}
@@ -201,141 +256,197 @@ export function SimulatePanel({
             </select>
           </label>
           <label>
-            Random seeds
+            Precision
             <select
               value={seeds}
               onChange={(event) => setSeeds(Number(event.target.value))}
             >
-              <option value={10}>10 (fast)</option>
-              <option value={30}>30 (as in the plan)</option>
+              <option value={10}>Fast (10 repeats)</option>
+              <option value={30}>Precise (30 repeats)</option>
             </select>
           </label>
         </div>
       )}
-      <div className="sim-cards" role="radiogroup" aria-label="Timing change">
-        {catalog.map((s) => (
-          <button
-            key={s.code}
-            role="radio"
-            aria-checked={scenario === s.code}
-            className={scenario === s.code ? "active" : ""}
-            onClick={() => choose(s.code)}
-          >
-            <span>
-              <b>{s.code}</b> {s.name}
-              {result?.recommendation.today === s.code && (
-                <em className="sim-star"> ★</em>
-              )}
-            </span>
-            <small>{s.lever}</small>
-            {s.package && (
-              <i
-                className="sim-pill"
-                style={{ background: PACKAGE_COLORS[s.package] }}
-              >
-                {s.package}
-              </i>
-            )}
-          </button>
-        ))}
+      <h2>Choose a change</h2>
+      <div className="sim-cards" role="radiogroup" aria-label="Change to test">
+        {catalog
+          .filter((s) => SCENARIO_TEXT[s.code]?.main)
+          .map((s) => (
+            <ScenarioCard
+              key={s.code}
+              scenario={s}
+              active={scenario === s.code}
+              best={bestCode === s.code}
+              onChoose={choose}
+            />
+          ))}
       </div>
+      <details
+        className="sim-more"
+        open={!!scenario && !SCENARIO_TEXT[scenario]?.main}
+      >
+        <summary>
+          More variants (
+          {catalog.filter((s) => !SCENARIO_TEXT[s.code]?.main).length})
+        </summary>
+        <div className="sim-cards" role="radiogroup" aria-label="More variants">
+          {catalog
+            .filter((s) => !SCENARIO_TEXT[s.code]?.main)
+            .map((s) => (
+              <ScenarioCard
+                key={s.code}
+                scenario={s}
+                active={scenario === s.code}
+                best={bestCode === s.code}
+                onChoose={choose}
+              />
+            ))}
+        </div>
+      </details>
       <button
         className="primary bunching-run"
         disabled={!current || loading}
         onClick={() => void run()}
       >
-        {loading ? "Simulating…" : "Simulate"}
+        {loading ? "Simulating…" : "Run the simulation"}
       </button>
       {loading && !result && (
         <p className="muted">
-          The first run of a line takes about 15 s (it replays every scenario
-          with all seeds). Switching scenarios afterwards is instant.
+          The first run of a line takes about 15 s (it tries every change at
+          once). Switching between changes afterwards is instant.
         </p>
       )}
       {result && (
         <>
           <div className="bunching-recommendation">
-            {today ? (
+            {best ? (
               <>
-                <strong>
-                  Recommended for this day: {today.code} · {today.name}
-                </strong>
+                <strong>Best change: {best.name}</strong>
                 <p>
-                  Excess wait {signed(-(today.ewtSaved ?? 0))} s per passenger,
-                  bunched{" "}
-                  {signed(
-                    (today.kpis.bunched_pct?.mean ?? 0) -
-                      (result.baseline.bunched_pct ?? 0),
-                    1,
-                  )}{" "}
-                  points, at {Math.round(scenarioCost(today))} s per trip
-                  {today.extraVehicles
-                    ? ` and ${today.extraVehicles} extra bus(es)`
-                    : ""}
-                  .
+                  {testedBest ? (
+                    <>
+                      Over the test days (
+                      {result.validation?.testDays.join(" and ")}, 16–20 h)
+                      passengers waited{" "}
+                      <b>{Math.round(testedBest.ewt_saved)} s less</b> on
+                      average. On this day:{" "}
+                    </>
+                  ) : (
+                    <>On this day: </>
+                  )}
+                  {Math.round(best.ewtSaved ?? 0)} s less waiting, bunched stop
+                  visits {result.baseline.bunched_pct?.toFixed(1)} % →{" "}
+                  {best.kpis.bunched_pct?.mean.toFixed(1)} %.
+                  {best.extraVehicles
+                    ? ` Needs ${best.extraVehicles} extra bus${best.extraVehicles > 1 ? "es" : ""}.`
+                    : " No extra bus needed."}
                 </p>
+                {todayBest && todayBest.code !== best.code && (
+                  <p className="muted">
+                    On this single day, “{todayBest.name}” cut waiting slightly
+                    more ({Math.round(todayBest.ewtSaved ?? 0)} s). One day is
+                    noisy, so we recommend the change that worked best over the
+                    test days.
+                  </p>
+                )}
               </>
             ) : (
-              <strong>No change helps reliably on this day.</strong>
+              <strong>No change helps reliably on this day and line.</strong>
             )}
-            <p className="muted">
-              Rule fixed in advance: keep options that cut excess wait in 95 %
-              of the seeds, then pick the cheapest with at least 75 % of the
-              best cut (extra buses, then on-board hold). “Leave on schedule” is
-              a ceiling, not a policy.
-            </p>
-            {heldOut !== undefined &&
-              result.recommendation.heldOutScenarios && (
-                <p>
-                  Tested on the held-out days (
-                  {result.validation?.testDays.join(", ")}, 16–20 h, both
-                  directions) for line {result.line}:{" "}
-                  <b>{heldOut ?? "nothing robust"}</b>
-                  {heldOut && heldOut !== today?.code
-                    ? " (differs from this day: see the trade-off chart)"
-                    : ""}
-                </p>
-              )}
+            <details>
+              <summary>How we pick the best change</summary>
+              <p className="muted">
+                Keep the changes that cut waiting reliably (in at least 95 % of
+                the repeats, and on both test days where available). Of those,
+                pick the one with the <b>biggest cut</b>. If two are practically
+                equal (within 1 s or 5 %), the cheaper one wins. “Leave exactly
+                on time” is only a best case for comparison. The Findings tab
+                uses the same rule.
+              </p>
+            </details>
           </div>
-          <table className="bunching-runs">
-            <thead>
-              <tr>
-                <th>Change</th>
-                <th>Bunched</th>
-                <th>Wait saved</th>
-                <th>Cost / trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>As run</td>
-                <td>{result.baseline.bunched_pct?.toFixed(1)}%</td>
-                <td>–</td>
-                <td>–</td>
-              </tr>
-              {rows.map((s) => (
-                <tr
-                  key={s.code}
-                  className={`${s.code === result.scenario ? "selected" : ""}${s.code === result.recommendation.today ? " recommended" : ""}`}
-                  onClick={() => choose(s.code)}
-                >
-                  <td>{s.code}</td>
-                  <td>{s.kpis.bunched_pct?.mean.toFixed(1)}%</td>
-                  <td className={(s.ewtSaved ?? 0) > 0 ? "good" : "bad"}>
-                    {signed(s.ewtSaved)} s
-                  </td>
-                  <td>
-                    {Math.round(scenarioCost(s))} s
-                    {s.extraVehicles ? ` +${s.extraVehicles} bus` : ""}
-                  </td>
+          <details className="sim-compare">
+            <summary>Compare all changes</summary>
+            <table className="bunching-runs">
+              <thead>
+                <tr>
+                  <th>Change</th>
+                  <th>Bunched</th>
+                  <th>Wait saved</th>
+                  <th>Delay / trip</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>As run</td>
+                  <td>{result.baseline.bunched_pct?.toFixed(1)}%</td>
+                  <td>–</td>
+                  <td>–</td>
+                </tr>
+                {rows.map((s) => (
+                  <tr
+                    key={s.code}
+                    className={`${s.code === result.scenario ? "selected" : ""}${s.code === bestCode ? " recommended" : ""}`}
+                    onClick={() => choose(s.code)}
+                  >
+                    <td title={s.name}>{scenarioShort(s.code)}</td>
+                    <td>{s.kpis.bunched_pct?.mean.toFixed(1)}%</td>
+                    <td className={(s.ewtSaved ?? 0) > 0 ? "good" : "bad"}>
+                      {signed(s.ewtSaved)} s
+                    </td>
+                    <td>
+                      {Math.round(scenarioCost(s))} s
+                      {s.extraVehicles ? ` +${s.extraVehicles} bus` : ""}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="muted">
+              Wait saved = seconds less waiting per passenger. Delay per trip =
+              seconds a bus spends waiting at the terminal or at a stop because
+              of the change.
+            </p>
+          </details>
           <GateNote run={result} />
         </>
       )}
     </>
+  );
+}
+
+function ScenarioCard({
+  scenario,
+  active,
+  best,
+  onChoose,
+}: {
+  scenario: SimScenarioInfo;
+  active: boolean;
+  best: boolean;
+  onChoose(code: string): void;
+}) {
+  return (
+    <button
+      role="radio"
+      aria-checked={active}
+      className={active ? "active" : ""}
+      onClick={() => onChoose(scenario.code)}
+    >
+      <span>
+        <b>{scenario.name}</b>
+        {best && <em className="sim-star"> ★ best</em>}
+      </span>
+      <small>{scenario.lever}.</small>
+      {scenario.package && (
+        <i
+          className="sim-pill"
+          style={{ background: PACKAGE_COLORS[scenario.package] }}
+        >
+          {PACKAGE_TEXT[scenario.package] ?? scenario.package}
+        </i>
+      )}
+    </button>
   );
 }
 
@@ -392,8 +503,7 @@ export function SimulationView({
         <div>
           <span className="eyebrow">SIMULATION · {run.date}</span>
           <h2>
-            Line {run.line} {run.directionName}: {scenario.code} ·{" "}
-            {scenario.name}
+            Line {run.line} {run.directionName}: {scenario.name}
           </h2>
           <p>
             {scenario.lever}. Top: what really happened. Bottom: the same day
@@ -412,10 +522,10 @@ export function SimulationView({
         <aside className="sim-side">
           <TradeOff run={run} onPick={onPick} />
           <p className="muted">
-            Each dot is one timing change: how much excess wait it saves per
-            passenger (up) against what it costs per trip (right). Bars = range
-            over {run.seeds} seeds. ★ = recommended by the rule. Click a dot to
-            see it.
+            Each dot is one change: how many seconds of waiting it saves per
+            passenger (higher is better) against how long buses have to wait
+            because of it (further right costs more). Bars = range over{" "}
+            {run.seeds} repeats. ★ = best change. Click a dot to see it.
           </p>
         </aside>
       </div>
@@ -458,7 +568,7 @@ function KpiCards({ run, scenario }: { run: SimRun; scenario: SimScenario }) {
     better: "down" | "up" | "cost";
   }[] = [
     {
-      label: "Bunched passages",
+      label: "Bunched stop visits",
       base: b.bunched_pct,
       value: k.bunched_pct,
       unit: "%",
@@ -466,7 +576,7 @@ function KpiCards({ run, scenario }: { run: SimRun; scenario: SimScenario }) {
       better: "down",
     },
     {
-      label: "Excess wait / passenger",
+      label: "Extra waiting per passenger",
       base: b.ewt_s,
       value: k.ewt_s,
       unit: " s",
@@ -474,7 +584,7 @@ function KpiCards({ run, scenario }: { run: SimRun; scenario: SimScenario }) {
       better: "down",
     },
     {
-      label: "Headway variation (CV)",
+      label: "Irregular gaps (0 = perfectly even)",
       base: b.headway_cv,
       value: k.headway_cv,
       unit: "",
@@ -482,7 +592,7 @@ function KpiCards({ run, scenario }: { run: SimRun; scenario: SimScenario }) {
       better: "down",
     },
     {
-      label: "Held on board / trip",
+      label: "Held at stops, per trip",
       base: 0,
       value: k.hold_s_per_trip,
       unit: " s",
@@ -490,7 +600,7 @@ function KpiCards({ run, scenario }: { run: SimRun; scenario: SimScenario }) {
       better: "cost",
     },
     {
-      label: "Wait at terminal / trip",
+      label: "Waiting at terminal, per trip",
       base: 0,
       value: k.terminal_wait_s_per_trip,
       unit: " s",
@@ -533,7 +643,7 @@ function KpiCards({ run, scenario }: { run: SimRun; scenario: SimScenario }) {
             </span>
             {card.value && card.value.max - card.value.min > 0 && (
               <em>
-                seeds {card.value.min.toFixed(card.digits)}–
+                range {card.value.min.toFixed(card.digits)}–
                 {card.value.max.toFixed(card.digits)}
               </em>
             )}
@@ -630,7 +740,11 @@ function SimDiagram({
   return (
     <figure className={`sim-diagram ${which}`}>
       <figcaption>
-        <b>{which === "asRun" ? "As run" : `With ${run.scenario}`}</b>
+        <b>
+          {which === "asRun"
+            ? "As run"
+            : `With the change: ${scenarioShort(run.scenario)}`}
+        </b>
         <span className="bad">{bunchedCount} bunched passages</span>
       </figcaption>
       <svg
@@ -811,7 +925,7 @@ function TradeOff({
         </text>
       )}
       <text x={TW - TM.r} y={TH - 8} textAnchor="end">
-        cost: s held or waiting per trip → {Math.round(xMax)}
+        cost: seconds buses wait per trip → {Math.round(xMax)}
       </text>
       <text
         x={12}
@@ -819,20 +933,20 @@ function TradeOff({
         transform={`rotate(-90 12 ${TM.t + 2})`}
         textAnchor="end"
       >
-        wait saved (s / passenger)
+        waiting saved (s per passenger)
       </text>
       {rows.map((s) => {
         const x = X(scenarioCost(s));
         const e = s.kpis.ewt_s;
         const active = s.code === run.scenario;
-        const star = s.code === run.recommendation.today;
+        const star = s.code === bestOverall(run);
         return (
           <g
             key={s.code}
             className={`sim-dot${active ? " active" : ""}`}
             onClick={() => onPick(s.code)}
             role="button"
-            aria-label={`${s.code}: saves ${s.ewtSaved} s`}
+            aria-label={`${s.name}: saves ${s.ewtSaved} s`}
           >
             {e && (
               <line x1={x} x2={x} y1={Y(base - e.min)} y2={Y(base - e.max)} />
@@ -849,7 +963,7 @@ function TradeOff({
               y={Y(s.ewtSaved ?? 0) + 4}
               textAnchor={x > TW - 90 ? "end" : "start"}
             >
-              {s.code}
+              {scenarioShort(s.code)}
               {star ? " ★" : ""}
               {s.extraVehicles ? ` (+${s.extraVehicles} bus)` : ""}
             </text>

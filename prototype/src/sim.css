@@ -229,3 +229,30 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* plain-language scenario picker */
+.sim-more {
+  margin: 8px 0 12px;
+}
+.sim-more summary,
+.sim-compare summary,
+.bunching-recommendation details summary {
+  cursor: pointer;
+  color: #c6d6db;
+  font-size: 12px;
+  font-weight: 700;
+}
+.sim-more[open] summary {
+  margin-bottom: 8px;
+}
+.sim-compare {
+  margin: 12px 0;
+}
+.sim-compare[open] summary {
+  margin-bottom: 8px;
+}
+.sim-star {
+  color: #d1ed86;
+  font-style: normal;
+  font-weight: 700;
+}

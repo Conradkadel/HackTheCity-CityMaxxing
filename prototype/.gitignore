@@ -20,3 +20,6 @@ exports/
 # model experiments: large caches and exports (rebuild with export_passages.py / experiment_bunching_model.py)
 backend/models/experiments/*.pkl
 backend/models/experiments/*.csv.gz
+
+# Vite dependency cache
+.vite/

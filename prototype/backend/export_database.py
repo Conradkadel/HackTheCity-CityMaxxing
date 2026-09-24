@@ -108,6 +108,7 @@ def build(target_database, mode="all-carris", replace=False):
             with closing(connection(target_database)) as target:
                 migrate(target)
                 counts = {}
+
                 counts["dataset_versions"] = copy_query(
                     source,
                     target,
@@ -121,6 +122,7 @@ def build(target_database, mode="all-carris", replace=False):
                       FROM dataset_versions WHERE id=%s""",
                     (mode, version),
                 )
+
                 counts["plan_packages"] = copy_query(
                     source,
                     target,
@@ -137,6 +139,7 @@ def build(target_database, mode="all-carris", replace=False):
                       WHERE event_agency_id=%s""",
                     (OPERATOR,),
                 )
+
                 package_ids = [
                     row["id"]
                     for row in source.execute(
@@ -146,6 +149,7 @@ def build(target_database, mode="all-carris", replace=False):
                 ]
                 if not package_ids:
                     raise ValueError("No CARRIS plan package is registered in the source.")
+
                 counts["plan_records"] = copy_query(
                     source,
                     target,
@@ -155,18 +159,28 @@ def build(target_database, mode="all-carris", replace=False):
                       WHERE package_id=ANY(%s) AND table_name<>'stop_times'""",
                     (package_ids,),
                 )
+
                 for table, columns in (
                     (
                         "schedule_routes",
-                        ["package_id", "route_id", "line_short_name", "route_long_name", "route_color"],
+                        [
+                            "package_id", "route_id", "line_short_name",
+                            "route_long_name", "route_color",
+                        ],
                     ),
                     (
                         "schedule_trips",
-                        ["package_id", "trip_id", "route_id", "shape_id", "direction_id", "service_id"],
+                        [
+                            "package_id", "trip_id", "route_id", "shape_id",
+                            "direction_id", "service_id",
+                        ],
                     ),
                     (
                         "schedule_stop_visits",
-                        ["package_id", "trip_id", "stop_id", "stop_sequence", "arrival_time", "departure_time"],
+                        [
+                            "package_id", "trip_id", "stop_id", "stop_sequence",
+                            "arrival_time", "departure_time",
+                        ],
                     ),
                 ):
                     counts[table] = copy_query(
@@ -182,8 +196,10 @@ def build(target_database, mode="all-carris", replace=False):
                 vehicle_columns = [
                     "version_id", "observation_key", "event_id", "agency_id",
                     "vehicle_id", "driver_id", "trip_id", "stop_id", "created_at",
-                    "received_at", "operational_date", "latitude", "longitude", "geohash_5",
+                    "received_at", "operational_date", "latitude", "longitude",
+                    "geohash_5",
                 ]
+
                 counts["vehicle_events"] = copy_query(
                     source,
                     target,
@@ -195,6 +211,28 @@ def build(target_database, mode="all-carris", replace=False):
                       FROM vehicle_events e WHERE {predicate}""",
                     (version, OPERATOR, *extra_params),
                 )
+
+                # Waze traffic data is shared as processed challenge context.
+                # Import provenance is intentionally not copied.
+                waze_columns = [
+                    "source_key", "observed_at", "operational_date", "zone",
+                    "geohash_6", "dicofre", "street", "city", "intensity",
+                    "speed_mps", "speed_kmh", "delay_seconds", "length_meters",
+                    "latitude", "longitude", "geometry_wkt", "source_file",
+                ]
+                counts["waze_jams"] = copy_query(
+                    source,
+                    target,
+                    "waze_jams",
+                    waze_columns,
+                    """SELECT source_key,observed_at,operational_date,zone,
+                      geohash_6,dicofre,street,city,intensity,speed_mps,speed_kmh,
+                      delay_seconds,length_meters,latitude,longitude,geometry_wkt,
+                      source_file
+                      FROM waze_jams
+                      ORDER BY observed_at,source_key""",
+                )
+
                 target.execute(
                     """INSERT INTO availability
                       SELECT version_id,geohash_5,
@@ -202,23 +240,34 @@ def build(target_database, mode="all-carris", replace=False):
                         agency_id,count(*),min(created_at),max(created_at)
                       FROM vehicle_events GROUP BY 1,2,3,4"""
                 )
+
                 target.execute(
                     "INSERT INTO active_dataset(singleton,version_id) VALUES(true,%s)",
                     (version,),
                 )
+
                 target.execute(
                     "SELECT setval(pg_get_serial_sequence('dataset_versions','id'),%s,true)",
                     (version,),
                 )
+
                 target.execute(
                     "SELECT setval(pg_get_serial_sequence('plan_packages','id'),%s,true)",
                     (max(package_ids),),
                 )
+
                 target.execute("ANALYZE")
                 size = target.execute(
                     "SELECT pg_database_size(current_database()) AS bytes"
                 ).fetchone()["bytes"]
-                return {"database": target_database, "mode": mode, "bytes": size, "counts": counts}
+
+                return {
+                    "database": target_database,
+                    "mode": mode,
+                    "bytes": size,
+                    "counts": counts,
+                }
+
         except Exception:
             with closing(connection(SOURCE_DATABASE)) as cleanup:
                 cleanup.execute(

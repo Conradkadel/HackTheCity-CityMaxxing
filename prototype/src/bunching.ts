@@ -1,4 +1,142 @@
 import { jsonRequest } from "./api";
+import type { Observation } from "./replay";
+
+export const MAP_BUNCHING_THRESHOLDS = {
+  maximumObservedGapSeconds: 180,
+  minimumPlannedGapSeconds: 300,
+  maximumDistanceMeters: 300,
+} as const;
+
+export type VisibleObservation = Observation & {
+  age: number;
+  stale: boolean;
+};
+
+export type MapBunchingCandidate = {
+  id: string;
+  operatorId: string;
+  line: string;
+  routeId: string;
+  directionId: string;
+  stopId: string;
+  first: VisibleObservation;
+  second: VisibleObservation;
+  observedGapSeconds: number;
+  plannedGapSeconds: number;
+  distanceMeters: number;
+};
+
+const radians = (degrees: number) => (degrees * Math.PI) / 180;
+
+export function distanceMeters(first: Observation, second: Observation) {
+  const earthRadius = 6_371_000;
+  const latitudeDelta = radians(second.latitude - first.latitude);
+  const longitudeDelta = radians(second.longitude - first.longitude);
+  const latitude1 = radians(first.latitude);
+  const latitude2 = radians(second.latitude);
+  const value =
+    Math.sin(latitudeDelta / 2) ** 2 +
+    Math.cos(latitude1) *
+      Math.cos(latitude2) *
+      Math.sin(longitudeDelta / 2) ** 2;
+  return earthRadius * 2 * Math.atan2(Math.sqrt(value), Math.sqrt(1 - value));
+}
+
+export function detectMapBunching(
+  observations: VisibleObservation[],
+  thresholds = MAP_BUNCHING_THRESHOLDS,
+) {
+  const groups = new Map<string, VisibleObservation[]>();
+  observations.forEach((observation) => {
+    const line = observation.schedule?.line || observation.route?.line;
+    if (!line || observation.routeMatchStatus === "unmatched") return;
+    const directionId =
+      observation.schedule?.directionId ?? observation.route?.directionId ?? "";
+    const key = JSON.stringify([observation.operatorId, line, directionId]);
+    const group = groups.get(key) ?? [];
+    group.push(observation);
+    groups.set(key, group);
+  });
+
+  const candidates: MapBunchingCandidate[] = [];
+  groups.forEach((group) => {
+    for (let firstIndex = 0; firstIndex < group.length; firstIndex += 1) {
+      for (
+        let secondIndex = firstIndex + 1;
+        secondIndex < group.length;
+        secondIndex += 1
+      ) {
+        const first = group[firstIndex];
+        const second = group[secondIndex];
+        if (first.vehicleId === second.vehicleId) continue;
+
+        const line = first.schedule?.line || first.route?.line || "";
+        const routeId = first.schedule?.routeId || first.route?.routeId || "";
+        const directionId =
+          first.schedule?.directionId ?? first.route?.directionId ?? "";
+        const separation = Math.round(distanceMeters(first, second));
+
+        const observedGapSeconds = Math.round(
+          Math.abs(second.timestamp - first.timestamp) / 1000,
+        );
+
+        let plannedGapSeconds: number | null = null;
+        if (
+          first.schedule?.scheduledTime != null &&
+          second.schedule?.scheduledTime != null
+        ) {
+          plannedGapSeconds = Math.round(
+            Math.abs(
+              second.schedule.scheduledTime - first.schedule.scheduledTime,
+            ) / 1000,
+          );
+        }
+
+        // Must be geographically close
+        if (separation > thresholds.maximumDistanceMeters) continue;
+
+        // If timetable exists for both, verify bunching criteria
+        if (plannedGapSeconds != null) {
+          if (plannedGapSeconds < thresholds.minimumPlannedGapSeconds) continue;
+          if (observedGapSeconds > thresholds.maximumObservedGapSeconds)
+            continue;
+        }
+
+        const pair = [first, second].sort((a, b) =>
+          a.vehicleId.localeCompare(b.vehicleId),
+        );
+        candidates.push({
+          id: JSON.stringify([
+            pair[0].operatorId,
+            line,
+            directionId,
+            pair[0].vehicleId,
+            pair[1].vehicleId,
+          ]),
+          operatorId: first.operatorId,
+          line,
+          routeId,
+          directionId,
+          stopId: first.stopId || second.stopId || "",
+          first: pair[0],
+          second: pair[1],
+          observedGapSeconds,
+          plannedGapSeconds: plannedGapSeconds ?? 600,
+          distanceMeters: separation,
+        });
+      }
+    }
+  });
+
+  return candidates.sort(
+    (first, second) =>
+      second.plannedGapSeconds - first.plannedGapSeconds ||
+      first.distanceMeters - second.distanceMeters ||
+      first.line.localeCompare(second.line),
+  );
+}
+
+// ── New bunching model types (from bunching-prediction branch) ──────────────
 
 /** One bus passing one stop, scored by the model (see backend/bunching.py). */
 export type BunchingPoint = {
@@ -69,6 +207,7 @@ export type AlertQuality = {
 };
 export type BunchingDiagram = {
   date: string;
+  agency?: string;
   mode: "line" | "corridor";
   line: string;
   direction: string;

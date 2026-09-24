@@ -17,6 +17,12 @@ import {
   type SharedLine,
 } from "./bunching";
 import { clock } from "./replay";
+import {
+  DiagramTrafficControl,
+  DiagramTrafficRects,
+} from "./DiagramTrafficControl";
+import { trafficPlotCells } from "./diagramTraffic";
+import { useDiagramTraffic } from "./useDiagramTraffic";
 import "./bunching.css";
 
 const HOLDS = [0, 30, 60, 90, 120, 180];
@@ -149,14 +155,15 @@ export function BunchingPanel({
       : null;
   return (
     <>
-      <span className="eyebrow">PREDICTION · WHAT-IF</span>
-      <h1>Bunching</h1>
+      <span className="eyebrow">PREDICTION ON A RECORDED DAY · WHAT-IF</span>
+      <h1>Risk prediction</h1>
       <p className="muted">
-        For every bus at every stop, the model predicts the chance that it
-        bunches within the <strong>next stops</strong> (10 on one line, 5 across
-        lines), while the gap is still healthy. Choose one line, or add lines
-        that share its route to see bunching <em>between</em> lines. Uses the
-        date and time window above.
+        Pick a line. For every bus at every stop, a model trained on other days
+        estimates the chance that the bus{" "}
+        <strong>catches up with the bus in front</strong> within the next stops.
+        We replay a recorded day (this is not a live feed) to check how often
+        those warnings were right and what holding buses would have changed. The
+        date and time window are in the bar under the map.
       </p>
       {lines === null && !error && (
         <p className="muted">Finding lines with data in this window…</p>
@@ -204,49 +211,60 @@ export function BunchingPanel({
               </select>
             </label>
           </div>
-          <h2>Lines on the same route</h2>
-          {shared === null ? (
-            <p className="muted">Looking for lines that share this route…</p>
-          ) : !shared.length ? (
+          <details className="bunching-optional" open={chosenExtra.length > 0}>
+            <summary>
+              Optional: add lines that share this street
+              {shared?.length ? ` (${shared.length} available)` : ""}
+            </summary>
             <p className="muted">
-              No other line with data serves 3 or more of these stops. The
-              prediction will look at this line alone.
+              Buses of different lines on the same street also arrive in clumps,
+              which matters to passengers who can take either line. Add them to
+              see bunching <em>between</em> lines. Leave this empty to study the
+              chosen line alone (recommended to start).
             </p>
-          ) : (
-            <div className="bunching-shared">
-              {shared.slice(0, 12).map((item) => {
-                const key = `${item.line}:${item.direction}`;
-                const checked = chosenExtra.includes(key);
-                return (
-                  <label key={key}>
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      disabled={
-                        !checked && chosenExtra.length >= MAX_EXTRA_LINES
-                      }
-                      onChange={() =>
-                        setExtra((values) =>
-                          checked
-                            ? values.filter((value) => value !== key)
-                            : [...values, key],
-                        )
-                      }
-                    />
-                    <span>
-                      <strong>
-                        {item.line} {item.directionName}
-                      </strong>
-                      <small>
-                        shares {item.sharedStops} of {item.routeStops} stops ·{" "}
-                        {item.trips} trips
-                      </small>
-                    </span>
-                  </label>
-                );
-              })}
-            </div>
-          )}
+            {shared === null ? (
+              <p className="muted">Looking for lines that share this route…</p>
+            ) : !shared.length ? (
+              <p className="muted">
+                No other line with data serves 3 or more of these stops. The
+                prediction will look at this line alone.
+              </p>
+            ) : (
+              <div className="bunching-shared">
+                {shared.slice(0, 12).map((item) => {
+                  const key = `${item.line}:${item.direction}`;
+                  const checked = chosenExtra.includes(key);
+                  return (
+                    <label key={key}>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        disabled={
+                          !checked && chosenExtra.length >= MAX_EXTRA_LINES
+                        }
+                        onChange={() =>
+                          setExtra((values) =>
+                            checked
+                              ? values.filter((value) => value !== key)
+                              : [...values, key],
+                          )
+                        }
+                      />
+                      <span>
+                        <strong>
+                          {item.line} {item.directionName}
+                        </strong>
+                        <small>
+                          shares {item.sharedStops} of {item.routeStops} stops ·{" "}
+                          {item.trips} trips
+                        </small>
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+          </details>
           <button
             className="primary bunching-run"
             disabled={loading}
@@ -268,6 +286,19 @@ export function BunchingPanel({
             {result.lines.map((l) => l.line).join(" + ")} ·{" "}
             {result.directionName}
           </h2>
+          <div className="bunching-plain">
+            <b>In short:</b> {s.trips} trips ran in this window and{" "}
+            {s.bunchedPassages} stop visits were bunched. The model gave{" "}
+            {s.alerts} early {s.alerts === 1 ? "warning" : "warnings"}
+            {s.alertsChecked
+              ? `; ${percent(s.alertsThatBunched / s.alertsChecked)} of them were followed by real bunching`
+              : ""}
+            .
+            {result.recommendation && base
+              ? ` Holding a warned bus for up to ${result.recommendation.hold_s} s would have cut bunching by ${percent(-(change(result.recommendation.bunched_passages) ?? 0))}.`
+              : " Holding buses would not have helped in this window."}{" "}
+            Open the diagram to see where it happened.
+          </div>
           <div className="bunching-stats">
             <div>
               <strong>{s.bunchedPassages}</strong>
@@ -492,6 +523,20 @@ export function BunchingDiagramView({
 }) {
   const [hover, setHover] = useState<Hover | null>(null);
   const [focus, setFocus] = useState<BunchingPair | null>(null);
+  const [focusTrips, setFocusTrips] = useState<string[] | null>(null);
+  const [side, setSide] = useState<"warnings" | "pairs">("warnings");
+  const [showTraffic, setShowTraffic] = useState(false);
+  const [trafficHover, setTrafficHover] = useState<{
+    text: string;
+    x: number;
+    y: number;
+  } | null>(null);
+  const traffic = useDiagramTraffic(showTraffic, {
+    date: result.date,
+    agency: result.agency ?? "IA9T6",
+    line: result.line,
+    direction: result.direction,
+  });
   const svg = useRef<SVGSVGElement>(null);
   const colorOf = useMemo(
     () =>
@@ -507,6 +552,31 @@ export function BunchingDiagramView({
     () => new Map(result.stops.map((stop) => [stop.y, stop.name])),
     [result],
   );
+  // the first warning (risk at or above the alert level) of every bus, and what happened next
+  const warnings = useMemo(
+    () =>
+      result.trips
+        .flatMap((trip) => {
+          const points = trip.points.filter(
+            (p) => p.t >= result.startTimestamp && p.t <= result.endTimestamp,
+          );
+          const i = points.findIndex(
+            (p) => !p.bunched && p.prob != null && p.prob >= result.threshold,
+          );
+          if (i < 0) return [];
+          const point = points[i];
+          const caught = points.slice(i + 1).find((p) => p.bunched) ?? null;
+          const leader =
+            result.trips.find(
+              (other) =>
+                other.vehicle_id === point.leader_vehicle &&
+                other.points.some((p) => Math.abs(p.t - point.t) < 3600e3),
+            ) ?? null;
+          return [{ trip, point, caught, leader }];
+        })
+        .sort((a, b) => a.point.t - b.point.t),
+    [result],
+  );
   const holdsByTrip = useMemo(() => {
     const map = new Map<string, HoldAction[]>();
     result.selected.holds.forEach((h) =>
@@ -517,6 +587,16 @@ export function BunchingDiagramView({
   const t0 = result.startTimestamp;
   const t1 = result.endTimestamp;
   const n = Math.max(result.stops.length - 1, 1);
+  const trafficCells = useMemo(
+    () =>
+      trafficPlotCells(
+        traffic.data,
+        result.stops.map((s) => ({ id: s.stop_id })),
+        t0,
+        t1,
+      ),
+    [traffic.data, result.stops, t0, t1],
+  );
   const X = (t: number) => M.l + ((t - t0) / (t1 - t0)) * (W - M.l - M.r);
   const Y = (y: number) => H - M.b - (y / n) * (H - M.t - M.b);
   const path = (points: { t: number; y: number }[]) =>
@@ -526,9 +606,11 @@ export function BunchingDiagramView({
       )
       .join("");
   const inFocus = (trip: BunchingTrip) =>
-    !focus ||
-    trip.trip_id === focus.follower_trip ||
-    trip.trip_id === focus.leader_trip;
+    focusTrips
+      ? focusTrips.includes(trip.trip_id)
+      : !focus ||
+        trip.trip_id === focus.follower_trip ||
+        trip.trip_id === focus.leader_trip;
 
   const ticks: number[] = [];
   const step = t1 - t0 > 2 * 3600e3 ? 30 * 60e3 : 15 * 60e3;
@@ -558,6 +640,21 @@ export function BunchingDiagramView({
       }
     }
     setHover(best);
+    const cell =
+      !best && showTraffic
+        ? trafficCells.find(
+            (c) =>
+              sx >= X(c.start) &&
+              sx < X(c.end) &&
+              sy <= Y(result.stops[c.index].y) &&
+              sy >= Y(result.stops[c.index + 1].y),
+          )
+        : null;
+    setTrafficHover(
+      cell
+        ? { text: cell.description, x: event.clientX, y: event.clientY }
+        : null,
+    );
   }
 
   const hoverHolds = hover ? (holdsByTrip.get(hover.trip.trip_id) ?? []) : [];
@@ -565,7 +662,7 @@ export function BunchingDiagramView({
     <section className="bunching-overlay" aria-label="Time-space diagram">
       <header>
         <div>
-          <span className="eyebrow">TIME–SPACE DIAGRAM</span>
+          <span className="eyebrow">WHERE BUSES CATCH UP WITH EACH OTHER</span>
           <h2>
             {result.lines.map((l) => l.line).join(" + ")} ·{" "}
             {result.directionName} · {result.date}
@@ -575,12 +672,50 @@ export function BunchingDiagramView({
             {result.mode === "corridor"
               ? " (other lines are drawn where they share its stops)"
               : ""}
-            . Lines that converge are bunching. Dots show the predicted risk of
-            bunching within {result.model.horizon ?? 5} stops.
+            . When two lines come together, the second bus has caught up with
+            the first: that is bunching.
           </p>
         </div>
         <button onClick={onClose}>Show map</button>
       </header>
+      <details className="how-to-read" open>
+        <summary>How to read this diagram</summary>
+        <div>
+          <svg viewBox="0 0 150 70" width="150" height="70" aria-hidden="true">
+            <line x1="10" y1="62" x2="145" y2="62" className="htr-axis" />
+            <line x1="10" y1="62" x2="10" y2="4" className="htr-axis" />
+            <path d="M14,60 L70,32 L140,8" className="htr-bus" />
+            <path d="M44,60 L80,40 L110,22 L140,12" className="htr-bus two" />
+            <circle cx="126" cy="15" r="4" className="htr-bunched" />
+            <circle cx="80" cy="40" r="4" className="htr-alert" />
+            <text x="78" y="69">
+              time →
+            </text>
+            <text x="12" y="10">
+              stops ↑
+            </text>
+          </svg>
+          <ul>
+            <li>
+              <b>Left to right</b> is time; <b>bottom to top</b> is the stops
+              along the route, from the first to the last.
+            </li>
+            <li>
+              A <b>steep</b> line is a fast bus; a <b>flat</b> part means the
+              bus is standing still (traffic or a long stop).
+            </li>
+            <li>
+              <b>Orange dots</b> are the model's risk estimates (darker = more
+              likely to bunch soon); a <b>ring</b> is a warning. <b>Red dots</b>{" "}
+              are where bunching really happened.
+            </li>
+            <li>
+              The list on the right shows every warning in time order and what
+              happened next. Click one to see those two buses.
+            </li>
+          </ul>
+        </div>
+      </details>
       <div className="bunching-legend">
         {result.lines.map((l) => (
           <span key={l.line}>
@@ -610,6 +745,11 @@ export function BunchingDiagramView({
           </span>
         )}
       </div>
+      <DiagramTrafficControl
+        enabled={showTraffic}
+        onChange={setShowTraffic}
+        traffic={traffic}
+      />
       <div className="bunching-body">
         <svg
           ref={svg}
@@ -623,6 +763,12 @@ export function BunchingDiagramView({
               <rect x={M.l} y={0} width={W - M.l - M.r} height={H} />
             </clipPath>
           </defs>
+          <DiagramTrafficRects
+            cells={trafficCells}
+            horizontalTime
+            time={X}
+            stop={(index) => Y(result.stops[index].y)}
+          />
           {result.stops.map((stop, index) =>
             index % labelEvery === 0 || index === result.stops.length - 1 ? (
               <g key={stop.y}>
@@ -723,7 +869,10 @@ export function BunchingDiagramView({
             height={H - M.t - M.b}
             fill="transparent"
             onPointerMove={onMove}
-            onPointerLeave={() => setHover(null)}
+            onPointerLeave={() => {
+              setHover(null);
+              setTrafficHover(null);
+            }}
           />
           {hover && (
             <circle
@@ -735,52 +884,142 @@ export function BunchingDiagramView({
           )}
         </svg>
         <aside className="bunching-pairs">
-          <h3>Buses that bunch most</h3>
-          {!result.pairs.length && <p>No bunching in this window.</p>}
-          <ol>
-            {result.pairs.map((pair) => {
-              const active =
-                focus?.follower_trip === pair.follower_trip &&
-                focus?.leader_trip === pair.leader_trip;
-              return (
-                <li key={`${pair.follower_trip}-${pair.leader_trip}`}>
-                  <button
-                    className={active ? "active" : ""}
-                    onClick={() => setFocus(active ? null : pair)}
-                  >
-                    <strong>
-                      <i
-                        className="key-dot"
-                        style={{ background: colorOf.get(pair.follower_line) }}
-                      />
-                      Bus {pair.follower_vehicle} ({pair.follower_line})
-                    </strong>
-                    <span>
-                      right behind{" "}
-                      <i
-                        className="key-dot"
-                        style={{ background: colorOf.get(pair.leader_line) }}
-                      />
-                      bus {pair.leader_vehicle} ({pair.leader_line})
-                    </span>
-                    <small>
-                      bunched at {pair.stops} stop{pair.stops > 1 ? "s" : ""} ·
-                      closest {duration(pair.min_gap_s)} ·{" "}
-                      {clock(pair.first).slice(0, 5)}–
-                      {clock(pair.last).slice(0, 5)}
-                    </small>
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-          {focus && (
-            <button className="bunching-clear" onClick={() => setFocus(null)}>
+          <div className="bunching-side-switch" role="tablist">
+            <button
+              role="tab"
+              aria-selected={side === "warnings"}
+              className={side === "warnings" ? "active" : ""}
+              onClick={() => setSide("warnings")}
+            >
+              Warned buses ({warnings.length})
+            </button>
+            <button
+              role="tab"
+              aria-selected={side === "pairs"}
+              className={side === "pairs" ? "active" : ""}
+              onClick={() => setSide("pairs")}
+            >
+              Bunched pairs ({result.pairs.length})
+            </button>
+          </div>
+          {side === "warnings" && (
+            <>
+              {!warnings.length && (
+                <p>The model gave no warning in this window.</p>
+              )}
+              <ol className="warning-list">
+                {warnings.map(({ trip, point, caught, leader }) => {
+                  const ids = [
+                    trip.trip_id,
+                    ...(leader ? [leader.trip_id] : []),
+                  ];
+                  const active =
+                    focusTrips?.length === ids.length &&
+                    ids.every((id) => focusTrips.includes(id));
+                  return (
+                    <li key={trip.trip_id}>
+                      <button
+                        className={`${active ? "active" : ""} ${caught ? "hit" : "miss"}`}
+                        onClick={() => {
+                          setFocus(null);
+                          setFocusTrips(active ? null : ids);
+                        }}
+                      >
+                        <strong>
+                          {clock(point.t).slice(0, 5)} · bus {trip.vehicle_id} (
+                          {trip.line})
+                        </strong>
+                        <span>
+                          near {stopName.get(point.y) ?? point.stop_id} · risk{" "}
+                          {percent(point.prob)}
+                        </span>
+                        <small>
+                          {caught
+                            ? `→ caught up with the bus in front ${Math.max(1, Math.round((caught.t - point.t) / 60e3))} min later, at ${stopName.get(caught.y) ?? caught.stop_id}`
+                            : "→ did not bunch (a false alarm, or the gap recovered)"}
+                        </small>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+            </>
+          )}
+          {side === "pairs" && !result.pairs.length && (
+            <p>No bunching in this window.</p>
+          )}
+          {side === "pairs" && (
+            <ol>
+              {result.pairs.map((pair) => {
+                const active =
+                  focus?.follower_trip === pair.follower_trip &&
+                  focus?.leader_trip === pair.leader_trip;
+                return (
+                  <li key={`${pair.follower_trip}-${pair.leader_trip}`}>
+                    <button
+                      className={active ? "active" : ""}
+                      onClick={() => {
+                        setFocusTrips(null);
+                        setFocus(active ? null : pair);
+                      }}
+                    >
+                      <strong>
+                        <i
+                          className="key-dot"
+                          style={{
+                            background: colorOf.get(pair.follower_line),
+                          }}
+                        />
+                        Bus {pair.follower_vehicle} ({pair.follower_line})
+                      </strong>
+                      <span>
+                        right behind{" "}
+                        <i
+                          className="key-dot"
+                          style={{ background: colorOf.get(pair.leader_line) }}
+                        />
+                        bus {pair.leader_vehicle} ({pair.leader_line})
+                      </span>
+                      <small>
+                        bunched at {pair.stops} stop{pair.stops > 1 ? "s" : ""}{" "}
+                        · closest {duration(pair.min_gap_s)} ·{" "}
+                        {clock(pair.first).slice(0, 5)}–
+                        {clock(pair.last).slice(0, 5)}
+                      </small>
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+          {(focus || focusTrips) && (
+            <button
+              className="bunching-clear"
+              onClick={() => {
+                setFocus(null);
+                setFocusTrips(null);
+              }}
+            >
               Show all buses
             </button>
           )}
         </aside>
       </div>
+      {showTraffic && traffic.data && trafficHover && !hover && (
+        <div
+          className="bunching-tip"
+          style={{
+            left: Math.max(
+              8,
+              Math.min(trafficHover.x + 14, window.innerWidth - 300),
+            ),
+            top: Math.min(trafficHover.y + 14, window.innerHeight - 140),
+            maxWidth: 285,
+          }}
+        >
+          {trafficHover.text}
+        </div>
+      )}
       {hover && (
         <div
           className="bunching-tip"

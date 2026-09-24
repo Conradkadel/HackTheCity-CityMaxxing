@@ -52,6 +52,7 @@ The schema has four groups of tables:
 | Vehicle facts and provenance | `vehicle_events`, `event_sources`, `availability` |
 | Raw operation plans | `plan_packages`, `plan_records` |
 | Normalised schedule lookup | `schedule_routes`, `schedule_trips`, `schedule_stop_visits` |
+| Versioned analysis | `analysis_runs`, `bunching_episodes`, `bunching_evidence` |
 
 ## 3. Import vehicle observations
 
@@ -149,3 +150,14 @@ ORDER BY event_agency_id, active_from;
 A CARRIS-only export may omit unrelated vehicle rows and plan packages. It must keep referentially complete rows for its chosen active dataset version and the CARRIS date-valid plan: dataset lifecycle rows, selected `vehicle_events`, relevant `event_sources` if provenance is required, rebuilt `availability`, the applicable `plan_packages`/`plan_records`, and their normalised schedule rows.
 
 The export and restore workflow is documented in [Sharing the database](SHARING_DATABASE.md). The workspace treats omitted operators, lines, plans, shapes, stops, and observations as supported partial states.
+
+## 9. Precompute bunching candidates
+
+Database construction and bunching analysis are separate lifecycle steps. Imports preserve source facts; the batch analyzer creates replaceable/versioned analytical results against the active dataset.
+
+```sh
+docker compose run --rm api \
+  python analyze_bunching.py --date 2026-09-01 --operator IA9T6
+```
+
+Every execution appends an `analysis_runs` record with its detector version and exact thresholds. Supporting stop detections are consolidated into episodes so one pair travelling together across several stops is not counted as several independent bunches. See [Precomputed bunching analysis](PRECOMPUTED_BUNCHING.md) for the algorithm, statistics endpoints, and limitations.

@@ -12,8 +12,15 @@ from observation_query import OBSERVATIONS_SQL,build_observation_query
 from plans_api import router as plans_router
 from presets_api import router as presets_router
 from workspace_api import router as workspace_router
+from vehicle_day import router as vehicle_day_router
+from line_day import router as line_day_router
+from bunching_results_api import router as bunching_results_router
 from bunching_api import router as bunching_router
 from sim_api import router as sim_router
+from findings_api import router as findings_router
+from traffic_api import router as traffic_router
+from traffic_diagram import router as traffic_diagram_router
+from bunching_heatmap_api import router as bunching_heatmap_router
 from schedule import router as schedule_router,ensure_operator_packages
 from preview import preview_version,progress,preview_coverage
 
@@ -31,8 +38,15 @@ app.include_router(plans_router)
 app.include_router(schedule_router)
 app.include_router(presets_router)
 app.include_router(workspace_router)
+app.include_router(vehicle_day_router)
+app.include_router(line_day_router)
+app.include_router(bunching_results_router)
 app.include_router(bunching_router)
 app.include_router(sim_router)
+app.include_router(findings_router)
+app.include_router(traffic_router)
+app.include_router(traffic_diagram_router)
+app.include_router(bunching_heatmap_router)
 
 @app.exception_handler(psycopg.Error)
 async def database_error(request,exc):

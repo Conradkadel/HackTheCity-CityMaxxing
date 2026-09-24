@@ -355,3 +355,119 @@
     width: 100%;
   }
 }
+
+/* Risk assessment: plain summary, optional lines, how to read, warnings list */
+.bunching-plain {
+  margin: 10px 0 14px;
+  padding: 11px 12px;
+  border-radius: 8px;
+  background: #163743;
+  border: 1px solid #2c5563;
+  color: #dce8ec;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.bunching-optional {
+  margin: 14px 0 4px;
+  padding: 8px 10px;
+  border: 1px solid #27505d;
+  border-radius: 8px;
+  background: #102f3b;
+}
+.bunching-optional summary {
+  cursor: pointer;
+  color: #dce8ec;
+  font-size: 12px;
+  font-weight: 700;
+}
+.bunching-optional[open] summary {
+  margin-bottom: 6px;
+}
+.how-to-read {
+  margin: 8px 0 2px;
+  padding: 8px 12px;
+  border: 1px solid #e3e6dc;
+  border-radius: 8px;
+  background: #f7f8f3;
+  color: #3c575f;
+  font-size: 12px;
+}
+.how-to-read summary {
+  cursor: pointer;
+  color: #183741;
+  font-weight: 700;
+}
+.how-to-read > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  margin-top: 6px;
+}
+.how-to-read svg {
+  flex: none;
+}
+.how-to-read ul {
+  flex: 1 1 320px;
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.5;
+}
+.htr-axis {
+  stroke: #9aa9ad;
+  stroke-width: 1;
+}
+.htr-bus {
+  fill: none;
+  stroke: #2a78d6;
+  stroke-width: 2.5;
+}
+.htr-bus.two {
+  stroke: #1baf7a;
+}
+.htr-bunched {
+  fill: #d63e35;
+}
+.htr-alert {
+  fill: #f0a35e;
+  stroke: #a63603;
+  stroke-width: 1.5;
+}
+.how-to-read text {
+  fill: #637e86;
+  font-size: 8px;
+}
+.bunching-pairs {
+  max-height: 600px;
+  overflow-y: auto;
+}
+.bunching-side-switch {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin-bottom: 8px;
+  padding: 3px;
+  border-radius: 8px;
+  background: #eef1ea;
+}
+.bunching-side-switch button {
+  padding: 5px 4px;
+  border: 0;
+  background: transparent;
+  color: #3c575f;
+  font-size: 11px;
+}
+.bunching-side-switch button.active {
+  background: #183741;
+  color: #fff;
+  font-weight: 700;
+}
+.warning-list li button.hit {
+  box-shadow: inset 3px 0 0 #d63e35;
+}
+.warning-list li button.miss {
+  box-shadow: inset 3px 0 0 #b9c4c0;
+}

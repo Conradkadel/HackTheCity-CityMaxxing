@@ -1,0 +1,6647 @@
+{
+ "generatedAt": "2026-09-24T20:05:38+00:00",
+ "source": {
+  "operator": "CARRIS (IA9T6)",
+  "from": "2026-08-31",
+  "to": "2026-09-06",
+  "passages": 1146383,
+  "lines": 106,
+  "definition": "A stop passage is bunched when the gap to the previous bus of the same line and direction is less than 25 % of the planned gap."
+ },
+ "headline": {
+  "weekdayRate": 0.0265,
+  "weekendRate": 0.0178,
+  "bunchedPerWeekday": 4494.0,
+  "topLines": [
+   "742",
+   "767",
+   "728",
+   "727",
+   "758"
+  ],
+  "topLinesBunchingShare": 0.406,
+  "topLinesPassageShare": 0.165,
+  "recurringBlocks": 11,
+  "recurringBlocksShare": 0.187,
+  "peakHours": [
+   "18:00–20:00"
+  ],
+  "departTooCloseTripShare": 0.11,
+  "departTooCloseBunchingShare": 0.585,
+  "networkDepartTooClose": 0.11,
+  "networkPrevTripLate": 0.31,
+  "corridorEventsPerWeekday": 1086.0,
+  "corridorPlannedTogether": 0.28
+ },
+ "hours": [
+  {
+   "hour": 0,
+   "rate": 0.0115
+  },
+  {
+   "hour": 1,
+   "rate": 0.0045
+  },
+  {
+   "hour": 2,
+   "rate": 0.0054
+  },
+  {
+   "hour": 3,
+   "rate": 0.0024
+  },
+  {
+   "hour": 4,
+   "rate": 0.0
+  },
+  {
+   "hour": 5,
+   "rate": 0.0036
+  },
+  {
+   "hour": 6,
+   "rate": 0.014
+  },
+  {
+   "hour": 7,
+   "rate": 0.0205
+  },
+  {
+   "hour": 8,
+   "rate": 0.0264
+  },
+  {
+   "hour": 9,
+   "rate": 0.0242
+  },
+  {
+   "hour": 10,
+   "rate": 0.0231
+  },
+  {
+   "hour": 11,
+   "rate": 0.0192
+  },
+  {
+   "hour": 12,
+   "rate": 0.0168
+  },
+  {
+   "hour": 13,
+   "rate": 0.0194
+  },
+  {
+   "hour": 14,
+   "rate": 0.0194
+  },
+  {
+   "hour": 15,
+   "rate": 0.0181
+  },
+  {
+   "hour": 16,
+   "rate": 0.0302
+  },
+  {
+   "hour": 17,
+   "rate": 0.0394
+  },
+  {
+   "hour": 18,
+   "rate": 0.0511
+  },
+  {
+   "hour": 19,
+   "rate": 0.0513
+  },
+  {
+   "hour": 20,
+   "rate": 0.033
+  },
+  {
+   "hour": 21,
+   "rate": 0.0252
+  },
+  {
+   "hour": 22,
+   "rate": 0.0277
+  },
+  {
+   "hour": 23,
+   "rate": 0.014
+  }
+ ],
+ "byDay": {
+  "Mon": 0.021,
+  "Tue": 0.0278,
+  "Wed": 0.0274,
+  "Thu": 0.028,
+  "Fri": 0.0286,
+  "Sat": 0.0175,
+  "Sun": 0.0182
+ },
+ "lines": [
+  {
+   "line": "742",
+   "direction": "0",
+   "bunchedPerWeekday": 311.0,
+   "rate": 0.087,
+   "share": 0.069,
+   "schedHeadwayMin": 12.0
+  },
+  {
+   "line": "742",
+   "direction": "1",
+   "bunchedPerWeekday": 282.0,
+   "rate": 0.077,
+   "share": 0.063,
+   "schedHeadwayMin": 11.0
+  },
+  {
+   "line": "767",
+   "direction": "0",
+   "bunchedPerWeekday": 206.0,
+   "rate": 0.087,
+   "share": 0.046,
+   "schedHeadwayMin": 14.0
+  },
+  {
+   "line": "728",
+   "direction": "1",
+   "bunchedPerWeekday": 187.0,
+   "rate": 0.073,
+   "share": 0.042,
+   "schedHeadwayMin": 16.0
+  },
+  {
+   "line": "767",
+   "direction": "1",
+   "bunchedPerWeekday": 162.0,
+   "rate": 0.066,
+   "share": 0.036,
+   "schedHeadwayMin": 14.0
+  },
+  {
+   "line": "728",
+   "direction": "0",
+   "bunchedPerWeekday": 159.0,
+   "rate": 0.058,
+   "share": 0.035,
+   "schedHeadwayMin": 16.0
+  },
+  {
+   "line": "758",
+   "direction": "0",
+   "bunchedPerWeekday": 144.0,
+   "rate": 0.066,
+   "share": 0.032,
+   "schedHeadwayMin": 11.0
+  },
+  {
+   "line": "727",
+   "direction": "0",
+   "bunchedPerWeekday": 142.0,
+   "rate": 0.046,
+   "share": 0.032,
+   "schedHeadwayMin": 13.0
+  },
+  {
+   "line": "727",
+   "direction": "1",
+   "bunchedPerWeekday": 118.0,
+   "rate": 0.037,
+   "share": 0.026,
+   "schedHeadwayMin": 13.0
+  },
+  {
+   "line": "758",
+   "direction": "1",
+   "bunchedPerWeekday": 115.0,
+   "rate": 0.051,
+   "share": 0.026,
+   "schedHeadwayMin": 11.0
+  },
+  {
+   "line": "736",
+   "direction": "0",
+   "bunchedPerWeekday": 105.0,
+   "rate": 0.044,
+   "share": 0.023,
+   "schedHeadwayMin": 12.0
+  },
+  {
+   "line": "717",
+   "direction": "1",
+   "bunchedPerWeekday": 104.0,
+   "rate": 0.037,
+   "share": 0.023,
+   "schedHeadwayMin": 12.0
+  },
+  {
+   "line": "15E",
+   "direction": "0",
+   "bunchedPerWeekday": 103.0,
+   "rate": 0.051,
+   "share": 0.023,
+   "schedHeadwayMin": 10.0
+  },
+  {
+   "line": "717",
+   "direction": "0",
+   "bunchedPerWeekday": 98.0,
+   "rate": 0.033,
+   "share": 0.022,
+   "schedHeadwayMin": 12.0
+  },
+  {
+   "line": "759",
+   "direction": "0",
+   "bunchedPerWeekday": 96.0,
+   "rate": 0.052,
+   "share": 0.021,
+   "schedHeadwayMin": 18.0
+  },
+  {
+   "line": "751",
+   "direction": "0",
+   "bunchedPerWeekday": 85.0,
+   "rate": 0.038,
+   "share": 0.019,
+   "schedHeadwayMin": 15.0
+  },
+  {
+   "line": "735",
+   "direction": "1",
+   "bunchedPerWeekday": 82.0,
+   "rate": 0.057,
+   "share": 0.018,
+   "schedHeadwayMin": 17.0
+  },
+  {
+   "line": "751",
+   "direction": "1",
+   "bunchedPerWeekday": 79.0,
+   "rate": 0.038,
+   "share": 0.018,
+   "schedHeadwayMin": 14.0
+  },
+  {
+   "line": "703",
+   "direction": "0",
+   "bunchedPerWeekday": 75.0,
+   "rate": 0.04,
+   "share": 0.017,
+   "schedHeadwayMin": 15.0
+  },
+  {
+   "line": "735",
+   "direction": "0",
+   "bunchedPerWeekday": 74.0,
+   "rate": 0.053,
+   "share": 0.017,
+   "schedHeadwayMin": 17.0
+  }
+ ],
+ "departure": [
+  {
+   "key": "too close",
+   "label": "left < 50 % of the planned gap after the bus in front",
+   "trips": 857,
+   "tripShare": 0.027,
+   "pBunch": 0.68,
+   "bunchingShare": 0.321
+  },
+  {
+   "key": "close",
+   "label": "50–80 %",
+   "trips": 2618,
+   "tripShare": 0.083,
+   "pBunch": 0.231,
+   "bunchingShare": 0.264
+  },
+  {
+   "key": "on plan",
+   "label": "80–120 % (as planned)",
+   "trips": 24557,
+   "tripShare": 0.782,
+   "pBunch": 0.046,
+   "bunchingShare": 0.395
+  },
+  {
+   "key": "late",
+   "label": "more than 120 %",
+   "trips": 3390,
+   "tripShare": 0.108,
+   "pBunch": 0.019,
+   "bunchingShare": 0.021
+  }
+ ],
+ "problems": [
+  {
+   "line": "742",
+   "direction": "0",
+   "block": "10:00–16:00",
+   "hours": [
+    "10:00–11:00",
+    "12:00–15:00"
+   ],
+   "hotHours": [
+    10,
+    12,
+    13,
+    14
+   ],
+   "rate": 0.107,
+   "timesNetwork": 4.1,
+   "daysHot": 5,
+   "bunchedPerWeekday": 141.0,
+   "tripsPerWeekday": 27.0,
+   "schedHeadwayMin": 14.0,
+   "byDay": {
+    "Mon": 0.097,
+    "Tue": 0.167,
+    "Wed": 0.079,
+    "Thu": 0.101,
+    "Fri": 0.094,
+    "Sat": 0.069,
+    "Sun": 0.067
+   },
+   "byHour": {
+    "0": 0.0,
+    "1": 0.0,
+    "5": 0.0,
+    "6": 0.015,
+    "7": 0.036,
+    "8": 0.107,
+    "9": 0.083,
+    "10": 0.149,
+    "11": 0.067,
+    "12": 0.137,
+    "13": 0.128,
+    "14": 0.12,
+    "15": 0.045,
+    "16": 0.087,
+    "17": 0.099,
+    "18": 0.119,
+    "19": 0.103,
+    "20": 0.081,
+    "21": 0.076,
+    "22": 0.042,
+    "23": 0.038
+   },
+   "evidence": {
+    "departTooClose": 0.26,
+    "prevTripLate": 0.39,
+    "onsetMedianProgress": 0.62,
+    "onsetFirstQuarter": 0.08
+   },
+   "cause": "dispatch",
+   "causeText": "Buses leave the terminal too soon after the bus in front",
+   "fix": "Headway-based dispatch at the terminal: a bus leaves only when the gap to the bus in front is at least 90 % of plan (wait at most 3–5 min).",
+   "tested": null,
+   "terminal": {
+    "stop_id": "8316",
+    "lat": 38.728689,
+    "lon": -9.109225
+   },
+   "stretch": [
+    {
+     "stop_id": "9301",
+     "seq": 34,
+     "rate": 0.163,
+     "days": 5,
+     "lat": 38.71302,
+     "lon": -9.17372
+    },
+    {
+     "stop_id": "13406",
+     "seq": 46,
+     "rate": 0.165,
+     "days": 5,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13408",
+     "seq": 47,
+     "rate": 0.169,
+     "days": 5,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13410",
+     "seq": 48,
+     "rate": 0.167,
+     "days": 5,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13312",
+     "seq": 49,
+     "rate": 0.163,
+     "days": 5,
+     "lat": null,
+     "lon": null
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "8316",
+     "seq": 5,
+     "rate": 0.009,
+     "onsets": 1,
+     "lat": 38.728689,
+     "lon": -9.109225
+    },
+    {
+     "stop_id": "8304",
+     "seq": 6,
+     "rate": 0.017,
+     "onsets": 1,
+     "lat": 38.726349,
+     "lon": -9.1118
+    },
+    {
+     "stop_id": "8302",
+     "seq": 7,
+     "rate": 0.017,
+     "onsets": 1,
+     "lat": 38.725052,
+     "lon": -9.11328
+    },
+    {
+     "stop_id": "9808",
+     "seq": 8,
+     "rate": 0.018,
+     "onsets": 0,
+     "lat": 38.72298,
+     "lon": -9.11534
+    },
+    {
+     "stop_id": "9806",
+     "seq": 9,
+     "rate": 0.009,
+     "onsets": 0,
+     "lat": 38.724571,
+     "lon": -9.11582
+    },
+    {
+     "stop_id": "9804",
+     "seq": 10,
+     "rate": 0.0,
+     "onsets": 0,
+     "lat": 38.725124,
+     "lon": -9.11863
+    },
+    {
+     "stop_id": "9802",
+     "seq": 11,
+     "rate": 0.03,
+     "onsets": 3,
+     "lat": 38.7271,
+     "lon": -9.11907
+    },
+    {
+     "stop_id": "11703",
+     "seq": 12,
+     "rate": 0.045,
+     "onsets": 2,
+     "lat": 38.728951,
+     "lon": -9.122125
+    },
+    {
+     "stop_id": "11701",
+     "seq": 13,
+     "rate": 0.035,
+     "onsets": 1,
+     "lat": 38.730171,
+     "lon": -9.12448
+    },
+    {
+     "stop_id": "7013",
+     "seq": 14,
+     "rate": 0.047,
+     "onsets": 3,
+     "lat": 38.7318,
+     "lon": -9.12775
+    },
+    {
+     "stop_id": "7011",
+     "seq": 15,
+     "rate": 0.053,
+     "onsets": 2,
+     "lat": 38.732479,
+     "lon": -9.12958
+    },
+    {
+     "stop_id": "501",
+     "seq": 16,
+     "rate": 0.054,
+     "onsets": 1,
+     "lat": 38.73307,
+     "lon": -9.1318
+    },
+    {
+     "stop_id": "503",
+     "seq": 17,
+     "rate": 0.075,
+     "onsets": 4,
+     "lat": 38.73378,
+     "lon": -9.13442
+    },
+    {
+     "stop_id": "518",
+     "seq": 18,
+     "rate": 0.06,
+     "onsets": 1,
+     "lat": 38.734428,
+     "lon": -9.13674
+    },
+    {
+     "stop_id": "11116",
+     "seq": 19,
+     "rate": 0.065,
+     "onsets": 1,
+     "lat": 38.73476,
+     "lon": -9.13888
+    },
+    {
+     "stop_id": "11106",
+     "seq": 20,
+     "rate": 0.077,
+     "onsets": 2,
+     "lat": 38.736919,
+     "lon": -9.1405
+    },
+    {
+     "stop_id": "11107",
+     "seq": 21,
+     "rate": 0.086,
+     "onsets": 2,
+     "lat": 38.737801,
+     "lon": -9.141985
+    },
+    {
+     "stop_id": "11118",
+     "seq": 22,
+     "rate": 0.09,
+     "onsets": 3,
+     "lat": 38.737179,
+     "lon": -9.14563
+    },
+    {
+     "stop_id": "1811",
+     "seq": 23,
+     "rate": 0.101,
+     "onsets": 4,
+     "lat": 38.736752,
+     "lon": -9.14945
+    },
+    {
+     "stop_id": "1409",
+     "seq": 24,
+     "rate": 0.097,
+     "onsets": 1,
+     "lat": 38.73502,
+     "lon": -9.15225
+    },
+    {
+     "stop_id": "1413",
+     "seq": 25,
+     "rate": 0.104,
+     "onsets": 4,
+     "lat": 38.73414,
+     "lon": -9.154175
+    },
+    {
+     "stop_id": "1405",
+     "seq": 26,
+     "rate": 0.126,
+     "onsets": 4,
+     "lat": 38.731079,
+     "lon": -9.15633
+    },
+    {
+     "stop_id": "6117",
+     "seq": 27,
+     "rate": 0.12,
+     "onsets": 2,
+     "lat": 38.729673,
+     "lon": -9.15825
+    },
+    {
+     "stop_id": "6115",
+     "seq": 28,
+     "rate": 0.134,
+     "onsets": 6,
+     "lat": 38.7272,
+     "lon": -9.16223
+    },
+    {
+     "stop_id": "6113",
+     "seq": 29,
+     "rate": 0.153,
+     "onsets": 3,
+     "lat": 38.725574,
+     "lon": -9.1628
+    },
+    {
+     "stop_id": "8507",
+     "seq": 30,
+     "rate": 0.136,
+     "onsets": 0,
+     "lat": 38.724628,
+     "lon": -9.16463
+    },
+    {
+     "stop_id": "8609",
+     "seq": 31,
+     "rate": 0.137,
+     "onsets": 0,
+     "lat": 38.722361,
+     "lon": -9.166875
+    },
+    {
+     "stop_id": "8010",
+     "seq": 32,
+     "rate": 0.162,
+     "onsets": 3,
+     "lat": 38.719421,
+     "lon": -9.17
+    },
+    {
+     "stop_id": "9303",
+     "seq": 33,
+     "rate": 0.156,
+     "onsets": 0,
+     "lat": 38.716122,
+     "lon": -9.17268
+    },
+    {
+     "stop_id": "9301",
+     "seq": 34,
+     "rate": 0.163,
+     "onsets": 2,
+     "lat": 38.71302,
+     "lon": -9.17372
+    },
+    {
+     "stop_id": "9405",
+     "seq": 35,
+     "rate": 0.163,
+     "onsets": 1,
+     "lat": 38.711695,
+     "lon": -9.173075
+    },
+    {
+     "stop_id": "9403",
+     "seq": 37,
+     "rate": 0.121,
+     "onsets": 3,
+     "lat": 38.70669,
+     "lon": -9.17326
+    },
+    {
+     "stop_id": "9401",
+     "seq": 38,
+     "rate": 0.153,
+     "onsets": 8,
+     "lat": 38.706575,
+     "lon": -9.17428
+    },
+    {
+     "stop_id": "12110",
+     "seq": 39,
+     "rate": 0.149,
+     "onsets": 2,
+     "lat": 38.705021,
+     "lon": -9.1771
+    },
+    {
+     "stop_id": "12121",
+     "seq": 40,
+     "rate": 0.158,
+     "onsets": 4,
+     "lat": 38.70248,
+     "lon": -9.18048
+    },
+    {
+     "stop_id": "12112",
+     "seq": 41,
+     "rate": 0.15,
+     "onsets": 1,
+     "lat": 38.704102,
+     "lon": -9.18262
+    },
+    {
+     "stop_id": "12004",
+     "seq": 42,
+     "rate": 0.153,
+     "onsets": 2,
+     "lat": 38.705021,
+     "lon": -9.18397
+    },
+    {
+     "stop_id": "12002",
+     "seq": 43,
+     "rate": 0.159,
+     "onsets": 2,
+     "lat": 38.738232,
+     "lon": -9.12092
+    },
+    {
+     "stop_id": "12006",
+     "seq": 44,
+     "rate": 0.158,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "12008",
+     "seq": 45,
+     "rate": 0.117,
+     "onsets": 1,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13406",
+     "seq": 46,
+     "rate": 0.165,
+     "onsets": 5,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13408",
+     "seq": 47,
+     "rate": 0.169,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13410",
+     "seq": 48,
+     "rate": 0.167,
+     "onsets": 4,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13312",
+     "seq": 49,
+     "rate": 0.163,
+     "onsets": 4,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10304",
+     "seq": 50,
+     "rate": 0.134,
+     "onsets": 1,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10306",
+     "seq": 51,
+     "rate": 0.144,
+     "onsets": 3,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10308",
+     "seq": 52,
+     "rate": 0.144,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10309",
+     "seq": 54,
+     "rate": 0.083,
+     "onsets": 1,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10307",
+     "seq": 55,
+     "rate": 0.144,
+     "onsets": 7,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10314",
+     "seq": 56,
+     "rate": 0.122,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    }
+   ]
+  },
+  {
+   "line": "742",
+   "direction": "1",
+   "block": "16:00–21:00",
+   "hours": [
+    "16:00–20:00"
+   ],
+   "hotHours": [
+    16,
+    17,
+    18,
+    19
+   ],
+   "rate": 0.13,
+   "timesNetwork": 4.9,
+   "daysHot": 5,
+   "bunchedPerWeekday": 140.0,
+   "tripsPerWeekday": 22.0,
+   "schedHeadwayMin": 14.0,
+   "byDay": {
+    "Mon": 0.098,
+    "Tue": 0.067,
+    "Wed": 0.218,
+    "Thu": 0.11,
+    "Fri": 0.158,
+    "Sat": 0.075,
+    "Sun": 0.056
+   },
+   "byHour": {
+    "0": 0.025,
+    "5": 0.0,
+    "6": 0.0,
+    "7": 0.027,
+    "8": 0.068,
+    "9": 0.074,
+    "10": 0.102,
+    "11": 0.079,
+    "12": 0.059,
+    "13": 0.074,
+    "14": 0.071,
+    "15": 0.013,
+    "16": 0.091,
+    "17": 0.144,
+    "18": 0.171,
+    "19": 0.148,
+    "20": 0.085,
+    "21": 0.058,
+    "22": 0.028,
+    "23": 0.043
+   },
+   "evidence": {
+    "departTooClose": 0.24,
+    "prevTripLate": 0.42,
+    "onsetMedianProgress": 0.67,
+    "onsetFirstQuarter": 0.09
+   },
+   "cause": "dispatch",
+   "causeText": "Buses leave the terminal too soon after the bus in front",
+   "fix": "Headway-based dispatch at the terminal: a bus leaves only when the gap to the bus in front is at least 90 % of plan (wait at most 3–5 min).",
+   "tested": {
+    "scenario": "D2+H1",
+    "ewtSaved": 26.1,
+    "ewtSavedRange": [
+     18.9,
+     31.3
+    ],
+    "bunchedPctChange": -4.72,
+    "extraVehicles": 0,
+    "holdPerTrip": 78.6,
+    "terminalWaitPerTrip": 35.0,
+    "robust": true,
+    "days": "held-out Fri 4 + Sun 6 Sep, 16–20 h, 30 seeds, both k",
+    "alsoRobust": [
+     "D2-2",
+     "D2",
+     "D2-5"
+    ]
+   },
+   "terminal": {
+    "stop_id": "10315",
+    "lat": 38.716791,
+    "lon": -9.20021
+   },
+   "stretch": [
+    {
+     "stop_id": "1410",
+     "seq": 36,
+     "rate": 0.219,
+     "days": 5,
+     "lat": 38.73506,
+     "lon": -9.14709
+    },
+    {
+     "stop_id": "517",
+     "seq": 41,
+     "rate": 0.216,
+     "days": 5,
+     "lat": 38.733379,
+     "lon": -9.13317
+    },
+    {
+     "stop_id": "522",
+     "seq": 42,
+     "rate": 0.222,
+     "days": 5,
+     "lat": 38.732922,
+     "lon": -9.13125
+    },
+    {
+     "stop_id": "9807",
+     "seq": 51,
+     "rate": 0.212,
+     "days": 5,
+     "lat": 38.726049,
+     "lon": -9.11228
+    },
+    {
+     "stop_id": "8303",
+     "seq": 53,
+     "rate": 0.212,
+     "days": 5,
+     "lat": 38.729599,
+     "lon": -9.1085
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "10315",
+     "seq": 1,
+     "rate": 0.0,
+     "onsets": 0,
+     "lat": 38.716791,
+     "lon": -9.20021
+    },
+    {
+     "stop_id": "12928",
+     "seq": 2,
+     "rate": 0.043,
+     "onsets": 4,
+     "lat": 38.706371,
+     "lon": -9.17352
+    },
+    {
+     "stop_id": "10313",
+     "seq": 3,
+     "rate": 0.014,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10308",
+     "seq": 5,
+     "rate": 0.03,
+     "onsets": 3,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10309",
+     "seq": 7,
+     "rate": 0.02,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10307",
+     "seq": 8,
+     "rate": 0.043,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10305",
+     "seq": 9,
+     "rate": 0.047,
+     "onsets": 1,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10303",
+     "seq": 10,
+     "rate": 0.047,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10301",
+     "seq": 11,
+     "rate": 0.048,
+     "onsets": 1,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13303",
+     "seq": 12,
+     "rate": 0.05,
+     "onsets": 1,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13305",
+     "seq": 13,
+     "rate": 0.064,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13401",
+     "seq": 14,
+     "rate": 0.051,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13405",
+     "seq": 15,
+     "rate": 0.064,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "12007",
+     "seq": 16,
+     "rate": 0.056,
+     "onsets": 0,
+     "lat": 38.704651,
+     "lon": -9.18426
+    },
+    {
+     "stop_id": "12003",
+     "seq": 17,
+     "rate": 0.083,
+     "onsets": 3,
+     "lat": 38.704552,
+     "lon": -9.18315
+    },
+    {
+     "stop_id": "12005",
+     "seq": 18,
+     "rate": 0.082,
+     "onsets": 1,
+     "lat": 38.702869,
+     "lon": -9.18052
+    },
+    {
+     "stop_id": "12107",
+     "seq": 19,
+     "rate": 0.073,
+     "onsets": 1,
+     "lat": 38.704929,
+     "lon": -9.17692
+    },
+    {
+     "stop_id": "12105",
+     "seq": 20,
+     "rate": 0.082,
+     "onsets": 3,
+     "lat": 38.70657,
+     "lon": -9.17358
+    },
+    {
+     "stop_id": "9402",
+     "seq": 21,
+     "rate": 0.086,
+     "onsets": 3,
+     "lat": 38.708,
+     "lon": -9.1722
+    },
+    {
+     "stop_id": "9404",
+     "seq": 22,
+     "rate": 0.101,
+     "onsets": 3,
+     "lat": 38.710732,
+     "lon": -9.17198
+    },
+    {
+     "stop_id": "9406",
+     "seq": 24,
+     "rate": 0.113,
+     "onsets": 3,
+     "lat": 38.715639,
+     "lon": -9.1728
+    },
+    {
+     "stop_id": "9302",
+     "seq": 25,
+     "rate": 0.139,
+     "onsets": 4,
+     "lat": 38.718151,
+     "lon": -9.17163
+    },
+    {
+     "stop_id": "9304",
+     "seq": 26,
+     "rate": 0.134,
+     "onsets": 1,
+     "lat": 38.721119,
+     "lon": -9.1675
+    },
+    {
+     "stop_id": "8011",
+     "seq": 27,
+     "rate": 0.161,
+     "onsets": 3,
+     "lat": 38.723431,
+     "lon": -9.16607
+    },
+    {
+     "stop_id": "8610",
+     "seq": 28,
+     "rate": 0.14,
+     "onsets": 1,
+     "lat": 38.725021,
+     "lon": -9.16408
+    },
+    {
+     "stop_id": "8508",
+     "seq": 29,
+     "rate": 0.162,
+     "onsets": 0,
+     "lat": 38.725925,
+     "lon": -9.16259
+    },
+    {
+     "stop_id": "6104",
+     "seq": 30,
+     "rate": 0.149,
+     "onsets": 3,
+     "lat": 38.72768,
+     "lon": -9.16223
+    },
+    {
+     "stop_id": "6106",
+     "seq": 31,
+     "rate": 0.162,
+     "onsets": 6,
+     "lat": 38.729099,
+     "lon": -9.15903
+    },
+    {
+     "stop_id": "6116",
+     "seq": 32,
+     "rate": 0.202,
+     "onsets": 6,
+     "lat": 38.730549,
+     "lon": -9.15698
+    },
+    {
+     "stop_id": "6118",
+     "seq": 33,
+     "rate": 0.202,
+     "onsets": 5,
+     "lat": 38.732479,
+     "lon": -9.15488
+    },
+    {
+     "stop_id": "1406",
+     "seq": 34,
+     "rate": 0.186,
+     "onsets": 2,
+     "lat": 38.73457,
+     "lon": -9.15317
+    },
+    {
+     "stop_id": "1414",
+     "seq": 35,
+     "rate": 0.209,
+     "onsets": 3,
+     "lat": 38.73497,
+     "lon": -9.15042
+    },
+    {
+     "stop_id": "1410",
+     "seq": 36,
+     "rate": 0.219,
+     "onsets": 4,
+     "lat": 38.73506,
+     "lon": -9.14709
+    },
+    {
+     "stop_id": "1806",
+     "seq": 37,
+     "rate": 0.193,
+     "onsets": 3,
+     "lat": 38.735168,
+     "lon": -9.14289
+    },
+    {
+     "stop_id": "11101",
+     "seq": 38,
+     "rate": 0.204,
+     "onsets": 4,
+     "lat": 38.735229,
+     "lon": -9.14042
+    },
+    {
+     "stop_id": "11115",
+     "seq": 40,
+     "rate": 0.198,
+     "onsets": 5,
+     "lat": 38.734299,
+     "lon": -9.13626
+    },
+    {
+     "stop_id": "517",
+     "seq": 41,
+     "rate": 0.216,
+     "onsets": 8,
+     "lat": 38.733379,
+     "lon": -9.13317
+    },
+    {
+     "stop_id": "522",
+     "seq": 42,
+     "rate": 0.222,
+     "onsets": 4,
+     "lat": 38.732922,
+     "lon": -9.13125
+    },
+    {
+     "stop_id": "502",
+     "seq": 43,
+     "rate": 0.192,
+     "onsets": 5,
+     "lat": 38.73167,
+     "lon": -9.12778
+    },
+    {
+     "stop_id": "7010",
+     "seq": 44,
+     "rate": 0.19,
+     "onsets": 4,
+     "lat": 38.73074,
+     "lon": -9.12577
+    },
+    {
+     "stop_id": "7012",
+     "seq": 45,
+     "rate": 0.18,
+     "onsets": 2,
+     "lat": 38.72909,
+     "lon": -9.12256
+    },
+    {
+     "stop_id": "11702",
+     "seq": 46,
+     "rate": 0.178,
+     "onsets": 2,
+     "lat": 38.7279,
+     "lon": -9.12059
+    },
+    {
+     "stop_id": "11704",
+     "seq": 47,
+     "rate": 0.161,
+     "onsets": 2,
+     "lat": 38.726524,
+     "lon": -9.1189
+    },
+    {
+     "stop_id": "9801",
+     "seq": 48,
+     "rate": 0.167,
+     "onsets": 4,
+     "lat": 38.72448,
+     "lon": -9.117725
+    },
+    {
+     "stop_id": "9803",
+     "seq": 49,
+     "rate": 0.168,
+     "onsets": 3,
+     "lat": 38.723122,
+     "lon": -9.11538
+    },
+    {
+     "stop_id": "9805",
+     "seq": 50,
+     "rate": 0.188,
+     "onsets": 5,
+     "lat": 38.724152,
+     "lon": -9.11398
+    },
+    {
+     "stop_id": "9807",
+     "seq": 51,
+     "rate": 0.212,
+     "onsets": 5,
+     "lat": 38.726049,
+     "lon": -9.11228
+    },
+    {
+     "stop_id": "8301",
+     "seq": 52,
+     "rate": 0.196,
+     "onsets": 4,
+     "lat": 38.72711,
+     "lon": -9.11072
+    },
+    {
+     "stop_id": "8303",
+     "seq": 53,
+     "rate": 0.212,
+     "onsets": 4,
+     "lat": 38.729599,
+     "lon": -9.1085
+    },
+    {
+     "stop_id": "8317",
+     "seq": 54,
+     "rate": 0.2,
+     "onsets": 1,
+     "lat": 38.73135,
+     "lon": -9.11017
+    }
+   ]
+  },
+  {
+   "line": "767",
+   "direction": "0",
+   "block": "16:00–21:00",
+   "hours": [
+    "17:00–21:00"
+   ],
+   "hotHours": [
+    17,
+    18,
+    19,
+    20
+   ],
+   "rate": 0.14,
+   "timesNetwork": 5.3,
+   "daysHot": 5,
+   "bunchedPerWeekday": 101.0,
+   "tripsPerWeekday": 20.0,
+   "schedHeadwayMin": 15.0,
+   "byDay": {
+    "Mon": 0.127,
+    "Tue": 0.16,
+    "Wed": 0.144,
+    "Thu": 0.112,
+    "Fri": 0.155,
+    "Sat": 0.021,
+    "Sun": 0.022
+   },
+   "byHour": {
+    "0": 0.016,
+    "7": 0.076,
+    "8": 0.055,
+    "9": 0.102,
+    "10": 0.091,
+    "11": 0.043,
+    "12": 0.094,
+    "13": 0.024,
+    "14": 0.05,
+    "15": 0.089,
+    "16": 0.07,
+    "17": 0.169,
+    "18": 0.113,
+    "19": 0.209,
+    "20": 0.127,
+    "21": 0.061,
+    "22": 0.022,
+    "23": 0.013
+   },
+   "evidence": {
+    "departTooClose": 0.33,
+    "prevTripLate": 0.49,
+    "onsetMedianProgress": 0.52,
+    "onsetFirstQuarter": 0.24
+   },
+   "cause": "turnaround",
+   "causeText": "The previous trip arrives late and the bus leaves again straight away",
+   "fix": "Add 2 min of turnaround (layover) at the terminal in these hours, so a late arrival does not carry over into the next trip.",
+   "tested": {
+    "scenario": "T2-2",
+    "ewtSaved": 34.1,
+    "ewtSavedRange": [
+     30.6,
+     38.7
+    ],
+    "bunchedPctChange": -3.76,
+    "extraVehicles": 1,
+    "holdPerTrip": 0.0,
+    "terminalWaitPerTrip": 0.0,
+    "robust": true,
+    "days": "held-out Fri 4 + Sun 6 Sep, 16–20 h, 30 seeds, both k",
+    "alsoRobust": [
+     "D2",
+     "M-90",
+     "D2+H1",
+     "T2-4"
+    ]
+   },
+   "terminal": {
+    "stop_id": "9208",
+    "lat": 38.723801,
+    "lon": -9.13983
+   },
+   "stretch": [
+    {
+     "stop_id": "50015",
+     "seq": 24,
+     "rate": 0.198,
+     "days": 5,
+     "lat": 38.76012,
+     "lon": -9.17687
+    },
+    {
+     "stop_id": "12824",
+     "seq": 28,
+     "rate": 0.206,
+     "days": 5,
+     "lat": 38.75798,
+     "lon": -9.18548
+    },
+    {
+     "stop_id": "12802",
+     "seq": 29,
+     "rate": 0.225,
+     "days": 5,
+     "lat": 38.753052,
+     "lon": -9.18813
+    },
+    {
+     "stop_id": "10802",
+     "seq": 32,
+     "rate": 0.198,
+     "days": 5,
+     "lat": 38.7505,
+     "lon": -9.1975
+    },
+    {
+     "stop_id": "13704",
+     "seq": 37,
+     "rate": 0.195,
+     "days": 5,
+     "lat": 38.756519,
+     "lon": -9.20333
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "9208",
+     "seq": 1,
+     "rate": 0.033,
+     "onsets": 2,
+     "lat": 38.723801,
+     "lon": -9.13983
+    },
+    {
+     "stop_id": "9212",
+     "seq": 2,
+     "rate": 0.032,
+     "onsets": 2,
+     "lat": 38.725719,
+     "lon": -9.14063
+    },
+    {
+     "stop_id": "6902",
+     "seq": 3,
+     "rate": 0.048,
+     "onsets": 1,
+     "lat": 38.728748,
+     "lon": -9.14037
+    },
+    {
+     "stop_id": "6904",
+     "seq": 4,
+     "rate": 0.048,
+     "onsets": 1,
+     "lat": 38.73185,
+     "lon": -9.14086
+    },
+    {
+     "stop_id": "6502",
+     "seq": 5,
+     "rate": 0.06,
+     "onsets": 1,
+     "lat": 38.7341,
+     "lon": -9.1414
+    },
+    {
+     "stop_id": "11102",
+     "seq": 6,
+     "rate": 0.037,
+     "onsets": 0,
+     "lat": 38.735271,
+     "lon": -9.14085
+    },
+    {
+     "stop_id": "11108",
+     "seq": 7,
+     "rate": 0.06,
+     "onsets": 2,
+     "lat": 38.736271,
+     "lon": -9.13645
+    },
+    {
+     "stop_id": "11114",
+     "seq": 8,
+     "rate": 0.053,
+     "onsets": 1,
+     "lat": 38.73822,
+     "lon": -9.13665
+    },
+    {
+     "stop_id": "11104",
+     "seq": 9,
+     "rate": 0.038,
+     "onsets": 3,
+     "lat": 38.740826,
+     "lon": -9.13715
+    },
+    {
+     "stop_id": "6405",
+     "seq": 10,
+     "rate": 0.083,
+     "onsets": 4,
+     "lat": 38.74268,
+     "lon": -9.13837
+    },
+    {
+     "stop_id": "307",
+     "seq": 11,
+     "rate": 0.084,
+     "onsets": 1,
+     "lat": 38.746899,
+     "lon": -9.140565
+    },
+    {
+     "stop_id": "201",
+     "seq": 12,
+     "rate": 0.074,
+     "onsets": 1,
+     "lat": 38.749298,
+     "lon": -9.14188
+    },
+    {
+     "stop_id": "203",
+     "seq": 13,
+     "rate": 0.085,
+     "onsets": 1,
+     "lat": 38.750702,
+     "lon": -9.142575
+    },
+    {
+     "stop_id": "101",
+     "seq": 14,
+     "rate": 0.111,
+     "onsets": 3,
+     "lat": 38.753725,
+     "lon": -9.1442
+    },
+    {
+     "stop_id": "106",
+     "seq": 15,
+     "rate": 0.124,
+     "onsets": 3,
+     "lat": 38.756451,
+     "lon": -9.14635
+    },
+    {
+     "stop_id": "11301",
+     "seq": 16,
+     "rate": 0.136,
+     "onsets": 1,
+     "lat": 38.755348,
+     "lon": -9.15117
+    },
+    {
+     "stop_id": "5707",
+     "seq": 17,
+     "rate": 0.153,
+     "onsets": 2,
+     "lat": 38.757509,
+     "lon": -9.15289
+    },
+    {
+     "stop_id": "5805",
+     "seq": 18,
+     "rate": 0.184,
+     "onsets": 3,
+     "lat": 38.760448,
+     "lon": -9.15598
+    },
+    {
+     "stop_id": "5825",
+     "seq": 19,
+     "rate": 0.133,
+     "onsets": 0,
+     "lat": 38.761879,
+     "lon": -9.1631
+    },
+    {
+     "stop_id": "5823",
+     "seq": 20,
+     "rate": 0.165,
+     "onsets": 5,
+     "lat": 38.761719,
+     "lon": -9.16427
+    },
+    {
+     "stop_id": "50013",
+     "seq": 21,
+     "rate": 0.158,
+     "onsets": 1,
+     "lat": 38.7616,
+     "lon": -9.16675
+    },
+    {
+     "stop_id": "50005",
+     "seq": 22,
+     "rate": 0.17,
+     "onsets": 2,
+     "lat": 38.760571,
+     "lon": -9.168775
+    },
+    {
+     "stop_id": "50011",
+     "seq": 23,
+     "rate": 0.192,
+     "onsets": 3,
+     "lat": 38.760921,
+     "lon": -9.17072
+    },
+    {
+     "stop_id": "50015",
+     "seq": 24,
+     "rate": 0.198,
+     "onsets": 3,
+     "lat": 38.76012,
+     "lon": -9.17687
+    },
+    {
+     "stop_id": "12828",
+     "seq": 26,
+     "rate": 0.178,
+     "onsets": 4,
+     "lat": 38.759651,
+     "lon": -9.18182
+    },
+    {
+     "stop_id": "12804",
+     "seq": 27,
+     "rate": 0.188,
+     "onsets": 4,
+     "lat": 38.760181,
+     "lon": -9.18505
+    },
+    {
+     "stop_id": "12824",
+     "seq": 28,
+     "rate": 0.206,
+     "onsets": 3,
+     "lat": 38.75798,
+     "lon": -9.18548
+    },
+    {
+     "stop_id": "12802",
+     "seq": 29,
+     "rate": 0.225,
+     "onsets": 5,
+     "lat": 38.753052,
+     "lon": -9.18813
+    },
+    {
+     "stop_id": "10808",
+     "seq": 30,
+     "rate": 0.191,
+     "onsets": 1,
+     "lat": 38.75029,
+     "lon": -9.1912
+    },
+    {
+     "stop_id": "10804",
+     "seq": 31,
+     "rate": 0.161,
+     "onsets": 2,
+     "lat": 38.74992,
+     "lon": -9.19466
+    },
+    {
+     "stop_id": "10802",
+     "seq": 32,
+     "rate": 0.198,
+     "onsets": 2,
+     "lat": 38.7505,
+     "lon": -9.1975
+    },
+    {
+     "stop_id": "10914",
+     "seq": 33,
+     "rate": 0.184,
+     "onsets": 0,
+     "lat": 38.752682,
+     "lon": -9.19677
+    },
+    {
+     "stop_id": "10912",
+     "seq": 34,
+     "rate": 0.161,
+     "onsets": 1,
+     "lat": 38.754379,
+     "lon": -9.19683
+    },
+    {
+     "stop_id": "10910",
+     "seq": 35,
+     "rate": 0.165,
+     "onsets": 2,
+     "lat": 38.755032,
+     "lon": -9.19868
+    },
+    {
+     "stop_id": "13706",
+     "seq": 36,
+     "rate": 0.179,
+     "onsets": 3,
+     "lat": 38.756451,
+     "lon": -9.2005
+    },
+    {
+     "stop_id": "13704",
+     "seq": 37,
+     "rate": 0.195,
+     "onsets": 5,
+     "lat": 38.756519,
+     "lon": -9.20333
+    },
+    {
+     "stop_id": "13702",
+     "seq": 38,
+     "rate": 0.184,
+     "onsets": 2,
+     "lat": 38.754848,
+     "lon": -9.20548
+    },
+    {
+     "stop_id": "10927",
+     "seq": 39,
+     "rate": 0.189,
+     "onsets": 1,
+     "lat": 38.753071,
+     "lon": -9.20638
+    },
+    {
+     "stop_id": "11006",
+     "seq": 41,
+     "rate": 0.182,
+     "onsets": 5,
+     "lat": 38.750851,
+     "lon": -9.21105
+    },
+    {
+     "stop_id": "3007",
+     "seq": 43,
+     "rate": 0.182,
+     "onsets": 3,
+     "lat": 38.747681,
+     "lon": -9.21613
+    },
+    {
+     "stop_id": "3002",
+     "seq": 44,
+     "rate": 0.193,
+     "onsets": 4,
+     "lat": 38.750252,
+     "lon": -9.22167
+    }
+   ]
+  },
+  {
+   "line": "728",
+   "direction": "0",
+   "block": "16:00–21:00",
+   "hours": [
+    "16:00–19:00"
+   ],
+   "hotHours": [
+    16,
+    17,
+    18
+   ],
+   "rate": 0.1,
+   "timesNetwork": 3.8,
+   "daysHot": 5,
+   "bunchedPerWeekday": 74.0,
+   "tripsPerWeekday": 18.0,
+   "schedHeadwayMin": 16.0,
+   "byDay": {
+    "Mon": 0.069,
+    "Tue": 0.117,
+    "Wed": 0.072,
+    "Thu": 0.135,
+    "Fri": 0.109,
+    "Sat": 0.015,
+    "Sun": 0.045
+   },
+   "byHour": {
+    "0": 0.0,
+    "5": 0.035,
+    "6": 0.054,
+    "7": 0.035,
+    "8": 0.052,
+    "9": 0.051,
+    "10": 0.038,
+    "11": 0.062,
+    "12": 0.097,
+    "13": 0.034,
+    "14": 0.038,
+    "15": 0.028,
+    "16": 0.118,
+    "17": 0.103,
+    "18": 0.153,
+    "19": 0.076,
+    "20": 0.027,
+    "21": 0.003,
+    "22": 0.033,
+    "23": 0.0
+   },
+   "evidence": {
+    "departTooClose": 0.19,
+    "prevTripLate": 0.3,
+    "onsetMedianProgress": 0.52,
+    "onsetFirstQuarter": 0.17
+   },
+   "cause": "road",
+   "causeText": "Gaps open on the road, not at the terminal",
+   "fix": "Hold buses briefly (max 90 s) at 1–2 control stops in the middle of the route when the early warning fires.",
+   "tested": {
+    "scenario": "M-90",
+    "ewtSaved": 9.7,
+    "ewtSavedRange": [
+     3.0,
+     16.6
+    ],
+    "bunchedPctChange": -0.34,
+    "extraVehicles": 0,
+    "holdPerTrip": 48.5,
+    "terminalWaitPerTrip": 0.0,
+    "robust": true,
+    "days": "held-out Fri 4 + Sun 6 Sep, 16–20 h, 30 seeds, both k",
+    "alsoRobust": []
+   },
+   "terminal": {
+    "stop_id": "12409",
+    "lat": 38.714779,
+    "lon": -9.22997
+   },
+   "stretch": [
+    {
+     "stop_id": "9811",
+     "seq": 26,
+     "rate": 0.163,
+     "days": 5,
+     "lat": 38.7243,
+     "lon": -9.11213
+    },
+    {
+     "stop_id": "8309",
+     "seq": 28,
+     "rate": 0.165,
+     "days": 5,
+     "lat": 38.72904,
+     "lon": -9.10704
+    },
+    {
+     "stop_id": "8313",
+     "seq": 30,
+     "rate": 0.152,
+     "days": 5,
+     "lat": 38.73447,
+     "lon": -9.10395
+    },
+    {
+     "stop_id": "12509",
+     "seq": 32,
+     "rate": 0.152,
+     "days": 5,
+     "lat": 38.742481,
+     "lon": -9.1021
+    },
+    {
+     "stop_id": "2402",
+     "seq": 41,
+     "rate": 0.165,
+     "days": 5,
+     "lat": 38.76545,
+     "lon": -9.0979
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "12409",
+     "seq": 1,
+     "rate": 0.056,
+     "onsets": 2,
+     "lat": 38.714779,
+     "lon": -9.22997
+    },
+    {
+     "stop_id": "12403",
+     "seq": 2,
+     "rate": 0.0,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "12405",
+     "seq": 3,
+     "rate": 0.053,
+     "onsets": 3,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13101",
+     "seq": 4,
+     "rate": 0.049,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13115",
+     "seq": 5,
+     "rate": 0.041,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13117",
+     "seq": 6,
+     "rate": 0.049,
+     "onsets": 1,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13108",
+     "seq": 7,
+     "rate": 0.037,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9605",
+     "seq": 8,
+     "rate": 0.048,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9607",
+     "seq": 9,
+     "rate": 0.036,
+     "onsets": 0,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9603",
+     "seq": 10,
+     "rate": 0.065,
+     "onsets": 3,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4109",
+     "seq": 11,
+     "rate": 0.085,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4101",
+     "seq": 12,
+     "rate": 0.074,
+     "onsets": 2,
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9501",
+     "seq": 13,
+     "rate": 0.103,
+     "onsets": 3,
+     "lat": 38.7024,
+     "lon": -9.174425
+    },
+    {
+     "stop_id": "4003",
+     "seq": 14,
+     "rate": 0.103,
+     "onsets": 3,
+     "lat": 38.70348,
+     "lon": -9.168975
+    },
+    {
+     "stop_id": "10201",
+     "seq": 15,
+     "rate": 0.104,
+     "onsets": 1,
+     "lat": 38.703529,
+     "lon": -9.16355
+    },
+    {
+     "stop_id": "3905",
+     "seq": 16,
+     "rate": 0.083,
+     "onsets": 1,
+     "lat": 38.705898,
+     "lon": -9.15655
+    },
+    {
+     "stop_id": "3901",
+     "seq": 17,
+     "rate": 0.093,
+     "onsets": 3,
+     "lat": 38.706348,
+     "lon": -9.1493
+    },
+    {
+     "stop_id": "7101",
+     "seq": 18,
+     "rate": 0.093,
+     "onsets": 2,
+     "lat": 38.70628,
+     "lon": -9.14542
+    },
+    {
+     "stop_id": "3803",
+     "seq": 19,
+     "rate": 0.083,
+     "onsets": 0,
+     "lat": 38.706631,
+     "lon": -9.14167
+    },
+    {
+     "stop_id": "3824",
+     "seq": 20,
+     "rate": 0.068,
+     "onsets": 1,
+     "lat": 38.707272,
+     "lon": -9.14117
+    },
+    {
+     "stop_id": "2111",
+     "seq": 24,
+     "rate": 0.148,
+     "onsets": 6,
+     "lat": 38.716202,
+     "lon": -9.1196
+    },
+    {
+     "stop_id": "2127",
+     "seq": 25,
+     "rate": 0.141,
+     "onsets": 5,
+     "lat": 38.721581,
+     "lon": -9.11438
+    },
+    {
+     "stop_id": "9811",
+     "seq": 26,
+     "rate": 0.163,
+     "onsets": 1,
+     "lat": 38.7243,
+     "lon": -9.11213
+    },
+    {
+     "stop_id": "9809",
+     "seq": 27,
+     "rate": 0.136,
+     "onsets": 1,
+     "lat": 38.726601,
+     "lon": -9.10999
+    },
+    {
+     "stop_id": "8309",
+     "seq": 28,
+     "rate": 0.165,
+     "onsets": 2,
+     "lat": 38.72904,
+     "lon": -9.10704
+    },
+    {
+     "stop_id": "8311",
+     "seq": 29,
+     "rate": 0.151,
+     "onsets": 0,
+     "lat": 38.731178,
+     "lon": -9.10538
+    },
+    {
+     "stop_id": "8313",
+     "seq": 30,
+     "rate": 0.152,
+     "onsets": 2,
+     "lat": 38.73447,
+     "lon": -9.10395
+    },
+    {
+     "stop_id": "12513",
+     "seq": 31,
+     "rate": 0.14,
+     "onsets": 3,
+     "lat": 38.739319,
+     "lon": -9.10292
+    },
+    {
+     "stop_id": "12509",
+     "seq": 32,
+     "rate": 0.152,
+     "onsets": 3,
+     "lat": 38.742481,
+     "lon": -9.1021
+    },
+    {
+     "stop_id": "12511",
+     "seq": 33,
+     "rate": 0.105,
+     "onsets": 0,
+     "lat": 38.744171,
+     "lon": -9.10138
+    },
+    {
+     "stop_id": "12501",
+     "seq": 34,
+     "rate": 0.111,
+     "onsets": 1,
+     "lat": 38.74667,
+     "lon": -9.10007
+    },
+    {
+     "stop_id": "2204",
+     "seq": 36,
+     "rate": 0.068,
+     "onsets": 1,
+     "lat": 38.747849,
+     "lon": -9.09687
+    },
+    {
+     "stop_id": "2404",
+     "seq": 40,
+     "rate": 0.135,
+     "onsets": 6,
+     "lat": 38.761902,
+     "lon": -9.0981
+    },
+    {
+     "stop_id": "2402",
+     "seq": 41,
+     "rate": 0.165,
+     "onsets": 2,
+     "lat": 38.76545,
+     "lon": -9.0979
+    },
+    {
+     "stop_id": "2512",
+     "seq": 42,
+     "rate": 0.17,
+     "onsets": 2,
+     "lat": 38.767021,
+     "lon": -9.098475
+    },
+    {
+     "stop_id": "7825",
+     "seq": 43,
+     "rate": 0.141,
+     "onsets": 3,
+     "lat": 38.767719,
+     "lon": -9.10423
+    },
+    {
+     "stop_id": "7803",
+     "seq": 44,
+     "rate": 0.115,
+     "onsets": 2,
+     "lat": 38.773251,
+     "lon": -9.10471
+    },
+    {
+     "stop_id": "7807",
+     "seq": 45,
+     "rate": 0.12,
+     "onsets": 2,
+     "lat": 38.77475,
+     "lon": -9.10253
+    },
+    {
+     "stop_id": "7909",
+     "seq": 46,
+     "rate": 0.062,
+     "onsets": 0,
+     "lat": 38.776451,
+     "lon": -9.10148
+    },
+    {
+     "stop_id": "7905",
+     "seq": 47,
+     "rate": 0.077,
+     "onsets": 1,
+     "lat": 38.777699,
+     "lon": -9.10202
+    },
+    {
+     "stop_id": "7903",
+     "seq": 48,
+     "rate": 0.085,
+     "onsets": 0,
+     "lat": 38.7813,
+     "lon": -9.10664
+    },
+    {
+     "stop_id": "12618",
+     "seq": 49,
+     "rate": 0.087,
+     "onsets": 2,
+     "lat": 38.781651,
+     "lon": -9.10838
+    },
+    {
+     "stop_id": "12617",
+     "seq": 50,
+     "rate": 0.066,
+     "onsets": 1,
+     "lat": 38.783871,
+     "lon": -9.108915
+    },
+    {
+     "stop_id": "12627",
+     "seq": 51,
+     "rate": 0.087,
+     "onsets": 3,
+     "lat": 38.783871,
+     "lon": -9.11098
+    },
+    {
+     "stop_id": "12610",
+     "seq": 52,
+     "rate": 0.074,
+     "onsets": 2,
+     "lat": 38.782551,
+     "lon": -9.11397
+    }
+   ]
+  },
+  {
+   "line": "767",
+   "direction": "1",
+   "block": "16:00–21:00",
+   "hours": [
+    "16:00–18:00",
+    "19:00–20:00"
+   ],
+   "hotHours": [
+    16,
+    17,
+    19
+   ],
+   "rate": 0.105,
+   "timesNetwork": 4.0,
+   "daysHot": 5,
+   "bunchedPerWeekday": 70.0,
+   "tripsPerWeekday": 16.0,
+   "schedHeadwayMin": 14.0,
+   "byDay": {
+    "Mon": 0.148,
+    "Tue": 0.118,
+    "Wed": 0.067,
+    "Thu": 0.101,
+    "Fri": 0.091,
+    "Sat": 0.029,
+    "Sun": 0.02
+   },
+   "byHour": {
+    "0": 0.0,
+    "6": 0.011,
+    "7": 0.105,
+    "8": 0.091,
+    "9": 0.067,
+    "10": 0.033,
+    "11": 0.045,
+    "12": 0.039,
+    "13": 0.037,
+    "14": 0.032,
+    "15": 0.024,
+    "16": 0.079,
+    "17": 0.093,
+    "18": 0.063,
+    "19": 0.153,
+    "20": 0.134,
+    "21": 0.059,
+    "22": 0.011,
+    "23": 0.014
+   },
+   "evidence": {
+    "departTooClose": 0.28,
+    "prevTripLate": 0.59,
+    "onsetMedianProgress": 0.61,
+    "onsetFirstQuarter": 0.09
+   },
+   "cause": "turnaround",
+   "causeText": "The previous trip arrives late and the bus leaves again straight away",
+   "fix": "Add 2 min of turnaround (layover) at the terminal in these hours, so a late arrival does not carry over into the next trip.",
+   "tested": {
+    "scenario": "T2-2",
+    "ewtSaved": 34.1,
+    "ewtSavedRange": [
+     30.6,
+     38.7
+    ],
+    "bunchedPctChange": -3.76,
+    "extraVehicles": 1,
+    "holdPerTrip": 0.0,
+    "terminalWaitPerTrip": 0.0,
+    "robust": true,
+    "days": "held-out Fri 4 + Sun 6 Sep, 16–20 h, 30 seeds, both k",
+    "alsoRobust": [
+     "D2",
+     "M-90",
+     "D2+H1",
+     "T2-4"
+    ]
+   },
+   "terminal": {
+    "stop_id": "3015",
+    "lat": 38.747135,
+    "lon": -9.21535
+   },
+   "stretch": [
+    {
+     "stop_id": "50016",
+     "seq": 23,
+     "rate": 0.165,
+     "days": 5,
+     "lat": 38.760471,
+     "lon": -9.16998
+    },
+    {
+     "stop_id": "50014",
+     "seq": 26,
+     "rate": 0.165,
+     "days": 5,
+     "lat": 38.762875,
+     "lon": -9.15957
+    },
+    {
+     "stop_id": "5808",
+     "seq": 28,
+     "rate": 0.173,
+     "days": 5,
+     "lat": 38.759129,
+     "lon": -9.15637
+    },
+    {
+     "stop_id": "5706",
+     "seq": 30,
+     "rate": 0.17,
+     "days": 5,
+     "lat": 38.7565,
+     "lon": -9.14578
+    },
+    {
+     "stop_id": "102",
+     "seq": 33,
+     "rate": 0.165,
+     "days": 5,
+     "lat": 38.750568,
+     "lon": -9.1427
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "3015",
+     "seq": 3,
+     "rate": 0.016,
+     "onsets": 1,
+     "lat": 38.747135,
+     "lon": -9.21535
+    },
+    {
+     "stop_id": "3018",
+     "seq": 4,
+     "rate": 0.04,
+     "onsets": 2,
+     "lat": 38.749279,
+     "lon": -9.21297
+    },
+    {
+     "stop_id": "3003",
+     "seq": 5,
+     "rate": 0.079,
+     "onsets": 3,
+     "lat": 38.752571,
+     "lon": -9.20915
+    },
+    {
+     "stop_id": "11001",
+     "seq": 6,
+     "rate": 0.056,
+     "onsets": 1,
+     "lat": 38.75235,
+     "lon": -9.20643
+    },
+    {
+     "stop_id": "10926",
+     "seq": 8,
+     "rate": 0.051,
+     "onsets": 0,
+     "lat": 38.756119,
+     "lon": -9.20458
+    },
+    {
+     "stop_id": "13712",
+     "seq": 9,
+     "rate": 0.038,
+     "onsets": 0,
+     "lat": 38.756618,
+     "lon": -9.20212
+    },
+    {
+     "stop_id": "13703",
+     "seq": 10,
+     "rate": 0.041,
+     "onsets": 0,
+     "lat": 38.756222,
+     "lon": -9.2003
+    },
+    {
+     "stop_id": "13705",
+     "seq": 11,
+     "rate": 0.078,
+     "onsets": 3,
+     "lat": 38.754879,
+     "lon": -9.19855
+    },
+    {
+     "stop_id": "10909",
+     "seq": 12,
+     "rate": 0.06,
+     "onsets": 1,
+     "lat": 38.754269,
+     "lon": -9.19608
+    },
+    {
+     "stop_id": "10911",
+     "seq": 13,
+     "rate": 0.08,
+     "onsets": 1,
+     "lat": 38.752102,
+     "lon": -9.1972
+    },
+    {
+     "stop_id": "10913",
+     "seq": 14,
+     "rate": 0.071,
+     "onsets": 2,
+     "lat": 38.74995,
+     "lon": -9.19738
+    },
+    {
+     "stop_id": "10835",
+     "seq": 15,
+     "rate": 0.087,
+     "onsets": 2,
+     "lat": 38.748482,
+     "lon": -9.19202
+    },
+    {
+     "stop_id": "10807",
+     "seq": 16,
+     "rate": 0.051,
+     "onsets": 1,
+     "lat": 38.75238,
+     "lon": -9.1889
+    },
+    {
+     "stop_id": "10813",
+     "seq": 17,
+     "rate": 0.066,
+     "onsets": 2,
+     "lat": 38.756325,
+     "lon": -9.18553
+    },
+    {
+     "stop_id": "12801",
+     "seq": 18,
+     "rate": 0.076,
+     "onsets": 2,
+     "lat": 38.759226,
+     "lon": -9.18519
+    },
+    {
+     "stop_id": "12823",
+     "seq": 19,
+     "rate": 0.096,
+     "onsets": 3,
+     "lat": 38.760201,
+     "lon": -9.18397
+    },
+    {
+     "stop_id": "12803",
+     "seq": 20,
+     "rate": 0.077,
+     "onsets": 1,
+     "lat": 38.758974,
+     "lon": -9.18041
+    },
+    {
+     "stop_id": "12827",
+     "seq": 21,
+     "rate": 0.096,
+     "onsets": 4,
+     "lat": 38.760071,
+     "lon": -9.17963
+    },
+    {
+     "stop_id": "50016",
+     "seq": 23,
+     "rate": 0.165,
+     "onsets": 7,
+     "lat": 38.760471,
+     "lon": -9.16998
+    },
+    {
+     "stop_id": "50012",
+     "seq": 24,
+     "rate": 0.13,
+     "onsets": 2,
+     "lat": 38.760551,
+     "lon": -9.16794
+    },
+    {
+     "stop_id": "50006",
+     "seq": 25,
+     "rate": 0.153,
+     "onsets": 2,
+     "lat": 38.76162,
+     "lon": -9.16601
+    },
+    {
+     "stop_id": "50014",
+     "seq": 26,
+     "rate": 0.165,
+     "onsets": 3,
+     "lat": 38.762875,
+     "lon": -9.15957
+    },
+    {
+     "stop_id": "5824",
+     "seq": 27,
+     "rate": 0.137,
+     "onsets": 2,
+     "lat": 38.76202,
+     "lon": -9.15748
+    },
+    {
+     "stop_id": "5808",
+     "seq": 28,
+     "rate": 0.173,
+     "onsets": 5,
+     "lat": 38.759129,
+     "lon": -9.15637
+    },
+    {
+     "stop_id": "5804",
+     "seq": 29,
+     "rate": 0.125,
+     "onsets": 1,
+     "lat": 38.7547,
+     "lon": -9.15206
+    },
+    {
+     "stop_id": "5706",
+     "seq": 30,
+     "rate": 0.17,
+     "onsets": 5,
+     "lat": 38.7565,
+     "lon": -9.14578
+    },
+    {
+     "stop_id": "11302",
+     "seq": 31,
+     "rate": 0.136,
+     "onsets": 1,
+     "lat": 38.75478,
+     "lon": -9.14493
+    },
+    {
+     "stop_id": "104",
+     "seq": 32,
+     "rate": 0.136,
+     "onsets": 4,
+     "lat": 38.753021,
+     "lon": -9.14383
+    },
+    {
+     "stop_id": "102",
+     "seq": 33,
+     "rate": 0.165,
+     "onsets": 2,
+     "lat": 38.750568,
+     "lon": -9.1427
+    },
+    {
+     "stop_id": "204",
+     "seq": 34,
+     "rate": 0.14,
+     "onsets": 0,
+     "lat": 38.748234,
+     "lon": -9.14143
+    },
+    {
+     "stop_id": "202",
+     "seq": 35,
+     "rate": 0.157,
+     "onsets": 1,
+     "lat": 38.74572,
+     "lon": -9.13952
+    },
+    {
+     "stop_id": "306",
+     "seq": 36,
+     "rate": 0.123,
+     "onsets": 2,
+     "lat": 38.742149,
+     "lon": -9.13785
+    },
+    {
+     "stop_id": "6408",
+     "seq": 37,
+     "rate": 0.111,
+     "onsets": 2,
+     "lat": 38.73843,
+     "lon": -9.1388
+    },
+    {
+     "stop_id": "11109",
+     "seq": 38,
+     "rate": 0.123,
+     "onsets": 2,
+     "lat": 38.737679,
+     "lon": -9.14167
+    },
+    {
+     "stop_id": "11105",
+     "seq": 39,
+     "rate": 0.131,
+     "onsets": 1,
+     "lat": 38.732681,
+     "lon": -9.14108
+    },
+    {
+     "stop_id": "6501",
+     "seq": 40,
+     "rate": 0.107,
+     "onsets": 1,
+     "lat": 38.730621,
+     "lon": -9.14065
+    },
+    {
+     "stop_id": "6903",
+     "seq": 41,
+     "rate": 0.11,
+     "onsets": 3,
+     "lat": 38.726175,
+     "lon": -9.14072
+    },
+    {
+     "stop_id": "6901",
+     "seq": 42,
+     "rate": 0.148,
+     "onsets": 3,
+     "lat": 38.723869,
+     "lon": -9.13992
+    },
+    {
+     "stop_id": "9207",
+     "seq": 43,
+     "rate": 0.073,
+     "onsets": 1,
+     "lat": 38.722401,
+     "lon": -9.1404
+    }
+   ]
+  },
+  {
+   "line": "758",
+   "direction": "0",
+   "block": "16:00–21:00",
+   "hours": [
+    "18:00–19:00",
+    "20:00–21:00"
+   ],
+   "hotHours": [
+    18,
+    20
+   ],
+   "rate": 0.108,
+   "timesNetwork": 4.1,
+   "daysHot": 5,
+   "bunchedPerWeekday": 69.0,
+   "tripsPerWeekday": 21.0,
+   "schedHeadwayMin": 12.0,
+   "byDay": {
+    "Mon": 0.064,
+    "Tue": 0.09,
+    "Wed": 0.127,
+    "Thu": 0.11,
+    "Fri": 0.148,
+    "Sat": 0.014,
+    "Sun": 0.052
+   },
+   "byHour": {
+    "0": 0.0,
+    "6": 0.069,
+    "7": 0.018,
+    "8": 0.11,
+    "9": 0.088,
+    "10": 0.045,
+    "11": 0.015,
+    "12": 0.026,
+    "13": 0.072,
+    "14": 0.041,
+    "15": 0.034,
+    "16": 0.08,
+    "17": 0.102,
+    "18": 0.125,
+    "19": 0.116,
+    "20": 0.09,
+    "21": 0.029,
+    "22": 0.028,
+    "23": 0.024
+   },
+   "evidence": {
+    "departTooClose": 0.25,
+    "prevTripLate": 0.51,
+    "onsetMedianProgress": 0.71,
+    "onsetFirstQuarter": 0.09
+   },
+   "cause": "turnaround",
+   "causeText": "The previous trip arrives late and the bus leaves again straight away",
+   "fix": "Add 2 min of turnaround (layover) at the terminal in these hours, so a late arrival does not carry over into the next trip.",
+   "tested": {
+    "scenario": "T2-4",
+    "ewtSaved": 66.2,
+    "ewtSavedRange": [
+     36.8,
+     92.9
+    ],
+    "bunchedPctChange": -7.14,
+    "extraVehicles": 1,
+    "holdPerTrip": 0.0,
+    "terminalWaitPerTrip": 0.0,
+    "robust": true,
+    "days": "held-out Fri 4 + Sun 6 Sep, 16–20 h, 30 seeds, both k",
+    "alsoRobust": [
+     "T2-2"
+    ]
+   },
+   "terminal": {
+    "stop_id": "3807",
+    "lat": 38.707069,
+    "lon": -9.14338
+   },
+   "stretch": [
+    {
+     "stop_id": "1616",
+     "seq": 20,
+     "rate": 0.159,
+     "days": 5,
+     "lat": 38.743179,
+     "lon": -9.17437
+    },
+    {
+     "stop_id": "10830",
+     "seq": 24,
+     "rate": 0.158,
+     "days": 5,
+     "lat": 38.747181,
+     "lon": -9.18825
+    },
+    {
+     "stop_id": "10826",
+     "seq": 25,
+     "rate": 0.157,
+     "days": 5,
+     "lat": 38.7481,
+     "lon": -9.19123
+    },
+    {
+     "stop_id": "10802",
+     "seq": 27,
+     "rate": 0.168,
+     "days": 5,
+     "lat": 38.7505,
+     "lon": -9.1975
+    },
+    {
+     "stop_id": "10902",
+     "seq": 30,
+     "rate": 0.171,
+     "days": 5,
+     "lat": 38.752949,
+     "lon": -9.20846
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "3807",
+     "seq": 1,
+     "rate": 0.011,
+     "onsets": 1,
+     "lat": 38.707069,
+     "lon": -9.14338
+    },
+    {
+     "stop_id": "3825",
+     "seq": 2,
+     "rate": 0.019,
+     "onsets": 1,
+     "lat": 38.710468,
+     "lon": -9.14307
+    },
+    {
+     "stop_id": "10501",
+     "seq": 3,
+     "rate": 0.01,
+     "onsets": 0,
+     "lat": 38.712582,
+     "lon": -9.14315
+    },
+    {
+     "stop_id": "10503",
+     "seq": 4,
+     "rate": 0.049,
+     "onsets": 3,
+     "lat": 38.714378,
+     "lon": -9.14407
+    },
+    {
+     "stop_id": "10601",
+     "seq": 5,
+     "rate": 0.04,
+     "onsets": 1,
+     "lat": 38.716171,
+     "lon": -9.1475
+    },
+    {
+     "stop_id": "10605",
+     "seq": 6,
+     "rate": 0.048,
+     "onsets": 1,
+     "lat": 38.717701,
+     "lon": -9.15135
+    },
+    {
+     "stop_id": "10607",
+     "seq": 7,
+     "rate": 0.039,
+     "onsets": 1,
+     "lat": 38.7202,
+     "lon": -9.15413
+    },
+    {
+     "stop_id": "6812",
+     "seq": 8,
+     "rate": 0.064,
+     "onsets": 3,
+     "lat": 38.720425,
+     "lon": -9.1574
+    },
+    {
+     "stop_id": "6816",
+     "seq": 9,
+     "rate": 0.09,
+     "onsets": 5,
+     "lat": 38.720829,
+     "lon": -9.16078
+    },
+    {
+     "stop_id": "8513",
+     "seq": 10,
+     "rate": 0.08,
+     "onsets": 2,
+     "lat": 38.723099,
+     "lon": -9.16108
+    },
+    {
+     "stop_id": "8511",
+     "seq": 11,
+     "rate": 0.087,
+     "onsets": 2,
+     "lat": 38.72443,
+     "lon": -9.16007
+    },
+    {
+     "stop_id": "8509",
+     "seq": 12,
+     "rate": 0.096,
+     "onsets": 2,
+     "lat": 38.72752,
+     "lon": -9.16152
+    },
+    {
+     "stop_id": "6119",
+     "seq": 13,
+     "rate": 0.103,
+     "onsets": 1,
+     "lat": 38.729832,
+     "lon": -9.16232
+    },
+    {
+     "stop_id": "6121",
+     "seq": 14,
+     "rate": 0.119,
+     "onsets": 2,
+     "lat": 38.73188,
+     "lon": -9.16243
+    },
+    {
+     "stop_id": "6123",
+     "seq": 15,
+     "rate": 0.11,
+     "onsets": 0,
+     "lat": 38.734428,
+     "lon": -9.16465
+    },
+    {
+     "stop_id": "2711",
+     "seq": 16,
+     "rate": 0.094,
+     "onsets": 1,
+     "lat": 38.737129,
+     "lon": -9.16778
+    },
+    {
+     "stop_id": "2713",
+     "seq": 17,
+     "rate": 0.086,
+     "onsets": 3,
+     "lat": 38.73988,
+     "lon": -9.16728
+    },
+    {
+     "stop_id": "1607",
+     "seq": 19,
+     "rate": 0.148,
+     "onsets": 10,
+     "lat": 38.742271,
+     "lon": -9.17186
+    },
+    {
+     "stop_id": "1616",
+     "seq": 20,
+     "rate": 0.159,
+     "onsets": 1,
+     "lat": 38.743179,
+     "lon": -9.17437
+    },
+    {
+     "stop_id": "10706",
+     "seq": 21,
+     "rate": 0.14,
+     "onsets": 1,
+     "lat": 38.744301,
+     "lon": -9.17834
+    },
+    {
+     "stop_id": "10704",
+     "seq": 22,
+     "rate": 0.116,
+     "onsets": 3,
+     "lat": 38.745171,
+     "lon": -9.1808
+    },
+    {
+     "stop_id": "10702",
+     "seq": 23,
+     "rate": 0.148,
+     "onsets": 7,
+     "lat": 38.7467,
+     "lon": -9.18298
+    },
+    {
+     "stop_id": "10830",
+     "seq": 24,
+     "rate": 0.158,
+     "onsets": 3,
+     "lat": 38.747181,
+     "lon": -9.18825
+    },
+    {
+     "stop_id": "10826",
+     "seq": 25,
+     "rate": 0.157,
+     "onsets": 3,
+     "lat": 38.7481,
+     "lon": -9.19123
+    },
+    {
+     "stop_id": "10814",
+     "seq": 26,
+     "rate": 0.149,
+     "onsets": 6,
+     "lat": 38.749931,
+     "lon": -9.19487
+    },
+    {
+     "stop_id": "10802",
+     "seq": 27,
+     "rate": 0.168,
+     "onsets": 6,
+     "lat": 38.7505,
+     "lon": -9.1975
+    },
+    {
+     "stop_id": "10906",
+     "seq": 28,
+     "rate": 0.142,
+     "onsets": 4,
+     "lat": 38.750648,
+     "lon": -9.20097
+    },
+    {
+     "stop_id": "10904",
+     "seq": 29,
+     "rate": 0.145,
+     "onsets": 3,
+     "lat": 38.751331,
+     "lon": -9.20318
+    },
+    {
+     "stop_id": "10902",
+     "seq": 30,
+     "rate": 0.171,
+     "onsets": 5,
+     "lat": 38.752949,
+     "lon": -9.20846
+    },
+    {
+     "stop_id": "11006",
+     "seq": 31,
+     "rate": 0.153,
+     "onsets": 5,
+     "lat": 38.750851,
+     "lon": -9.21105
+    }
+   ]
+  },
+  {
+   "line": "758",
+   "direction": "1",
+   "block": "06:00–10:00",
+   "hours": [
+    "07:00–08:00"
+   ],
+   "hotHours": [
+    7
+   ],
+   "rate": 0.083,
+   "timesNetwork": 3.1,
+   "daysHot": 5,
+   "bunchedPerWeekday": 55.0,
+   "tripsPerWeekday": 21.0,
+   "schedHeadwayMin": 15.0,
+   "byDay": {
+    "Mon": 0.101,
+    "Tue": 0.086,
+    "Wed": 0.064,
+    "Thu": 0.107,
+    "Fri": 0.057,
+    "Sat": 0.026,
+    "Sun": 0.065
+   },
+   "byHour": {
+    "6": 0.065,
+    "7": 0.114,
+    "8": 0.06,
+    "9": 0.092,
+    "10": 0.047,
+    "11": 0.025,
+    "12": 0.032,
+    "13": 0.059,
+    "14": 0.038,
+    "15": 0.003,
+    "16": 0.028,
+    "17": 0.046,
+    "18": 0.104,
+    "19": 0.051,
+    "20": 0.018,
+    "21": 0.003,
+    "22": 0.044,
+    "23": 0.0
+   },
+   "evidence": {
+    "departTooClose": 0.17,
+    "prevTripLate": 0.21,
+    "onsetMedianProgress": 0.64,
+    "onsetFirstQuarter": 0.08
+   },
+   "cause": "dispatch",
+   "causeText": "Buses leave the terminal too soon after the bus in front",
+   "fix": "Headway-based dispatch at the terminal: a bus leaves only when the gap to the bus in front is at least 90 % of plan (wait at most 3–5 min).",
+   "tested": null,
+   "terminal": {
+    "stop_id": "11001",
+    "lat": 38.75235,
+    "lon": -9.20643
+   },
+   "stretch": [
+    {
+     "stop_id": "6120",
+     "seq": 21,
+     "rate": 0.153,
+     "days": 5,
+     "lat": 38.724468,
+     "lon": -9.16032
+    },
+    {
+     "stop_id": "6813",
+     "seq": 25,
+     "rate": 0.15,
+     "days": 5,
+     "lat": 38.72002,
+     "lon": -9.15548
+    },
+    {
+     "stop_id": "10606",
+     "seq": 28,
+     "rate": 0.173,
+     "days": 5,
+     "lat": 38.715689,
+     "lon": -9.14605
+    },
+    {
+     "stop_id": "10604",
+     "seq": 29,
+     "rate": 0.159,
+     "days": 5,
+     "lat": 38.71487,
+     "lon": -9.14452
+    },
+    {
+     "stop_id": "10602",
+     "seq": 30,
+     "rate": 0.178,
+     "days": 5,
+     "lat": 38.713131,
+     "lon": -9.1434
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "11007",
+     "seq": 1,
+     "rate": 0.0,
+     "onsets": 0,
+     "lat": 38.752682,
+     "lon": -9.20885
+    },
+    {
+     "stop_id": "11001",
+     "seq": 2,
+     "rate": 0.0,
+     "onsets": 0,
+     "lat": 38.75235,
+     "lon": -9.20643
+    },
+    {
+     "stop_id": "10901",
+     "seq": 3,
+     "rate": 0.019,
+     "onsets": 2,
+     "lat": 38.7509,
+     "lon": -9.20225
+    },
+    {
+     "stop_id": "10903",
+     "seq": 4,
+     "rate": 0.03,
+     "onsets": 1,
+     "lat": 38.750702,
+     "lon": -9.19949
+    },
+    {
+     "stop_id": "10905",
+     "seq": 5,
+     "rate": 0.029,
+     "onsets": 1,
+     "lat": 38.749981,
+     "lon": -9.19517
+    },
+    {
+     "stop_id": "10801",
+     "seq": 6,
+     "rate": 0.021,
+     "onsets": 0,
+     "lat": 38.74905,
+     "lon": -9.19272
+    },
+    {
+     "stop_id": "10803",
+     "seq": 7,
+     "rate": 0.02,
+     "onsets": 0,
+     "lat": 38.74725,
+     "lon": -9.18965
+    },
+    {
+     "stop_id": "10821",
+     "seq": 8,
+     "rate": 0.037,
+     "onsets": 2,
+     "lat": 38.746899,
+     "lon": -9.18587
+    },
+    {
+     "stop_id": "10829",
+     "seq": 9,
+     "rate": 0.028,
+     "onsets": 1,
+     "lat": 38.745918,
+     "lon": -9.18227
+    },
+    {
+     "stop_id": "10701",
+     "seq": 10,
+     "rate": 0.035,
+     "onsets": 2,
+     "lat": 38.744598,
+     "lon": -9.1797
+    },
+    {
+     "stop_id": "10703",
+     "seq": 11,
+     "rate": 0.026,
+     "onsets": 0,
+     "lat": 38.743999,
+     "lon": -9.17719
+    },
+    {
+     "stop_id": "10705",
+     "seq": 12,
+     "rate": 0.045,
+     "onsets": 2,
+     "lat": 38.742821,
+     "lon": -9.17337
+    },
+    {
+     "stop_id": "1615",
+     "seq": 13,
+     "rate": 0.043,
+     "onsets": 2,
+     "lat": 38.7411,
+     "lon": -9.16852
+    },
+    {
+     "stop_id": "1610",
+     "seq": 14,
+     "rate": 0.069,
+     "onsets": 3,
+     "lat": 38.739922,
+     "lon": -9.16783
+    },
+    {
+     "stop_id": "2712",
+     "seq": 15,
+     "rate": 0.068,
+     "onsets": 3,
+     "lat": 38.73708,
+     "lon": -9.16822
+    },
+    {
+     "stop_id": "2718",
+     "seq": 16,
+     "rate": 0.053,
+     "onsets": 2,
+     "lat": 38.735531,
+     "lon": -9.16587
+    },
+    {
+     "stop_id": "2710",
+     "seq": 17,
+     "rate": 0.081,
+     "onsets": 4,
+     "lat": 38.733028,
+     "lon": -9.16293
+    },
+    {
+     "stop_id": "6124",
+     "seq": 18,
+     "rate": 0.115,
+     "onsets": 3,
+     "lat": 38.72998,
+     "lon": -9.16235
+    },
+    {
+     "stop_id": "6122",
+     "seq": 19,
+     "rate": 0.115,
+     "onsets": 3,
+     "lat": 38.727625,
+     "lon": -9.16233
+    },
+    {
+     "stop_id": "6102",
+     "seq": 20,
+     "rate": 0.136,
+     "onsets": 4,
+     "lat": 38.72678,
+     "lon": -9.161925
+    },
+    {
+     "stop_id": "6120",
+     "seq": 21,
+     "rate": 0.153,
+     "onsets": 4,
+     "lat": 38.724468,
+     "lon": -9.16032
+    },
+    {
+     "stop_id": "8512",
+     "seq": 22,
+     "rate": 0.135,
+     "onsets": 5,
+     "lat": 38.72102,
+     "lon": -9.16107
+    },
+    {
+     "stop_id": "8514",
+     "seq": 23,
+     "rate": 0.123,
+     "onsets": 2,
+     "lat": 38.720501,
+     "lon": -9.15963
+    },
+    {
+     "stop_id": "6815",
+     "seq": 24,
+     "rate": 0.114,
+     "onsets": 0,
+     "lat": 38.720631,
+     "lon": -9.15677
+    },
+    {
+     "stop_id": "6813",
+     "seq": 25,
+     "rate": 0.15,
+     "onsets": 4,
+     "lat": 38.72002,
+     "lon": -9.15548
+    },
+    {
+     "stop_id": "6807",
+     "seq": 26,
+     "rate": 0.125,
+     "onsets": 2,
+     "lat": 38.718269,
+     "lon": -9.152325
+    },
+    {
+     "stop_id": "10608",
+     "seq": 27,
+     "rate": 0.128,
+     "onsets": 4,
+     "lat": 38.716881,
+     "lon": -9.148825
+    },
+    {
+     "stop_id": "10606",
+     "seq": 28,
+     "rate": 0.173,
+     "onsets": 5,
+     "lat": 38.715689,
+     "lon": -9.14605
+    },
+    {
+     "stop_id": "10604",
+     "seq": 29,
+     "rate": 0.159,
+     "onsets": 1,
+     "lat": 38.71487,
+     "lon": -9.14452
+    },
+    {
+     "stop_id": "10602",
+     "seq": 30,
+     "rate": 0.178,
+     "onsets": 4,
+     "lat": 38.713131,
+     "lon": -9.1434
+    },
+    {
+     "stop_id": "10504",
+     "seq": 31,
+     "rate": 0.121,
+     "onsets": 0,
+     "lat": 38.710732,
+     "lon": -9.14303
+    },
+    {
+     "stop_id": "10502",
+     "seq": 32,
+     "rate": 0.083,
+     "onsets": 2,
+     "lat": 38.709415,
+     "lon": -9.14315
+    },
+    {
+     "stop_id": "3826",
+     "seq": 33,
+     "rate": 0.082,
+     "onsets": 5,
+     "lat": 38.70533,
+     "lon": -9.14335
+    }
+   ]
+  },
+  {
+   "line": "735",
+   "direction": "1",
+   "block": "16:00–21:00",
+   "hours": [
+    "18:00–19:00",
+    "20:00–21:00"
+   ],
+   "hotHours": [
+    18,
+    20
+   ],
+   "rate": 0.109,
+   "timesNetwork": 4.1,
+   "daysHot": 5,
+   "bunchedPerWeekday": 50.0,
+   "tripsPerWeekday": 22.0,
+   "schedHeadwayMin": 18.0,
+   "byDay": {
+    "Mon": 0.101,
+    "Tue": 0.153,
+    "Wed": 0.058,
+    "Thu": 0.165,
+    "Fri": 0.067,
+    "Sat": 0.027,
+    "Sun": 0.091
+   },
+   "byHour": {
+    "6": 0.003,
+    "7": 0.016,
+    "8": 0.051,
+    "9": 0.049,
+    "10": 0.0,
+    "11": 0.006,
+    "12": 0.01,
+    "13": 0.072,
+    "14": 0.041,
+    "15": 0.064,
+    "16": 0.025,
+    "17": 0.14,
+    "18": 0.098,
+    "19": 0.121,
+    "20": 0.157,
+    "21": 0.0,
+    "22": 0.055,
+    "23": 0.0
+   },
+   "evidence": {
+    "departTooClose": 0.31,
+    "prevTripLate": 0.5,
+    "onsetMedianProgress": 0.46,
+    "onsetFirstQuarter": 0.29
+   },
+   "cause": "turnaround",
+   "causeText": "The previous trip arrives late and the bus leaves again straight away",
+   "fix": "Add 2 min of turnaround (layover) at the terminal in these hours, so a late arrival does not carry over into the next trip.",
+   "tested": {
+    "scenario": "T2-4",
+    "ewtSaved": 59.9,
+    "ewtSavedRange": [
+     35.5,
+     84.3
+    ],
+    "bunchedPctChange": -3.05,
+    "extraVehicles": 1,
+    "holdPerTrip": 0.0,
+    "terminalWaitPerTrip": 0.0,
+    "robust": true,
+    "days": "held-out Fri 4 + Sun 6 Sep, 16–20 h, 30 seeds, both k",
+    "alsoRobust": [
+     "T2-2"
+    ]
+   },
+   "terminal": {
+    "stop_id": "402",
+    "lat": 38.733421,
+    "lon": -9.1333
+   },
+   "stretch": [
+    {
+     "stop_id": "9114",
+     "seq": 9,
+     "rate": 0.154,
+     "days": 5,
+     "lat": 38.720001,
+     "lon": -9.12348
+    },
+    {
+     "stop_id": "2108",
+     "seq": 11,
+     "rate": 0.152,
+     "days": 5,
+     "lat": 38.717949,
+     "lon": -9.12155
+    },
+    {
+     "stop_id": "2106",
+     "seq": 12,
+     "rate": 0.157,
+     "days": 5,
+     "lat": 38.717291,
+     "lon": -9.12135
+    },
+    {
+     "stop_id": "2104",
+     "seq": 13,
+     "rate": 0.155,
+     "days": 5,
+     "lat": 38.717018,
+     "lon": -9.11997
+    },
+    {
+     "stop_id": "2131",
+     "seq": 14,
+     "rate": 0.152,
+     "days": 5,
+     "lat": 38.719479,
+     "lon": -9.11753
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "13512",
+     "seq": 1,
+     "rate": 0.0,
+     "onsets": 0,
+     "lat": 38.751629,
+     "lon": -9.15875
+    },
+    {
+     "stop_id": "402",
+     "seq": 1,
+     "rate": 0.121,
+     "onsets": 8,
+     "lat": 38.733421,
+     "lon": -9.1333
+    },
+    {
+     "stop_id": "504",
+     "seq": 2,
+     "rate": 0.102,
+     "onsets": 1,
+     "lat": 38.732979,
+     "lon": -9.13151
+    },
+    {
+     "stop_id": "13510",
+     "seq": 2,
+     "rate": 0.038,
+     "onsets": 2,
+     "lat": 38.752579,
+     "lon": -9.15718
+    },
+    {
+     "stop_id": "5702",
+     "seq": 3,
+     "rate": 0.041,
+     "onsets": 0,
+     "lat": 38.754517,
+     "lon": -9.152375
+    },
+    {
+     "stop_id": "502",
+     "seq": 3,
+     "rate": 0.102,
+     "onsets": 1,
+     "lat": 38.73167,
+     "lon": -9.12778
+    },
+    {
+     "stop_id": "5706",
+     "seq": 4,
+     "rate": 0.039,
+     "onsets": 0,
+     "lat": 38.7565,
+     "lon": -9.14578
+    },
+    {
+     "stop_id": "7004",
+     "seq": 4,
+     "rate": 0.129,
+     "onsets": 4,
+     "lat": 38.728569,
+     "lon": -9.12827
+    },
+    {
+     "stop_id": "11302",
+     "seq": 5,
+     "rate": 0.038,
+     "onsets": 0,
+     "lat": 38.75478,
+     "lon": -9.14493
+    },
+    {
+     "stop_id": "7006",
+     "seq": 5,
+     "rate": 0.126,
+     "onsets": 2,
+     "lat": 38.725471,
+     "lon": -9.12847
+    },
+    {
+     "stop_id": "9108",
+     "seq": 6,
+     "rate": 0.126,
+     "onsets": 1,
+     "lat": 38.721615,
+     "lon": -9.12933
+    },
+    {
+     "stop_id": "104",
+     "seq": 6,
+     "rate": 0.038,
+     "onsets": 0,
+     "lat": 38.753021,
+     "lon": -9.14383
+    },
+    {
+     "stop_id": "102",
+     "seq": 7,
+     "rate": 0.038,
+     "onsets": 0,
+     "lat": 38.750568,
+     "lon": -9.1427
+    },
+    {
+     "stop_id": "9110",
+     "seq": 7,
+     "rate": 0.135,
+     "onsets": 0,
+     "lat": 38.721199,
+     "lon": -9.12787
+    },
+    {
+     "stop_id": "9112",
+     "seq": 8,
+     "rate": 0.147,
+     "onsets": 2,
+     "lat": 38.72081,
+     "lon": -9.125705
+    },
+    {
+     "stop_id": "204",
+     "seq": 8,
+     "rate": 0.037,
+     "onsets": 0,
+     "lat": 38.748234,
+     "lon": -9.14143
+    },
+    {
+     "stop_id": "9114",
+     "seq": 9,
+     "rate": 0.154,
+     "onsets": 1,
+     "lat": 38.720001,
+     "lon": -9.12348
+    },
+    {
+     "stop_id": "202",
+     "seq": 9,
+     "rate": 0.071,
+     "onsets": 2,
+     "lat": 38.74572,
+     "lon": -9.13952
+    },
+    {
+     "stop_id": "306",
+     "seq": 10,
+     "rate": 0.073,
+     "onsets": 0,
+     "lat": 38.742149,
+     "lon": -9.13785
+    },
+    {
+     "stop_id": "9116",
+     "seq": 10,
+     "rate": 0.14,
+     "onsets": 1,
+     "lat": 38.718819,
+     "lon": -9.12183
+    },
+    {
+     "stop_id": "2108",
+     "seq": 11,
+     "rate": 0.152,
+     "onsets": 1,
+     "lat": 38.717949,
+     "lon": -9.12155
+    },
+    {
+     "stop_id": "304",
+     "seq": 11,
+     "rate": 0.088,
+     "onsets": 1,
+     "lat": 38.742279,
+     "lon": -9.13485
+    },
+    {
+     "stop_id": "2106",
+     "seq": 12,
+     "rate": 0.157,
+     "onsets": 2,
+     "lat": 38.717291,
+     "lon": -9.12135
+    },
+    {
+     "stop_id": "302",
+     "seq": 12,
+     "rate": 0.093,
+     "onsets": 0,
+     "lat": 38.742031,
+     "lon": -9.133
+    },
+    {
+     "stop_id": "404",
+     "seq": 13,
+     "rate": 0.086,
+     "onsets": 0,
+     "lat": 38.73748,
+     "lon": -9.13385
+    },
+    {
+     "stop_id": "2104",
+     "seq": 13,
+     "rate": 0.155,
+     "onsets": 0,
+     "lat": 38.717018,
+     "lon": -9.11997
+    },
+    {
+     "stop_id": "2131",
+     "seq": 14,
+     "rate": 0.152,
+     "onsets": 3,
+     "lat": 38.719479,
+     "lon": -9.11753
+    },
+    {
+     "stop_id": "2128",
+     "seq": 15,
+     "rate": 0.125,
+     "onsets": 0,
+     "lat": 38.716211,
+     "lon": -9.11979
+    },
+    {
+     "stop_id": "5504",
+     "seq": 20,
+     "rate": 0.074,
+     "onsets": 4,
+     "lat": 38.707329,
+     "lon": -9.14103
+    },
+    {
+     "stop_id": "3820",
+     "seq": 21,
+     "rate": 0.129,
+     "onsets": 6,
+     "lat": 38.706299,
+     "lon": -9.14428
+    }
+   ]
+  },
+  {
+   "line": "759",
+   "direction": "0",
+   "block": "16:00–21:00",
+   "hours": [
+    "17:00–19:00"
+   ],
+   "hotHours": [
+    17,
+    18
+   ],
+   "rate": 0.09,
+   "timesNetwork": 3.4,
+   "daysHot": 5,
+   "bunchedPerWeekday": 50.0,
+   "tripsPerWeekday": 10.0,
+   "schedHeadwayMin": 18.0,
+   "byDay": {
+    "Mon": 0.08,
+    "Tue": 0.085,
+    "Wed": 0.123,
+    "Thu": 0.099,
+    "Fri": 0.062,
+    "Sat": 0.124,
+    "Sun": 0.058
+   },
+   "byHour": {
+    "0": 0.083,
+    "1": 0.0,
+    "6": 0.004,
+    "7": 0.02,
+    "8": 0.035,
+    "9": 0.016,
+    "10": 0.042,
+    "11": 0.08,
+    "12": 0.037,
+    "13": 0.004,
+    "14": 0.025,
+    "15": 0.013,
+    "16": 0.06,
+    "17": 0.109,
+    "18": 0.137,
+    "19": 0.075,
+    "20": 0.078,
+    "21": 0.037,
+    "22": 0.045,
+    "23": 0.152
+   },
+   "evidence": {
+    "departTooClose": 0.29,
+    "prevTripLate": 0.59,
+    "onsetMedianProgress": 0.69,
+    "onsetFirstQuarter": 0.12
+   },
+   "cause": "turnaround",
+   "causeText": "The previous trip arrives late and the bus leaves again straight away",
+   "fix": "Add 2 min of turnaround (layover) at the terminal in these hours, so a late arrival does not carry over into the next trip.",
+   "tested": null,
+   "terminal": {
+    "stop_id": "2101",
+    "lat": 38.716175,
+    "lon": -9.12096
+   },
+   "stretch": [
+    {
+     "stop_id": "7703",
+     "seq": 34,
+     "rate": 0.148,
+     "days": 5,
+     "lat": 38.769375,
+     "lon": -9.116175
+    },
+    {
+     "stop_id": "12210",
+     "seq": 36,
+     "rate": 0.159,
+     "days": 5,
+     "lat": 38.773369,
+     "lon": -9.11617
+    },
+    {
+     "stop_id": "7721",
+     "seq": 38,
+     "rate": 0.149,
+     "days": 5,
+     "lat": 38.774948,
+     "lon": -9.11379
+    },
+    {
+     "stop_id": "7802",
+     "seq": 41,
+     "rate": 0.159,
+     "days": 5,
+     "lat": 38.77021,
+     "lon": -9.10962
+    },
+    {
+     "stop_id": "7809",
+     "seq": 42,
+     "rate": 0.152,
+     "days": 5,
+     "lat": 38.772884,
+     "lon": -9.105825
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "2101",
+     "seq": 7,
+     "rate": 0.016,
+     "onsets": 1,
+     "lat": 38.716175,
+     "lon": -9.12096
+    },
+    {
+     "stop_id": "2103",
+     "seq": 8,
+     "rate": 0.038,
+     "onsets": 2,
+     "lat": 38.71727,
+     "lon": -9.12088
+    },
+    {
+     "stop_id": "2131",
+     "seq": 9,
+     "rate": 0.06,
+     "onsets": 2,
+     "lat": 38.719479,
+     "lon": -9.11753
+    },
+    {
+     "stop_id": "9813",
+     "seq": 10,
+     "rate": 0.072,
+     "onsets": 1,
+     "lat": 38.72263,
+     "lon": -9.1156
+    },
+    {
+     "stop_id": "9805",
+     "seq": 11,
+     "rate": 0.071,
+     "onsets": 0,
+     "lat": 38.724152,
+     "lon": -9.11398
+    },
+    {
+     "stop_id": "9807",
+     "seq": 12,
+     "rate": 0.06,
+     "onsets": 1,
+     "lat": 38.726049,
+     "lon": -9.11228
+    },
+    {
+     "stop_id": "8301",
+     "seq": 13,
+     "rate": 0.05,
+     "onsets": 1,
+     "lat": 38.72711,
+     "lon": -9.11072
+    },
+    {
+     "stop_id": "8303",
+     "seq": 14,
+     "rate": 0.06,
+     "onsets": 0,
+     "lat": 38.729599,
+     "lon": -9.1085
+    },
+    {
+     "stop_id": "8317",
+     "seq": 15,
+     "rate": 0.049,
+     "onsets": 0,
+     "lat": 38.73135,
+     "lon": -9.11017
+    },
+    {
+     "stop_id": "3711",
+     "seq": 20,
+     "rate": 0.06,
+     "onsets": 1,
+     "lat": 38.740028,
+     "lon": -9.11183
+    },
+    {
+     "stop_id": "3701",
+     "seq": 21,
+     "rate": 0.037,
+     "onsets": 0,
+     "lat": 38.741982,
+     "lon": -9.11275
+    },
+    {
+     "stop_id": "3715",
+     "seq": 22,
+     "rate": 0.06,
+     "onsets": 2,
+     "lat": 38.74419,
+     "lon": -9.1128
+    },
+    {
+     "stop_id": "3703",
+     "seq": 23,
+     "rate": 0.061,
+     "onsets": 1,
+     "lat": 38.745949,
+     "lon": -9.11288
+    },
+    {
+     "stop_id": "3705",
+     "seq": 24,
+     "rate": 0.061,
+     "onsets": 1,
+     "lat": 38.747921,
+     "lon": -9.11258
+    },
+    {
+     "stop_id": "3713",
+     "seq": 25,
+     "rate": 0.061,
+     "onsets": 1,
+     "lat": 38.750875,
+     "lon": -9.11355
+    },
+    {
+     "stop_id": "8416",
+     "seq": 28,
+     "rate": 0.091,
+     "onsets": 5,
+     "lat": 38.759815,
+     "lon": -9.111625
+    },
+    {
+     "stop_id": "8414",
+     "seq": 29,
+     "rate": 0.102,
+     "onsets": 1,
+     "lat": 38.762329,
+     "lon": -9.11274
+    },
+    {
+     "stop_id": "8419",
+     "seq": 30,
+     "rate": 0.09,
+     "onsets": 0,
+     "lat": 38.763569,
+     "lon": -9.11648
+    },
+    {
+     "stop_id": "8437",
+     "seq": 31,
+     "rate": 0.094,
+     "onsets": 1,
+     "lat": 38.763531,
+     "lon": -9.11858
+    },
+    {
+     "stop_id": "8403",
+     "seq": 32,
+     "rate": 0.107,
+     "onsets": 4,
+     "lat": 38.765331,
+     "lon": -9.119325
+    },
+    {
+     "stop_id": "7701",
+     "seq": 33,
+     "rate": 0.091,
+     "onsets": 0,
+     "lat": 38.7689,
+     "lon": -9.118575
+    },
+    {
+     "stop_id": "7703",
+     "seq": 34,
+     "rate": 0.148,
+     "onsets": 3,
+     "lat": 38.769375,
+     "lon": -9.116175
+    },
+    {
+     "stop_id": "7726",
+     "seq": 35,
+     "rate": 0.143,
+     "onsets": 2,
+     "lat": 38.772251,
+     "lon": -9.11742
+    },
+    {
+     "stop_id": "12210",
+     "seq": 36,
+     "rate": 0.159,
+     "onsets": 2,
+     "lat": 38.773369,
+     "lon": -9.11617
+    },
+    {
+     "stop_id": "12207",
+     "seq": 37,
+     "rate": 0.111,
+     "onsets": 0,
+     "lat": 38.772572,
+     "lon": -9.11327
+    },
+    {
+     "stop_id": "7721",
+     "seq": 38,
+     "rate": 0.149,
+     "onsets": 0,
+     "lat": 38.774948,
+     "lon": -9.11379
+    },
+    {
+     "stop_id": "12303",
+     "seq": 39,
+     "rate": 0.145,
+     "onsets": 0,
+     "lat": 38.774719,
+     "lon": -9.11148
+    },
+    {
+     "stop_id": "12310",
+     "seq": 40,
+     "rate": 0.114,
+     "onsets": 3,
+     "lat": 38.772129,
+     "lon": -9.1101
+    },
+    {
+     "stop_id": "7802",
+     "seq": 41,
+     "rate": 0.159,
+     "onsets": 3,
+     "lat": 38.77021,
+     "lon": -9.10962
+    },
+    {
+     "stop_id": "7809",
+     "seq": 42,
+     "rate": 0.152,
+     "onsets": 1,
+     "lat": 38.772884,
+     "lon": -9.105825
+    },
+    {
+     "stop_id": "7812",
+     "seq": 43,
+     "rate": 0.143,
+     "onsets": 0,
+     "lat": 38.774769,
+     "lon": -9.10318
+    },
+    {
+     "stop_id": "7910",
+     "seq": 44,
+     "rate": 0.13,
+     "onsets": 1,
+     "lat": 38.774872,
+     "lon": -9.09753
+    },
+    {
+     "stop_id": "7824",
+     "seq": 45,
+     "rate": 0.113,
+     "onsets": 1,
+     "lat": 38.77198,
+     "lon": -9.09762
+    },
+    {
+     "stop_id": "7822",
+     "seq": 46,
+     "rate": 0.068,
+     "onsets": 1,
+     "lat": 38.767075,
+     "lon": -9.09852
+    },
+    {
+     "stop_id": "7825",
+     "seq": 47,
+     "rate": 0.103,
+     "onsets": 5,
+     "lat": 38.767719,
+     "lon": -9.10423
+    }
+   ]
+  },
+  {
+   "line": "735",
+   "direction": "0",
+   "block": "16:00–21:00",
+   "hours": [
+    "18:00–21:00"
+   ],
+   "hotHours": [
+    18,
+    19,
+    20
+   ],
+   "rate": 0.111,
+   "timesNetwork": 4.2,
+   "daysHot": 5,
+   "bunchedPerWeekday": 49.0,
+   "tripsPerWeekday": 19.0,
+   "schedHeadwayMin": 18.0,
+   "byDay": {
+    "Mon": 0.083,
+    "Tue": 0.115,
+    "Wed": 0.115,
+    "Thu": 0.149,
+    "Fri": 0.093,
+    "Sat": 0.061,
+    "Sun": 0.047
+   },
+   "byHour": {
+    "0": 0.032,
+    "7": 0.002,
+    "8": 0.051,
+    "9": 0.035,
+    "10": 0.021,
+    "11": 0.023,
+    "12": 0.057,
+    "13": 0.023,
+    "14": 0.0,
+    "15": 0.022,
+    "16": 0.05,
+    "17": 0.081,
+    "18": 0.142,
+    "19": 0.148,
+    "20": 0.12,
+    "21": 0.04,
+    "22": 0.0,
+    "23": 0.0
+   },
+   "evidence": {
+    "departTooClose": 0.35,
+    "prevTripLate": 0.62,
+    "onsetMedianProgress": 0.52,
+    "onsetFirstQuarter": 0.2
+   },
+   "cause": "turnaround",
+   "causeText": "The previous trip arrives late and the bus leaves again straight away",
+   "fix": "Add 2 min of turnaround (layover) at the terminal in these hours, so a late arrival does not carry over into the next trip.",
+   "tested": {
+    "scenario": "T2-4",
+    "ewtSaved": 59.9,
+    "ewtSavedRange": [
+     35.5,
+     84.3
+    ],
+    "bunchedPctChange": -3.05,
+    "extraVehicles": 1,
+    "holdPerTrip": 0.0,
+    "terminalWaitPerTrip": 0.0,
+    "robust": true,
+    "days": "held-out Fri 4 + Sun 6 Sep, 16–20 h, 30 seeds, both k",
+    "alsoRobust": [
+     "T2-2"
+    ]
+   },
+   "terminal": {
+    "stop_id": "3801",
+    "lat": 38.70715,
+    "lon": -9.14155
+   },
+   "stretch": [
+    {
+     "stop_id": "9113",
+     "seq": 11,
+     "rate": 0.172,
+     "days": 5,
+     "lat": 38.721119,
+     "lon": -9.126
+    },
+    {
+     "stop_id": "9111",
+     "seq": 12,
+     "rate": 0.161,
+     "days": 5,
+     "lat": 38.721321,
+     "lon": -9.12863
+    },
+    {
+     "stop_id": "9109",
+     "seq": 13,
+     "rate": 0.154,
+     "days": 5,
+     "lat": 38.724018,
+     "lon": -9.12858
+    },
+    {
+     "stop_id": "7009",
+     "seq": 15,
+     "rate": 0.165,
+     "days": 5,
+     "lat": 38.729771,
+     "lon": -9.12805
+    },
+    {
+     "stop_id": "509",
+     "seq": 19,
+     "rate": 0.198,
+     "days": 5,
+     "lat": 38.73646,
+     "lon": -9.13388
+    }
+   ],
+   "profile": [
+    {
+     "stop_id": "3801",
+     "seq": 1,
+     "rate": 0.064,
+     "onsets": 6,
+     "lat": 38.70715,
+     "lon": -9.14155
+    },
+    {
+     "stop_id": "3824",
+     "seq": 2,
+     "rate": 0.062,
+     "onsets": 1,
+     "lat": 38.707272,
+     "lon": -9.14117
+    },
+    {
+     "stop_id": "2101",
+     "seq": 6,
+     "rate": 0.057,
+     "onsets": 3,
+     "lat": 38.716175,
+     "lon": -9.12096
+    },
+    {
+     "stop_id": "2103",
+     "seq": 7,
+     "rate": 0.122,
+     "onsets": 8,
+     "lat": 38.71727,
+     "lon": -9.12088
+    },
+    {
+     "stop_id": "2105",
+     "seq": 8,
+     "rate": 0.106,
+     "onsets": 1,
+     "lat": 38.71788,
+     "lon": -9.1225
+    },
+    {
+     "stop_id": "2107",
+     "seq": 9,
+     "rate": 0.098,
+     "onsets": 1,
+     "lat": 38.719349,
+     "lon": -9.12258
+    },
+    {
+     "stop_id": "9115",
+     "seq": 10,
+     "rate": 0.152,
+     "onsets": 5,
+     "lat": 38.72051,
+     "lon": -9.12376
+    },
+    {
+     "stop_id": "9113",
+     "seq": 11,
+     "rate": 0.172,
+     "onsets": 2,
+     "lat": 38.721119,
+     "lon": -9.126
+    },
+    {
+     "stop_id": "9111",
+     "seq": 12,
+     "rate": 0.161,
+     "onsets": 1,
+     "lat": 38.721321,
+     "lon": -9.12863
+    },
+    {
+     "stop_id": "9109",
+     "seq": 13,
+     "rate": 0.154,
+     "onsets": 2,
+     "lat": 38.724018,
+     "lon": -9.12858
+    },
+    {
+     "stop_id": "9107",
+     "seq": 14,
+     "rate": 0.144,
+     "onsets": 2,
+     "lat": 38.726849,
+     "lon": -9.12833
+    },
+    {
+     "stop_id": "7009",
+     "seq": 15,
+     "rate": 0.165,
+     "onsets": 2,
+     "lat": 38.729771,
+     "lon": -9.12805
+    },
+    {
+     "stop_id": "7003",
+     "seq": 16,
+     "rate": 0.125,
+     "onsets": 4,
+     "lat": 38.731819,
+     "lon": -9.12778
+    },
+    {
+     "stop_id": "7011",
+     "seq": 17,
+     "rate": 0.135,
+     "onsets": 5,
+     "lat": 38.732479,
+     "lon": -9.12958
+    },
+    {
+     "stop_id": "501",
+     "seq": 18,
+     "rate": 0.129,
+     "onsets": 3,
+     "lat": 38.73307,
+     "lon": -9.1318
+    },
+    {
+     "stop_id": "509",
+     "seq": 19,
+     "rate": 0.198,
+     "onsets": 7,
+     "lat": 38.73646,
+     "lon": -9.13388
+    },
+    {
+     "stop_id": "414",
+     "seq": 20,
+     "rate": 0.062,
+     "onsets": 0,
+     "lat": 38.739498,
+     "lon": -9.13357
+    },
+    {
+     "stop_id": "409",
+     "seq": 20,
+     "rate": 0.04,
+     "onsets": 1,
+     "lat": 38.73687,
+     "lon": -9.13395
+    },
+    {
+     "stop_id": "411",
+     "seq": 21,
+     "rate": 0.095,
+     "onsets": 2,
+     "lat": 38.742491,
+     "lon": -9.13303
+    },
+    {
+     "stop_id": "319",
+     "seq": 22,
+     "rate": 0.083,
+     "onsets": 0,
+     "lat": 38.742401,
+     "lon": -9.13573
+    },
+    {
+     "stop_id": "305",
+     "seq": 23,
+     "rate": 0.097,
+     "onsets": 1,
+     "lat": 38.742481,
+     "lon": -9.138975
+    },
+    {
+     "stop_id": "307",
+     "seq": 24,
+     "rate": 0.081,
+     "onsets": 0,
+     "lat": 38.746899,
+     "lon": -9.140565
+    },
+    {
+     "stop_id": "201",
+     "seq": 25,
+     "rate": 0.1,
+     "onsets": 2,
+     "lat": 38.749298,
+     "lon": -9.14188
+    },
+    {
+     "stop_id": "203",
+     "seq": 26,
+     "rate": 0.121,
+     "onsets": 1,
+     "lat": 38.750702,
+     "lon": -9.142575
+    },
+    {
+     "stop_id": "101",
+     "seq": 27,
+     "rate": 0.1,
+     "onsets": 0,
+     "lat": 38.753725,
+     "lon": -9.1442
+    },
+    {
+     "stop_id": "103",
+     "seq": 28,
+     "rate": 0.069,
+     "onsets": 0,
+     "lat": 38.75655,
+     "lon": -9.14615
+    },
+    {
+     "stop_id": "11321",
+     "seq": 29,
+     "rate": 0.067,
+     "onsets": 0,
+     "lat": 38.754921,
+     "lon": -9.1515
+    },
+    {
+     "stop_id": "5703",
+     "seq": 30,
+     "rate": 0.07,
+     "onsets": 0,
+     "lat": 38.753948,
+     "lon": -9.15563
+    },
+    {
+     "stop_id": "5701",
+     "seq": 31,
+     "rate": 0.068,
+     "onsets": 0,
+     "lat": 38.751221,
+     "lon": -9.15902
+    },
+    {
+     "stop_id": "13507",
+     "seq": 32,
+     "rate": 0.052,
+     "onsets": 0,
+     "lat": 38.750172,
+     "lon": -9.159975
+    }
+   ]
+  }
+ ],
+ "hotspots": [
+  {
+   "stop_id": "10802",
+   "lat": 38.7505,
+   "lon": -9.1975,
+   "bunchedPerWeekday": 21.8,
+   "rate": 0.053,
+   "lines": [
+    "758",
+    "767",
+    "703"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "12121",
+   "lat": 38.70248,
+   "lon": -9.18048,
+   "bunchedPerWeekday": 18.0,
+   "rate": 0.047,
+   "lines": [
+    "742",
+    "727",
+    "751"
+   ],
+   "peakHour": 14
+  },
+  {
+   "stop_id": "4112",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 17.0,
+   "rate": 0.055,
+   "lines": [
+    "15E",
+    "727",
+    "751"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "11006",
+   "lat": 38.750851,
+   "lon": -9.21105,
+   "bunchedPerWeekday": 16.8,
+   "rate": 0.066,
+   "lines": [
+    "767",
+    "758",
+    "711"
+   ],
+   "peakHour": 9
+  },
+  {
+   "stop_id": "9604",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 16.6,
+   "rate": 0.056,
+   "lines": [
+    "728",
+    "727",
+    "751"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "4114",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 16.4,
+   "rate": 0.054,
+   "lines": [
+    "15E",
+    "727",
+    "751"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "12110",
+   "lat": 38.705021,
+   "lon": -9.1771,
+   "bunchedPerWeekday": 15.6,
+   "rate": 0.047,
+   "lines": [
+    "742",
+    "727",
+    "751"
+   ],
+   "peakHour": 14
+  },
+  {
+   "stop_id": "3820",
+   "lat": 38.706299,
+   "lon": -9.14428,
+   "bunchedPerWeekday": 15.4,
+   "rate": 0.039,
+   "lines": [
+    "728",
+    "735",
+    "781"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "5808",
+   "lat": 38.759129,
+   "lon": -9.15637,
+   "bunchedPerWeekday": 15.2,
+   "rate": 0.045,
+   "lines": [
+    "767",
+    "796",
+    "736"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "12004",
+   "lat": 38.705021,
+   "lon": -9.18397,
+   "bunchedPerWeekday": 15.0,
+   "rate": 0.081,
+   "lines": [
+    "742",
+    "738",
+    "720"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "502",
+   "lat": 38.73167,
+   "lon": -9.12778,
+   "bunchedPerWeekday": 15.0,
+   "rate": 0.054,
+   "lines": [
+    "742",
+    "735",
+    "797"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "9508",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 15.0,
+   "rate": 0.046,
+   "lines": [
+    "15E",
+    "727",
+    "751"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "9506",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 14.4,
+   "rate": 0.04,
+   "lines": [
+    "727",
+    "15E",
+    "751"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "3902",
+   "lat": 38.70393,
+   "lon": -9.1615,
+   "bunchedPerWeekday": 14.4,
+   "rate": 0.048,
+   "lines": [
+    "728",
+    "15E",
+    "760"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "10202",
+   "lat": 38.704121,
+   "lon": -9.1733,
+   "bunchedPerWeekday": 14.2,
+   "rate": 0.048,
+   "lines": [
+    "728",
+    "15E",
+    "760"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "12108",
+   "lat": 38.700249,
+   "lon": -9.18327,
+   "bunchedPerWeekday": 14.0,
+   "rate": 0.036,
+   "lines": [
+    "727",
+    "15E",
+    "751"
+   ],
+   "peakHour": 9
+  },
+  {
+   "stop_id": "12002",
+   "lat": 38.738232,
+   "lon": -9.12092,
+   "bunchedPerWeekday": 14.0,
+   "rate": 0.079,
+   "lines": [
+    "742",
+    "738",
+    "720"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "3906",
+   "lat": 38.703522,
+   "lon": -9.16677,
+   "bunchedPerWeekday": 14.0,
+   "rate": 0.048,
+   "lines": [
+    "728",
+    "15E",
+    "760"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "5805",
+   "lat": 38.760448,
+   "lon": -9.15598,
+   "bunchedPerWeekday": 14.0,
+   "rate": 0.042,
+   "lines": [
+    "767",
+    "736",
+    "717"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "12804",
+   "lat": 38.760181,
+   "lon": -9.18505,
+   "bunchedPerWeekday": 13.8,
+   "rate": 0.054,
+   "lines": [
+    "767",
+    "703",
+    "726"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "13410",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 13.4,
+   "rate": 0.054,
+   "lines": [
+    "742",
+    "760",
+    "18E"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "4208",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 13.2,
+   "rate": 0.063,
+   "lines": [
+    "15E",
+    "729",
+    "723"
+   ],
+   "peakHour": 8
+  },
+  {
+   "stop_id": "12802",
+   "lat": 38.753052,
+   "lon": -9.18813,
+   "bunchedPerWeekday": 13.0,
+   "rate": 0.072,
+   "lines": [
+    "767",
+    "703"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "202",
+   "lat": 38.74572,
+   "lon": -9.13952,
+   "bunchedPerWeekday": 13.0,
+   "rate": 0.078,
+   "lines": [
+    "767",
+    "727",
+    "735"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "3803",
+   "lat": 38.706631,
+   "lon": -9.14167,
+   "bunchedPerWeekday": 13.0,
+   "rate": 0.036,
+   "lines": [
+    "728",
+    "15E",
+    "714"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "7102",
+   "lat": 38.706421,
+   "lon": -9.154825,
+   "bunchedPerWeekday": 12.8,
+   "rate": 0.032,
+   "lines": [
+    "728",
+    "15E",
+    "760"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "12105",
+   "lat": 38.70657,
+   "lon": -9.17358,
+   "bunchedPerWeekday": 12.4,
+   "rate": 0.036,
+   "lines": [
+    "751",
+    "742",
+    "727"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "13312",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 12.4,
+   "rate": 0.094,
+   "lines": [
+    "742",
+    "760"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "12112",
+   "lat": 38.704102,
+   "lon": -9.18262,
+   "bunchedPerWeekday": 12.2,
+   "rate": 0.091,
+   "lines": [
+    "742",
+    "720"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "10304",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 12.2,
+   "rate": 0.071,
+   "lines": [
+    "742",
+    "760",
+    "771"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "12824",
+   "lat": 38.75798,
+   "lon": -9.18548,
+   "bunchedPerWeekday": 12.2,
+   "rate": 0.07,
+   "lines": [
+    "767",
+    "703"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "9504",
+   "lat": 38.69978,
+   "lon": -9.18438,
+   "bunchedPerWeekday": 12.2,
+   "rate": 0.034,
+   "lines": [
+    "727",
+    "15E",
+    "751"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "13408",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 12.0,
+   "rate": 0.073,
+   "lines": [
+    "742",
+    "760",
+    "18E"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "13204",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 12.0,
+   "rate": 0.067,
+   "lines": [
+    "15E",
+    "729",
+    "723"
+   ],
+   "peakHour": 8
+  },
+  {
+   "stop_id": "12406",
+   "lat": 38.746078,
+   "lon": -9.13297,
+   "bunchedPerWeekday": 12.0,
+   "rate": 0.069,
+   "lines": [
+    "728",
+    "727",
+    "732"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "10808",
+   "lat": 38.75029,
+   "lon": -9.1912,
+   "bunchedPerWeekday": 12.0,
+   "rate": 0.074,
+   "lines": [
+    "767",
+    "703",
+    "764"
+   ],
+   "peakHour": 8
+  },
+  {
+   "stop_id": "13406",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 12.0,
+   "rate": 0.067,
+   "lines": [
+    "742",
+    "760",
+    "18E"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "8303",
+   "lat": 38.729599,
+   "lon": -9.1085,
+   "bunchedPerWeekday": 12.0,
+   "rate": 0.06,
+   "lines": [
+    "742",
+    "759"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "7101",
+   "lat": 38.70628,
+   "lon": -9.14542,
+   "bunchedPerWeekday": 11.8,
+   "rate": 0.03,
+   "lines": [
+    "15E",
+    "728",
+    "714"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "1806",
+   "lat": 38.735168,
+   "lon": -9.14289,
+   "bunchedPerWeekday": 11.6,
+   "rate": 0.051,
+   "lines": [
+    "742",
+    "726",
+    "713"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "10702",
+   "lat": 38.7467,
+   "lon": -9.18298,
+   "bunchedPerWeekday": 11.4,
+   "rate": 0.047,
+   "lines": [
+    "758",
+    "746",
+    "716"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "10804",
+   "lat": 38.74992,
+   "lon": -9.19466,
+   "bunchedPerWeekday": 11.4,
+   "rate": 0.049,
+   "lines": [
+    "767",
+    "703",
+    "729"
+   ],
+   "peakHour": 20
+  },
+  {
+   "stop_id": "3802",
+   "lat": 38.706371,
+   "lon": -9.1483,
+   "bunchedPerWeekday": 11.2,
+   "rate": 0.043,
+   "lines": [
+    "728",
+    "15E",
+    "732"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "11101",
+   "lat": 38.735229,
+   "lon": -9.14042,
+   "bunchedPerWeekday": 11.2,
+   "rate": 0.053,
+   "lines": [
+    "742",
+    "713",
+    "716"
+   ],
+   "peakHour": 16
+  },
+  {
+   "stop_id": "9505",
+   "lat": 38.699871,
+   "lon": -9.18412,
+   "bunchedPerWeekday": 11.2,
+   "rate": 0.031,
+   "lines": [
+    "751",
+    "15E",
+    "714"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "9503",
+   "lat": 38.701981,
+   "lon": -9.18097,
+   "bunchedPerWeekday": 11.2,
+   "rate": 0.032,
+   "lines": [
+    "751",
+    "15E",
+    "714"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "13206",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 11.0,
+   "rate": 0.072,
+   "lines": [
+    "15E",
+    "729"
+   ],
+   "peakHour": 8
+  },
+  {
+   "stop_id": "13210",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 11.0,
+   "rate": 0.069,
+   "lines": [
+    "15E",
+    "729"
+   ],
+   "peakHour": 8
+  },
+  {
+   "stop_id": "10904",
+   "lat": 38.751331,
+   "lon": -9.20318,
+   "bunchedPerWeekday": 11.0,
+   "rate": 0.052,
+   "lines": [
+    "758",
+    "716",
+    "746"
+   ],
+   "peakHour": 8
+  },
+  {
+   "stop_id": "517",
+   "lat": 38.733379,
+   "lon": -9.13317,
+   "bunchedPerWeekday": 11.0,
+   "rate": 0.125,
+   "lines": [
+    "742"
+   ],
+   "peakHour": 16
+  },
+  {
+   "stop_id": "9502",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 10.8,
+   "rate": 0.16,
+   "lines": [
+    "728"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "522",
+   "lat": 38.732922,
+   "lon": -9.13125,
+   "bunchedPerWeekday": 10.8,
+   "rate": 0.086,
+   "lines": [
+    "742"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "9805",
+   "lat": 38.724152,
+   "lon": -9.11398,
+   "bunchedPerWeekday": 10.8,
+   "rate": 0.064,
+   "lines": [
+    "742",
+    "759",
+    "718"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "9807",
+   "lat": 38.726049,
+   "lon": -9.11228,
+   "bunchedPerWeekday": 10.6,
+   "rate": 0.061,
+   "lines": [
+    "742",
+    "759"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "5706",
+   "lat": 38.7565,
+   "lon": -9.14578,
+   "bunchedPerWeekday": 10.6,
+   "rate": 0.059,
+   "lines": [
+    "767",
+    "717",
+    "735"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "10706",
+   "lat": 38.744301,
+   "lon": -9.17834,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.042,
+   "lines": [
+    "758",
+    "746",
+    "716"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "12006",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.058,
+   "lines": [
+    "742",
+    "760",
+    "18E"
+   ],
+   "peakHour": 14
+  },
+  {
+   "stop_id": "1701",
+   "lat": 38.730652,
+   "lon": -9.14668,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.032,
+   "lines": [
+    "727",
+    "736",
+    "738"
+   ],
+   "peakHour": 21
+  },
+  {
+   "stop_id": "9610",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.064,
+   "lines": [
+    "15E",
+    "729"
+   ],
+   "peakHour": 8
+  },
+  {
+   "stop_id": "1616",
+   "lat": 38.743179,
+   "lon": -9.17437,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.045,
+   "lines": [
+    "758",
+    "746",
+    "716"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "12828",
+   "lat": 38.759651,
+   "lon": -9.18182,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.084,
+   "lines": [
+    "767",
+    "703"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "3901",
+   "lat": 38.706348,
+   "lon": -9.1493,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.035,
+   "lines": [
+    "728",
+    "15E",
+    "18E"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "1410",
+   "lat": 38.73506,
+   "lon": -9.14709,
+   "bunchedPerWeekday": 10.4,
+   "rate": 0.074,
+   "lines": [
+    "742",
+    "713"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "8317",
+   "lat": 38.73135,
+   "lon": -9.11017,
+   "bunchedPerWeekday": 10.2,
+   "rate": 0.072,
+   "lines": [
+    "742",
+    "759"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "8010",
+   "lat": 38.719421,
+   "lon": -9.17,
+   "bunchedPerWeekday": 10.2,
+   "rate": 0.068,
+   "lines": [
+    "742",
+    "701",
+    "712"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "1206",
+   "lat": 38.724499,
+   "lon": -9.1507,
+   "bunchedPerWeekday": 10.2,
+   "rate": 0.027,
+   "lines": [
+    "736",
+    "727",
+    "744"
+   ],
+   "peakHour": 7
+  },
+  {
+   "stop_id": "10826",
+   "lat": 38.7481,
+   "lon": -9.19123,
+   "bunchedPerWeekday": 10.2,
+   "rate": 0.06,
+   "lines": [
+    "758",
+    "746",
+    "716"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "9301",
+   "lat": 38.71302,
+   "lon": -9.17372,
+   "bunchedPerWeekday": 10.0,
+   "rate": 0.102,
+   "lines": [
+    "742",
+    "712"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "5814",
+   "lat": 38.76218,
+   "lon": -9.15737,
+   "bunchedPerWeekday": 10.0,
+   "rate": 0.032,
+   "lines": [
+    "717",
+    "736",
+    "796"
+   ],
+   "peakHour": 9
+  },
+  {
+   "stop_id": "10830",
+   "lat": 38.747181,
+   "lon": -9.18825,
+   "bunchedPerWeekday": 10.0,
+   "rate": 0.058,
+   "lines": [
+    "758",
+    "746",
+    "716"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "10704",
+   "lat": 38.745171,
+   "lon": -9.1808,
+   "bunchedPerWeekday": 10.0,
+   "rate": 0.041,
+   "lines": [
+    "758",
+    "746",
+    "716"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "4002",
+   "lat": 38.698448,
+   "lon": -9.183365,
+   "bunchedPerWeekday": 10.0,
+   "rate": 0.148,
+   "lines": [
+    "728"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "1607",
+   "lat": 38.742271,
+   "lon": -9.17186,
+   "bunchedPerWeekday": 10.0,
+   "rate": 0.056,
+   "lines": [
+    "758",
+    "746",
+    "716"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "4109",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 9.8,
+   "rate": 0.037,
+   "lines": [
+    "751",
+    "728",
+    "727"
+   ],
+   "peakHour": 18
+  },
+  {
+   "stop_id": "50011",
+   "lat": 38.760921,
+   "lon": -9.17072,
+   "bunchedPerWeekday": 9.8,
+   "rate": 0.062,
+   "lines": [
+    "767",
+    "747"
+   ],
+   "peakHour": 19
+  },
+  {
+   "stop_id": "2806",
+   "lat": 38.745171,
+   "lon": -9.20157,
+   "bunchedPerWeekday": 9.8,
+   "rate": 0.035,
+   "lines": [
+    "703",
+    "750",
+    "729"
+   ],
+   "peakHour": 20
+  },
+  {
+   "stop_id": "7825",
+   "lat": 38.767719,
+   "lon": -9.10423,
+   "bunchedPerWeekday": 9.8,
+   "rate": 0.033,
+   "lines": [
+    "728",
+    "759",
+    "708"
+   ],
+   "peakHour": 17
+  },
+  {
+   "stop_id": "10201",
+   "lat": 38.703529,
+   "lon": -9.16355,
+   "bunchedPerWeekday": 9.8,
+   "rate": 0.033,
+   "lines": [
+    "728",
+    "15E",
+    "18E"
+   ],
+   "peakHour": 10
+  },
+  {
+   "stop_id": "9401",
+   "lat": 38.706575,
+   "lon": -9.17428,
+   "bunchedPerWeekday": 9.8,
+   "rate": 0.08,
+   "lines": [
+    "742"
+   ],
+   "peakHour": 13
+  },
+  {
+   "stop_id": "10308",
+   "lat": null,
+   "lon": null,
+   "bunchedPerWeekday": 9.8,
+   "rate": 0.069,
+   "lines": [
+    "742"
+   ],
+   "peakHour": 18
+  }
+ ],
+ "corridors": [
+  {
+   "pair": "746 & 758",
+   "lines": [
+    "746",
+    "758"
+   ],
+   "directions": [
+    "1",
+    "1"
+   ],
+   "eventsPerWeekday": 36.0,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.33,
+   "peakHours": [
+    "07:00–13:00",
+    "14:00–17:00",
+    "18:00–21:00"
+   ],
+   "byHour": {
+    "0": 2,
+    "6": 8,
+    "7": 13,
+    "8": 14,
+    "9": 12,
+    "10": 10,
+    "11": 13,
+    "12": 10,
+    "13": 8,
+    "14": 9,
+    "15": 12,
+    "16": 14,
+    "17": 7,
+    "18": 11,
+    "19": 11,
+    "20": 12,
+    "21": 3,
+    "22": 5,
+    "23": 6
+   },
+   "byDay": {
+    "Mon": 44,
+    "Tue": 42,
+    "Wed": 38,
+    "Thu": 32,
+    "Fri": 24,
+    "Sat": 20,
+    "Sun": 17
+   },
+   "closeShare": 0.194,
+   "sharedStops": [
+    {
+     "stop_id": "11001",
+     "lat": 38.75235,
+     "lon": -9.20643
+    },
+    {
+     "stop_id": "10901",
+     "lat": 38.7509,
+     "lon": -9.20225
+    },
+    {
+     "stop_id": "10903",
+     "lat": 38.750702,
+     "lon": -9.19949
+    },
+    {
+     "stop_id": "10905",
+     "lat": 38.749981,
+     "lon": -9.19517
+    },
+    {
+     "stop_id": "10801",
+     "lat": 38.74905,
+     "lon": -9.19272
+    },
+    {
+     "stop_id": "10803",
+     "lat": 38.74725,
+     "lon": -9.18965
+    },
+    {
+     "stop_id": "10821",
+     "lat": 38.746899,
+     "lon": -9.18587
+    },
+    {
+     "stop_id": "10829",
+     "lat": 38.745918,
+     "lon": -9.18227
+    },
+    {
+     "stop_id": "10701",
+     "lat": 38.744598,
+     "lon": -9.1797
+    },
+    {
+     "stop_id": "10703",
+     "lat": 38.743999,
+     "lon": -9.17719
+    },
+    {
+     "stop_id": "10705",
+     "lat": 38.742821,
+     "lon": -9.17337
+    },
+    {
+     "stop_id": "1615",
+     "lat": 38.7411,
+     "lon": -9.16852
+    },
+    {
+     "stop_id": "1610",
+     "lat": 38.739922,
+     "lon": -9.16783
+    }
+   ]
+  },
+  {
+   "pair": "714 & 727",
+   "lines": [
+    "714",
+    "727"
+   ],
+   "directions": [
+    "0",
+    "0"
+   ],
+   "eventsPerWeekday": 35.8,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.25,
+   "peakHours": [
+    "07:00–11:00",
+    "15:00–16:00"
+   ],
+   "byHour": {
+    "7": 14,
+    "8": 21,
+    "9": 21,
+    "10": 13,
+    "11": 9,
+    "12": 9,
+    "13": 12,
+    "14": 11,
+    "15": 14,
+    "16": 10,
+    "17": 12,
+    "18": 9,
+    "19": 11,
+    "20": 4,
+    "21": 7,
+    "22": 2
+   },
+   "byDay": {
+    "Mon": 43,
+    "Tue": 47,
+    "Wed": 28,
+    "Thu": 33,
+    "Fri": 28,
+    "Sat": 23,
+    "Sun": 13
+   },
+   "closeShare": 0.184,
+   "sharedStops": [
+    {
+     "stop_id": "3910",
+     "lat": 38.705349,
+     "lon": -9.1606
+    },
+    {
+     "stop_id": "3908",
+     "lat": 38.70462,
+     "lon": -9.16297
+    },
+    {
+     "stop_id": "10212",
+     "lat": 38.704552,
+     "lon": -9.16687
+    },
+    {
+     "stop_id": "10210",
+     "lat": 38.704922,
+     "lon": -9.17006
+    },
+    {
+     "stop_id": "10208",
+     "lat": 38.705971,
+     "lon": -9.17273
+    },
+    {
+     "stop_id": "9417",
+     "lat": 38.706478,
+     "lon": -9.17411
+    },
+    {
+     "stop_id": "12110",
+     "lat": 38.705021,
+     "lon": -9.1771
+    },
+    {
+     "stop_id": "12121",
+     "lat": 38.70248,
+     "lon": -9.18048
+    },
+    {
+     "stop_id": "12108",
+     "lat": 38.700249,
+     "lon": -9.18327
+    },
+    {
+     "stop_id": "9504",
+     "lat": 38.69978,
+     "lon": -9.18438
+    },
+    {
+     "stop_id": "9506",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9508",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4114",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4112",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9604",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "12404",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "12402",
+     "lat": 38.716015,
+     "lon": -9.21472
+    },
+    {
+     "stop_id": "10402",
+     "lat": 38.716549,
+     "lon": -9.21313
+    }
+   ]
+  },
+  {
+   "pair": "716 & 758",
+   "lines": [
+    "716",
+    "758"
+   ],
+   "directions": [
+    "0",
+    "0"
+   ],
+   "eventsPerWeekday": 28.8,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.33,
+   "peakHours": [
+    "06:00–10:00",
+    "11:00–13:00",
+    "17:00–21:00"
+   ],
+   "byHour": {
+    "6": 13,
+    "7": 10,
+    "8": 10,
+    "9": 12,
+    "10": 8,
+    "11": 9,
+    "12": 14,
+    "13": 5,
+    "14": 8,
+    "15": 5,
+    "16": 8,
+    "17": 10,
+    "18": 9,
+    "19": 11,
+    "20": 10,
+    "21": 1,
+    "22": 1
+   },
+   "byDay": {
+    "Mon": 33,
+    "Tue": 33,
+    "Wed": 35,
+    "Thu": 17,
+    "Fri": 26,
+    "Sat": 11,
+    "Sun": 0
+   },
+   "closeShare": 0.241,
+   "sharedStops": [
+    {
+     "stop_id": "1607",
+     "lat": 38.742271,
+     "lon": -9.17186
+    },
+    {
+     "stop_id": "1616",
+     "lat": 38.743179,
+     "lon": -9.17437
+    },
+    {
+     "stop_id": "10706",
+     "lat": 38.744301,
+     "lon": -9.17834
+    },
+    {
+     "stop_id": "10704",
+     "lat": 38.745171,
+     "lon": -9.1808
+    },
+    {
+     "stop_id": "10702",
+     "lat": 38.7467,
+     "lon": -9.18298
+    },
+    {
+     "stop_id": "10830",
+     "lat": 38.747181,
+     "lon": -9.18825
+    },
+    {
+     "stop_id": "10826",
+     "lat": 38.7481,
+     "lon": -9.19123
+    },
+    {
+     "stop_id": "10814",
+     "lat": 38.749931,
+     "lon": -9.19487
+    },
+    {
+     "stop_id": "10802",
+     "lat": 38.7505,
+     "lon": -9.1975
+    },
+    {
+     "stop_id": "10906",
+     "lat": 38.750648,
+     "lon": -9.20097
+    },
+    {
+     "stop_id": "10904",
+     "lat": 38.751331,
+     "lon": -9.20318
+    }
+   ]
+  },
+  {
+   "pair": "714 & 751",
+   "lines": [
+    "714",
+    "751"
+   ],
+   "directions": [
+    "0",
+    "0"
+   ],
+   "eventsPerWeekday": 27.6,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.32,
+   "peakHours": [
+    "07:00–10:00",
+    "15:00–16:00",
+    "17:00–18:00",
+    "19:00–20:00"
+   ],
+   "byHour": {
+    "6": 9,
+    "7": 11,
+    "8": 17,
+    "9": 14,
+    "10": 9,
+    "11": 2,
+    "12": 7,
+    "13": 2,
+    "14": 3,
+    "15": 11,
+    "16": 7,
+    "17": 13,
+    "18": 9,
+    "19": 15,
+    "20": 6,
+    "21": 3
+   },
+   "byDay": {
+    "Mon": 28,
+    "Tue": 29,
+    "Wed": 37,
+    "Thu": 22,
+    "Fri": 22,
+    "Sat": 12,
+    "Sun": 2
+   },
+   "closeShare": 0.26,
+   "sharedStops": [
+    {
+     "stop_id": "12110",
+     "lat": 38.705021,
+     "lon": -9.1771
+    },
+    {
+     "stop_id": "12121",
+     "lat": 38.70248,
+     "lon": -9.18048
+    },
+    {
+     "stop_id": "12108",
+     "lat": 38.700249,
+     "lon": -9.18327
+    },
+    {
+     "stop_id": "9504",
+     "lat": 38.69978,
+     "lon": -9.18438
+    },
+    {
+     "stop_id": "9506",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9508",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4114",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4112",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9604",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9608",
+     "lat": null,
+     "lon": null
+    }
+   ]
+  },
+  {
+   "pair": "742 & 760",
+   "lines": [
+    "742",
+    "760"
+   ],
+   "directions": [
+    "1",
+    "1"
+   ],
+   "eventsPerWeekday": 27.4,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.3,
+   "peakHours": [
+    "07:00–09:00",
+    "17:00–19:00"
+   ],
+   "byHour": {
+    "0": 2,
+    "5": 1,
+    "6": 4,
+    "7": 11,
+    "8": 17,
+    "9": 9,
+    "10": 6,
+    "11": 7,
+    "12": 8,
+    "13": 10,
+    "14": 8,
+    "15": 8,
+    "16": 5,
+    "17": 11,
+    "18": 11,
+    "19": 5,
+    "20": 6,
+    "21": 1,
+    "22": 2,
+    "23": 5
+   },
+   "byDay": {
+    "Mon": 33,
+    "Tue": 35,
+    "Wed": 29,
+    "Thu": 17,
+    "Fri": 23,
+    "Sat": 14,
+    "Sun": 12
+   },
+   "closeShare": 0.139,
+   "sharedStops": [
+    {
+     "stop_id": "12928",
+     "lat": 38.706371,
+     "lon": -9.17352
+    },
+    {
+     "stop_id": "10313",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10305",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10303",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "10301",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13303",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13305",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13401",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "13405",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "12007",
+     "lat": 38.704651,
+     "lon": -9.18426
+    },
+    {
+     "stop_id": "12003",
+     "lat": 38.704552,
+     "lon": -9.18315
+    },
+    {
+     "stop_id": "12005",
+     "lat": 38.702869,
+     "lon": -9.18052
+    },
+    {
+     "stop_id": "12107",
+     "lat": 38.704929,
+     "lon": -9.17692
+    }
+   ]
+  },
+  {
+   "pair": "720 & 738",
+   "lines": [
+    "720",
+    "738"
+   ],
+   "directions": [
+    "0",
+    "0"
+   ],
+   "eventsPerWeekday": 26.4,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.13,
+   "peakHours": [
+    "19:00–21:00"
+   ],
+   "byHour": {
+    "6": 6,
+    "7": 9,
+    "8": 11,
+    "9": 8,
+    "10": 4,
+    "11": 4,
+    "12": 2,
+    "13": 3,
+    "14": 4,
+    "15": 4,
+    "16": 7,
+    "17": 12,
+    "18": 7,
+    "19": 19,
+    "20": 22,
+    "21": 9,
+    "22": 1
+   },
+   "byDay": {
+    "Mon": 25,
+    "Tue": 30,
+    "Wed": 23,
+    "Thu": 34,
+    "Fri": 20,
+    "Sat": 9,
+    "Sun": 14
+   },
+   "closeShare": 0.123,
+   "sharedStops": [
+    {
+     "stop_id": "1208",
+     "lat": 38.722775,
+     "lon": -9.15161
+    },
+    {
+     "stop_id": "6806",
+     "lat": 38.7202,
+     "lon": -9.15426
+    },
+    {
+     "stop_id": "6804",
+     "lat": 38.718681,
+     "lon": -9.15657
+    },
+    {
+     "stop_id": "6802",
+     "lat": 38.71603,
+     "lon": -9.15853
+    },
+    {
+     "stop_id": "8104",
+     "lat": 38.713879,
+     "lon": -9.1612
+    },
+    {
+     "stop_id": "8102",
+     "lat": 38.7118,
+     "lon": -9.16378
+    },
+    {
+     "stop_id": "10104",
+     "lat": 38.709761,
+     "lon": -9.16615
+    },
+    {
+     "stop_id": "10102",
+     "lat": 38.707378,
+     "lon": -9.16743
+    },
+    {
+     "stop_id": "10206",
+     "lat": 38.7043,
+     "lon": -9.16812
+    },
+    {
+     "stop_id": "10204",
+     "lat": 38.704151,
+     "lon": -9.17345
+    },
+    {
+     "stop_id": "4004",
+     "lat": 38.704681,
+     "lon": -9.1768
+    },
+    {
+     "stop_id": "12102",
+     "lat": 38.702621,
+     "lon": -9.1806
+    },
+    {
+     "stop_id": "12004",
+     "lat": 38.705021,
+     "lon": -9.18397
+    },
+    {
+     "stop_id": "12002",
+     "lat": 38.738232,
+     "lon": -9.12092
+    },
+    {
+     "stop_id": "12010",
+     "lat": null,
+     "lon": null
+    }
+   ]
+  },
+  {
+   "pair": "727 & 751",
+   "lines": [
+    "727",
+    "751"
+   ],
+   "directions": [
+    "0",
+    "0"
+   ],
+   "eventsPerWeekday": 24.4,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.23,
+   "peakHours": [
+    "09:00–10:00",
+    "17:00–19:00"
+   ],
+   "byHour": {
+    "0": 1,
+    "7": 10,
+    "8": 6,
+    "9": 11,
+    "10": 2,
+    "11": 7,
+    "12": 4,
+    "13": 6,
+    "14": 9,
+    "15": 4,
+    "16": 8,
+    "17": 13,
+    "18": 18,
+    "19": 10,
+    "20": 4,
+    "21": 3,
+    "22": 4,
+    "23": 2
+   },
+   "byDay": {
+    "Mon": 26,
+    "Tue": 28,
+    "Wed": 24,
+    "Thu": 21,
+    "Fri": 23,
+    "Sat": 11,
+    "Sun": 3
+   },
+   "closeShare": 0.237,
+   "sharedStops": [
+    {
+     "stop_id": "12110",
+     "lat": 38.705021,
+     "lon": -9.1771
+    },
+    {
+     "stop_id": "12121",
+     "lat": 38.70248,
+     "lon": -9.18048
+    },
+    {
+     "stop_id": "12108",
+     "lat": 38.700249,
+     "lon": -9.18327
+    },
+    {
+     "stop_id": "9504",
+     "lat": 38.69978,
+     "lon": -9.18438
+    },
+    {
+     "stop_id": "9506",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9508",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4114",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "4112",
+     "lat": null,
+     "lon": null
+    },
+    {
+     "stop_id": "9604",
+     "lat": null,
+     "lon": null
+    }
+   ]
+  },
+  {
+   "pair": "717 & 736",
+   "lines": [
+    "717",
+    "736"
+   ],
+   "directions": [
+    "1",
+    "1"
+   ],
+   "eventsPerWeekday": 24.2,
+   "daysWithEvents": 5,
+   "plannedTogetherShare": 0.24,
+   "peakHours": [
+    "06:00–07:00",
+    "08:00–09:00",
+    "11:00–12:00",
+    "19:00–20:00"
+   ],
+   "byHour": {
+    "5": 4,
+    "6": 16,
+    "7": 4,
+    "8": 13,
+    "9": 6,
+    "10": 3,
+    "11": 10,
+    "12": 3,
+    "13": 5,
+    "14": 5,
+    "15": 3,
+    "16": 6,
+    "17": 7,
+    "18": 8,
+    "19": 12,
+    "20": 7,
+    "21": 4,
+    "22": 3,
+    "23": 2
+   },
+   "byDay": {
+    "Mon": 34,
+    "Tue": 20,
+    "Wed": 21,
+    "Thu": 29,
+    "Fri": 17,
+    "Sat": 16,
+    "Sun": 11
+   },
+   "closeShare": 0.157,
+   "sharedStops": [
+    {
+     "stop_id": "5906",
+     "lat": 38.77092,
+     "lon": -9.16015
+    },
+    {
+     "stop_id": "5904",
+     "lat": 38.76828,
+     "lon": -9.15848
+    },
+    {
+     "stop_id": "5902",
+     "lat": 38.766079,
+     "lon": -9.15753
+    },
+    {
+     "stop_id": "5814",
+     "lat": 38.76218,
+     "lon": -9.15737
+    },
+    {
+     "stop_id": "5808",
+     "lat": 38.759129,
+     "lon": -9.15637
+    },
+    {
+     "stop_id": "5806",
+     "lat": 38.754581,
+     "lon": -9.15292
+    }
+   ]
+  }
+ ],
+ "areas": [
+  {
+   "lat": 38.70637,
+   "lon": -9.14668,
+   "ratio": 2.3,
+   "days": 5,
+   "onsetsPerWeekday": 10.2,
+   "lines": 18,
+   "topLines": [
+    "728",
+    "15E",
+    "735",
+    "781",
+    "782"
+   ],
+   "peakHours": [
+    "10:00–11:00",
+    "12:00–13:00",
+    "16:00–17:00",
+    "18:00–19:00"
+   ],
+   "stops": [
+    {
+     "stop_id": "3820",
+     "lat": 38.706299,
+     "lon": -9.14428,
+     "onsets": 28
+    },
+    {
+     "stop_id": "3802",
+     "lat": 38.706371,
+     "lon": -9.1483,
+     "onsets": 10
+    },
+    {
+     "stop_id": "7101",
+     "lat": 38.70628,
+     "lon": -9.14542,
+     "onsets": 8
+    },
+    {
+     "stop_id": "3901",
+     "lat": 38.706348,
+     "lon": -9.1493,
+     "onsets": 5
+    }
+   ]
+  },
+  {
+   "lat": 38.69963,
+   "lon": -9.18414,
+   "ratio": 1.6,
+   "days": 5,
+   "onsetsPerWeekday": 6.0,
+   "lines": 8,
+   "topLines": [
+    "728",
+    "751",
+    "727",
+    "15E",
+    "732"
+   ],
+   "peakHours": [
+    "10:00–11:00",
+    "19:00–20:00"
+   ],
+   "stops": [
+    {
+     "stop_id": "4002",
+     "lat": 38.698448,
+     "lon": -9.183365,
+     "onsets": 11
+    },
+    {
+     "stop_id": "9505",
+     "lat": 38.699871,
+     "lon": -9.18412,
+     "onsets": 9
+    },
+    {
+     "stop_id": "4102",
+     "lat": 38.698336,
+     "lon": -9.18359,
+     "onsets": 7
+    },
+    {
+     "stop_id": "9504",
+     "lat": 38.69978,
+     "lon": -9.18438,
+     "onsets": 3
+    }
+   ]
+  },
+  {
+   "lat": 38.72226,
+   "lon": -9.1526,
+   "ratio": 1.5,
+   "days": 4,
+   "onsetsPerWeekday": 6.4,
+   "lines": 24,
+   "topLines": [
+    "727",
+    "736",
+    "758",
+    "711",
+    "744"
+   ],
+   "peakHours": [
+    "07:00–08:00"
+   ],
+   "stops": [
+    {
+     "stop_id": "1206",
+     "lat": 38.724499,
+     "lon": -9.1507,
+     "onsets": 13
+    },
+    {
+     "stop_id": "6813",
+     "lat": 38.72002,
+     "lon": -9.15548,
+     "onsets": 6
+    },
+    {
+     "stop_id": "6805",
+     "lat": 38.72155,
+     "lon": -9.15223,
+     "onsets": 5
+    },
+    {
+     "stop_id": "8502",
+     "lat": 38.72488,
+     "lon": -9.15548,
+     "onsets": 4
+    }
+   ]
+  }
+ ],
+ "areaSummary": {
+  "cells": 277,
+  "top10BunchingShare": 0.138,
+  "top10VisitShare": 0.121,
+  "onRoadOnsetsPerWeekday": 346.0,
+  "hotAreaShareOfOnRoad": 0.065
+ }
+}

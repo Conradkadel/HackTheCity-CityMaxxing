@@ -1,17 +1,24 @@
-# Headway · Challenge 7 analysis workspace
+# RouteMaxxing · Challenge 7 analysis workspace
 
 Phase-one data visualisation for TML Challenge 7: inspect recorded Lisbon vehicle positions beside the operation plan that was valid on the vehicle's operational date. The application is a local React/Leaflet workspace backed by FastAPI and PostgreSQL.
 
-This phase visualises source evidence. It does **not** yet detect bus bunching or claim that a vehicle is delayed. Phase two adds a separate **Bunching** tab that predicts bunching and tests holding times, and a **Simulate** tab that replays a real day with timing changes (dispatch, turnaround, holding); see [docs/BUNCHING_MODEL.md](docs/BUNCHING_MODEL.md).
+The workspace keeps the complete 00:00–24:00 day visible while a movable 30-minute to four-hour analysis window selects the data to load. Replay then runs precisely inside that applied window.
+
+This phase visualises source evidence and marks rule-based **possible bunching candidates**. It does not claim that a candidate is a confirmed operational incident or that a vehicle is delayed.
 
 ## Repository guide
 
 - [Database construction](docs/DATABASE_CONSTRUCTION.md) explains the raw inputs, schema, repeatable imports, deduplication, plan normalisation, and route-resolution logic.
+- [Implemented features and developer handoff](docs/IMPLEMENTED_FEATURES.md) gives a complete product, architecture, API, analysis, privacy, and limitation overview for new contributors.
 - [Database schema](docs/DATABASE_SCHEMA.md) lists every table, column, key, relationship, and what is present in the portable CARRIS database.
+- [Typical route traffic](docs/TRAFFIC_MAP.md) explains the Waze map filter, matching, historical averaging and coverage limits.
+- [Bus-line schedule comparison](docs/LINE_ANALYSIS.md) explains exact trip-to-timetable resolution, the time–space chart, candidate bunching rules, and interpretation limits.
+- [Precomputed bunching analysis](docs/PRECOMPUTED_BUNCHING.md) documents versioned batch runs, consolidated multi-stop episodes, and statistics APIs.
+- [Findings](docs/FINDINGS.md) explains the Findings tab: weekly problem lines, hours, stops and causes, shared-stretch analysis, and `build_findings.py`.
+- [Bunching prediction](docs/BUNCHING_MODEL.md) explains the Bunching and Simulate tabs, the v4 early-warning model, holding simulation, and retraining workflow.
 - [Project 7 selections](docs/PROJECT_7_SELECTION.md) records the operator IDs, public lines, areas, dates, API parameters, and exact matching rules needed for the challenge.
 - [Sharing the database](docs/SHARING_DATABASE.md) explains full and reduced exports and the one-command restore workflow.
 - [Verification](VERIFICATION.md) records the checks completed for this version.
-- [Bunching prediction](docs/BUNCHING_MODEL.md) explains the Bunching and Simulate tabs: stop passages, the same-line and across-lines prediction models, the replay simulator and its validation gate, and how to retrain.
 - [`backend/config/analysis_presets.json`](backend/config/analysis_presets.json) is the only Challenge 7 preset configuration. It contains stable public line codes and plan-source metadata, never local database package IDs.
 
 ## Prerequisites
@@ -73,13 +80,24 @@ Both imports are checksum-aware and safe to rerun. PostgreSQL data lives in the 
 
 ## Workspace behaviour
 
-The application has one map and four sidebar tabs:
+The sidebar has four numbered tabs, in the order of the pitch:
+
+1. **Findings** (opens first): where, when and why buses bunch every weekday, and the change to make on each problem line. It has an action-plan board, a map of terminals, worst stops and shared stretches, and an "Open in Simulation" button per line. See [docs/FINDINGS.md](docs/FINDINGS.md). Live vehicles, areas and the replay dock are hidden here.
+2. **Risk prediction** (formerly *Bunching*): the early-warning model replayed on a recorded day (not a live feed), with the holding what-if. Shows a plain-language summary, a "how to read" guide and a list of every warning and what happened next.
+3. **Simulation** (formerly *Simulate*): replays a real day with one change. The changes have plain names (e.g. "Wait for a proper gap at the terminal", "2 more minutes of break at the terminal"); the short codes (D2, T2-2, …) are only used inside the backend.
+4. **Explore data**: *Network & routes* (formerly *Routes*, with line analysis and the weekly signals) and *Vehicle details* (formerly *Details*).
+
+The panels in detail:
 
 - **Routes** shows date-valid operation-plan variants. Preset groups appear first; the complete catalog is grouped by operator. Route choices draw shapes and optional stops only and never change the vehicle query.
-- **Vehicles** selects carriers and either configured public lines or all vehicles. Changes remain pending until **Apply filters**.
+- **Analyze line** opens a large time–space comparison for a public line. It shows each observed vehicle–trip run against its exact planned stop schedule and marks possible convergence where observed headways collapse relative to the timetable.
+- **Week** beside a route opens the precomputed Monday–Sunday history, listing the times and affected stops for each consolidated multi-stop candidate and clearly marking dates that have not been analyzed.
+- **Map bunching candidates** update with replay time. Nearby vehicle pairs that report the same scheduled stop after a planned headway collapse receive red halos and a dashed connector; the map count can be hidden without changing vehicle filters.
 - **Details** opens when a marker is clicked and retains the last loaded report if the marker expires or crosses an area boundary.
-- **Bunching** predicts, for one line or several lines sharing a route in the selected window, the chance that each bus bunches within the next five stops, simulates holding times on the real trips, recommends one, lists the buses that bunch most, and draws a time–space diagram over the map. See [docs/BUNCHING_MODEL.md](docs/BUNCHING_MODEL.md).
-- **Simulate** replays a real day of one line with a timing change (leave on schedule, headway-based dispatch, longer turnaround, control-stop or early-warning holding): as-run vs changed time–space diagrams, KPI cards with seed ranges, a benefit-vs-cost chart and a rule-based recommendation.
+- **Bunching** predicts near-term bunching risk, compares holding scenarios, and provides a time–space diagram.
+- **Simulate** replays a real operating day with dispatch, turnaround, and holding interventions.
+
+Vehicle, carrier, line, region, route, traffic, and overlay controls live in **Map Settings**.
 
 The area selector is on the map. Every five-character area present in vehicle data for the selected date starts enabled. Applied, disabled, and pending boundaries remain visible. The six-character Challenge 7 zones can be drawn as reference overlays but do not silently restrict the default query.
 
@@ -105,6 +123,23 @@ docker compose run --rm \
 
 docker compose run --rm api python verify_dataset.py
 ```
+
+To precompute reproducible multi-stop candidates for later statistics:
+
+```sh
+docker compose run --rm api \
+  python analyze_bunching.py --date 2026-09-01 --operator IA9T6
+```
+
+Precompute the Monday–Sunday week containing a date with:
+
+```sh
+docker compose run --rm api \
+  python analyze_bunching.py --week-containing 2026-09-01 \
+  --operator IA9T6
+```
+
+The replay map remains an on-demand view. Batch results are versioned separately and are described in [Precomputed bunching analysis](docs/PRECOMPUTED_BUNCHING.md).
 
 ## Data safety and current scope
 

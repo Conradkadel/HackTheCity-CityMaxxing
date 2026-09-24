@@ -17,6 +17,8 @@ plan_packages ──< plan_records
       ├──< schedule_routes
       ├──< schedule_trips
       └──< schedule_stop_visits
+
+analysis_runs ──< bunching_episodes ──< bunching_evidence
 ```
 
 A vehicle observation is resolved to a public line with these conditions:
@@ -214,6 +216,41 @@ The trip/stop index supports the optional scheduled-stop lookup shown in vehicle
 
 This is a legacy one-package-per-operator lookup retained for backward compatibility. Current code selects packages by `event_agency_id` **and operational date** from `plan_packages`; the shared database does not populate this legacy table.
 
+## Precomputed analysis tables
+
+These tables are created by `006_bunching_analysis.sql`. They remain empty until the versioned batch command in [Precomputed bunching analysis](PRECOMPUTED_BUNCHING.md) is run.
+
+### `analysis_runs`
+
+One row records one detector execution for an active vehicle dataset, operational date, and operator.
+
+| Column | Type | Rules / meaning |
+| --- | --- | --- |
+| `id` | `bigserial` | Primary key. |
+| `dataset_version` | `bigint` | Vehicle dataset that was analyzed. |
+| `operational_date` | `date` | Service day. |
+| `operator_id` | `text` | Event-facing operator. |
+| `detector_version` | `text` | Immutable algorithm name, currently `stop-headway-v1`. |
+| `scope` | `text` | `all_observed_lines` or `selected_lines`. |
+| `selected_lines` | `text[]` | Exact public lines included by this run. |
+| `parameters` | `jsonb` | Exact thresholds and behavioral flags. |
+| `status` | `text` | `running`, `completed`, or `failed`. |
+| `started_at`, `completed_at` | `timestamptz` | Execution timestamps. |
+| `counts` | `jsonb` | Lines, raw detections, episodes, and classifications. |
+| `error_message` | `text` | Truncated failure detail; null after success. |
+
+Runs are append-only analysis history. APIs choose the latest completed matching run instead of relying on one mutable result.
+
+### `bunching_episodes`
+
+One row represents repeated evidence for one unordered pair of vehicle trips on a route and direction. It stores operator, public line, package/route, both vehicle and trip IDs, time extent, first/last stop, evidence counts, minimum observed gap, maximum planned gap, approximate stop-centroid coordinates, and classification.
+
+`multi_stop_candidate` requires at least two distinct affected stops. A `single_point` row is retained for audit and threshold research but excluded from normal candidate statistics.
+
+### `bunching_evidence`
+
+Ordered stop-level support for an episode. Each row stores stop ID/name/sequence, both vehicle/trip IDs, reported and scheduled timestamps, observed and planned gaps, and scheduled-stop coordinates. Deleting an analysis run cascades through its episodes and evidence.
+
 ## What is present in `database-v1`
 
 The published default `all-carris` archive contains:
@@ -225,3 +262,5 @@ The published default `all-carris` archive contains:
 - route, trip, stop, shape, and normalized scheduled-stop data required by the application.
 
 It intentionally leaves `import_files`, `event_sources`, and `schedule_operator_packages` empty, removes unrelated operators and plans, and omits duplicated raw `stop_times` JSON from `plan_records`. Empty tables remain part of the schema, so the same backend code works with full and reduced databases.
+
+The published `database-v1` archive predates precomputed results. On first startup the migration creates the analysis tables as empty tables; collaborators can then run the batch analyzer against the restored observations.

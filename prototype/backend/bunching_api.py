@@ -249,7 +249,7 @@ def diagram(date_value: date = Query(..., alias='date'), line: str = Query(..., 
     checked = [p for p in alerts if p['label'] is not None]
     strip = lambda run: {k: v for k, v in run.items() if k != 'holds'}  # noqa: E731
     return {
-        'date': date_value.isoformat(), 'mode': mode, 'threshold': threshold,
+        'date': date_value.isoformat(), 'agency': agency, 'mode': mode, 'threshold': threshold,
         'line': line, 'direction': direction,
         'lines': [{'line': l, 'direction': d, 'directionName': f'towards {directions[(l, d)]}'
                    if directions.get((l, d)) else f'direction {d}'} for l, d in pairs],
