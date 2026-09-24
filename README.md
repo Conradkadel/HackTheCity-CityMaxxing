@@ -16,7 +16,26 @@ This phase visualises source evidence. It does **not** yet detect bus bunching o
 
 - Docker Desktop, or Docker Engine with Compose v2
 - Node.js 22 (the exact major version is in `.nvmrc`)
-- The TML vehicle CSV directory and operation-plan GTFS directories, kept outside Git
+- GitHub CLI (`gh`) authenticated with access to the private repository when using the shared database
+- The raw TML vehicle CSV and operation-plan GTFS directories only when rebuilding the database from source
+
+## Quick start with the shared CARRIS database
+
+Repository collaborators do not need the raw TML files or the 51 GB development database. The private [`database-v1`](https://github.com/kudzus/project7-prototype/releases/tag/database-v1) release contains the verified 564 MiB redacted CARRIS archive.
+
+```sh
+git clone https://github.com/kudzus/project7-prototype.git
+cd project7-prototype
+cp .env.example .env
+# Edit .env and replace the local database password.
+
+npm ci
+./scripts/download_shared_database.sh
+./scripts/restore_database.sh exports/headway-carris-all-carris.dump --replace
+npm run dev
+```
+
+Open <http://127.0.0.1:5173>. The download script verifies the release checksum before restore. GitHub access remains controlled by membership of the private repository.
 
 The default layout is:
 
@@ -30,7 +49,7 @@ hackathon challenge/
 
 Different locations are supported; set `VEHICLES_PATH` and change the read-only plan mount in the import command.
 
-## First run
+## Rebuild from the raw source data
 
 ```sh
 cp .env.example .env

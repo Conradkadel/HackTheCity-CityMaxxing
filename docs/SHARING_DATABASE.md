@@ -35,15 +35,23 @@ Two smaller modes are available:
 
 ## Restore on a colleague's machine
 
-After cloning the repository, the colleague copies the `.dump` file into any local directory, creates `.env` from `.env.example`, and runs:
+The approved archive is published as the private GitHub release [`database-v1`](https://github.com/kudzus/project7-prototype/releases/tag/database-v1). A colleague with repository access can clone, download, verify, restore, and run it with:
 
 ```sh
+git clone https://github.com/kudzus/project7-prototype.git
+cd project7-prototype
+cp .env.example .env
+# Edit .env and replace the local database password.
+
 npm ci
-./scripts/restore_database.sh /path/to/headway-carris-all-carris.dump --replace
+./scripts/download_shared_database.sh
+./scripts/restore_database.sh exports/headway-carris-all-carris.dump --replace
 npm run dev
 ```
 
-`--replace` is required because restore deliberately replaces the local Compose database named `headway`. It does not touch another PostgreSQL installation. After restore, the API detects the reduced database and the interface marks omitted operators or lines unavailable instead of failing.
+The download script uses GitHub CLI, downloads both release assets into `exports/`, and verifies the SHA-256 checksum. `--replace` is required because restore deliberately replaces the local Compose database named `headway`. It does not touch another PostgreSQL installation. After restore, the API detects the reduced database and the interface marks omitted operators or lines unavailable instead of failing.
+
+If the colleague does not use GitHub CLI, they can download both assets from the private release in a browser, put them together in `exports/`, verify the checksum, and run the same restore command.
 
 Verify the downloaded archive before restoring:
 
@@ -68,4 +76,4 @@ The full archive includes raw provenance and driver identifiers and must be trea
 
 ## Upload location
 
-Do not commit either dump. A private GitHub Release can hold up to 2 GiB per release asset; split a larger archive or use approved cloud/object storage. Anyone downloading a private release must have access to the private repository.
+Do not commit either dump. The current redacted archive and checksum are attached to the private `database-v1` release. A private GitHub Release can hold up to 2 GiB per release asset; split a larger archive or use approved cloud/object storage. Anyone downloading a private release must have access to the private repository.
